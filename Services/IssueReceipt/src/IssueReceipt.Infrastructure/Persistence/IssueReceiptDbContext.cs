@@ -10,4 +10,7 @@ public class IssueReceiptDbContext(DbContextOptions<IssueReceiptDbContext> optio
 {
     public DbSet<IssueTransaction> IssueTransactions => Set<IssueTransaction>();
     public DbSet<ReceiptTransaction> ReceiptTransactions => Set<ReceiptTransaction>();
+
+    IQueryable<IssueTransaction> IIssueReceiptDbContext.IssueTransactions => IssueTransactions;
+    IQueryable<ReceiptTransaction> IIssueReceiptDbContext.ReceiptTransactions => ReceiptTransactions;
 }

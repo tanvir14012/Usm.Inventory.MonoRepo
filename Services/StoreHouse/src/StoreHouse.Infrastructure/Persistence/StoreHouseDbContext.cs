@@ -11,4 +11,7 @@ public class StoreHouseDbContext(DbContextOptions<StoreHouseDbContext> options)
 {
     public DbSet<InventoryItem> InventoryItems => Set<InventoryItem>();
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
+
+    IQueryable<InventoryItem> IStoreHouseDbContext.InventoryItems => InventoryItems;
+    IQueryable<Warehouse> IStoreHouseDbContext.Warehouses => Warehouses;
 }

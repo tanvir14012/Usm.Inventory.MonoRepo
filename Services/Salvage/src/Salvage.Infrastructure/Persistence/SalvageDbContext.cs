@@ -9,4 +9,6 @@ public class SalvageDbContext(DbContextOptions<SalvageDbContext> options)
     : ServiceDbContext(options, "salvage"), ISalvageDbContext
 {
     public DbSet<SalvageRecord> SalvageRecords => Set<SalvageRecord>();
+
+    IQueryable<SalvageRecord> ISalvageDbContext.SalvageRecords => SalvageRecords;
 }

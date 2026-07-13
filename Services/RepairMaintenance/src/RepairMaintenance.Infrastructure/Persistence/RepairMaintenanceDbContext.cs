@@ -9,4 +9,6 @@ public class RepairMaintenanceDbContext(DbContextOptions<RepairMaintenanceDbCont
     : ServiceDbContext(options, "repairmaintenance"), IRepairMaintenanceDbContext
 {
     public DbSet<RepairOrder> RepairOrders => Set<RepairOrder>();
+
+    IQueryable<RepairOrder> IRepairMaintenanceDbContext.RepairOrders => RepairOrders;
 }
