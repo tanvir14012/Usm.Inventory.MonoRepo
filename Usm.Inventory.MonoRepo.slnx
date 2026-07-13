@@ -177,6 +177,7 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
-    <File Path="docker-compose.dcproj" />
   </Folder>
+  <Project Path="AppHost/Usm.Inventory.MonoRepo.AppHost.csproj" />
+  <Project Path="ServiceDefaults/Usm.Inventory.MonoRepo.ServiceDefaults.csproj" />
 </Solution>

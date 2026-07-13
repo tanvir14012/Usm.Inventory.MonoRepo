@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Services\Procurement\src\Procurement.Api\Procurement.Api.csproj" />
+    <ProjectReference Include="..\Services\Reporting\src\Reporting.Api\Reporting.Api.csproj" />
+    <ProjectReference Include="..\Services\Inspectorate\src\Inspectorate.Api\Inspectorate.Api.csproj" />
+    <ProjectReference Include="..\Services\Communication\src\Communication.Api\Communication.Api.csproj" />
+    <ProjectReference Include="..\Services\BudgetPlanning\src\BudgetPlanning.Api\BudgetPlanning.Api.csproj" />
+    <ProjectReference Include="..\Services\RepairMaintenance\src\RepairMaintenance.Api\RepairMaintenance.Api.csproj" />
+    <ProjectReference Include="..\Services\Salvage\src\Salvage.Api\Salvage.Api.csproj" />
+    <ProjectReference Include="..\Services\TrafficSecurity\src\TrafficSecurity.Api\TrafficSecurity.Api.csproj" />
+    <ProjectReference Include="..\Services\IssueReceipt\src\IssueReceipt.Api\IssueReceipt.Api.csproj" />
+    <ProjectReference Include="..\Services\DocumentShare\src\DocumentShare.Api\DocumentShare.Api.csproj" />
+    <ProjectReference Include="..\Services\StoreHouse\src\StoreHouse.Api\StoreHouse.Api.csproj" />
+    <ProjectReference Include="..\Services\Administration\src\Administration.Api\Administration.Api.csproj" />
+    <ProjectReference Include="..\Services\Iam\src\Iam.Api\Iam.Api.csproj" />
+    <ProjectReference Include="..\Services\Identity\src\Identity.Api\Identity.Api.csproj" />
+  </ItemGroup>
+
+</Project>
