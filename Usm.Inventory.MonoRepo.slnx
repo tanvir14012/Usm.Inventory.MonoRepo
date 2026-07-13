@@ -179,5 +179,6 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="AppHost/Usm.Inventory.MonoRepo.AppHost.csproj" />
+  <Project Path="Gateway/ApiGateway/ApiGateway.csproj" />
   <Project Path="ServiceDefaults/Usm.Inventory.MonoRepo.ServiceDefaults.csproj" />
 </Solution>
