@@ -1,0 +1,1 @@
+# Usm.Inventory.MonoRepo
