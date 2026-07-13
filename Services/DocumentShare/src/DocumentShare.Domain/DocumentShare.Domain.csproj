@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Data\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Contracts\Localization\Usm.Shared.Contracts.Localization.csproj" />
+  </ItemGroup>
+
 </Project>
