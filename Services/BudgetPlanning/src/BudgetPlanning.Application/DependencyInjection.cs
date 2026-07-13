@@ -1,3 +1,4 @@
+using BudgetPlanning.Application.Budgets.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
@@ -13,7 +14,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        services.AddAssemblyValidators<DependencyInjection>();
+        services.AddAssemblyValidators<GetBudgetsQuery>();
         return services;
     }
 }

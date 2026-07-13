@@ -6,6 +6,7 @@
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Bootstrap\Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Observability\Usm.Shared.BuildingBlocks.Observability.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Validation\Usm.Shared.BuildingBlocks.Validation.csproj" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -15,3 +16,4 @@
   </PropertyGroup>
 
 </Project>
+

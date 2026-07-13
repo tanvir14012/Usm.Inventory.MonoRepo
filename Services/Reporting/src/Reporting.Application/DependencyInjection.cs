@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Reporting.Application.Reports.Queries;
 using Usm.Shared.BuildingBlocks.Validation;
 
 namespace Reporting.Application;
@@ -13,7 +14,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        services.AddAssemblyValidators<DependencyInjection>();
+        services.AddAssemblyValidators<GetReportsQuery>();
         return services;
     }
 }
