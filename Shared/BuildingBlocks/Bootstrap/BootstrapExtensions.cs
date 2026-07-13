@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -64,7 +65,10 @@ public static class BootstrapExtensions
                     status = 500,
                     detail = app.Environment.IsDevelopment() ? ex?.Message : "Internal server error."
                 };
-                await context.Response.WriteAsJsonAsync(problem);
+                var json = System.Text.Json.JsonSerializer.Serialize(
+                    problem,
+                    new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web));
+                await context.Response.WriteAsync(json);
             });
         });
 

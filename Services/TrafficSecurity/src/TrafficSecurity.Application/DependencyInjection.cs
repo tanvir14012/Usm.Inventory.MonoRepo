@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
+using TrafficSecurity.Application.VehicleSafetyRecords.Queries;
 
 namespace TrafficSecurity.Application;
 
@@ -13,7 +14,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        services.AddAssemblyValidators<DependencyInjection>();
+        services.AddAssemblyValidators<GetVehicleSafetyRecordsQueryHandler>();
         return services;
     }
 }

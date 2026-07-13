@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
+using Inspectorate.Application.Inspections.Queries;
 
 namespace Inspectorate.Application;
 
@@ -13,7 +14,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        services.AddAssemblyValidators<DependencyInjection>();
+        services.AddAssemblyValidators<GetInspectionsQueryHandler>();
         return services;
     }
 }
