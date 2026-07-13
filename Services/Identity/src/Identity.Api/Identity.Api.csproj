@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Reflection\AssemblyScanning\Usm.Shared.Reflection.AssemblyScanning.csproj" />
     <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
     <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Bootstrap\Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
