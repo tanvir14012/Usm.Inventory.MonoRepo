@@ -1,8 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\RepairMaintenance.Domain\RepairMaintenance.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Validation\Usm.Shared.BuildingBlocks.Validation.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Contracts\Localization\Usm.Shared.Contracts.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>
 
   <PropertyGroup>
