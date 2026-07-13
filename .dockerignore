@@ -1,0 +1,10 @@
+.git
+.vs
+.vscode
+**/bin
+**/obj
+**/TestResults
+Frontend
+Docs
+Deploy
+Build

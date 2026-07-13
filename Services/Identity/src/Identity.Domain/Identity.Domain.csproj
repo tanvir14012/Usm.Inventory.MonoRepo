@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\Contracts\Localization\Usm.Shared.Contracts.Localization.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Data\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

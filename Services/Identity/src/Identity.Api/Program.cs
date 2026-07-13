@@ -1,0 +1,29 @@
+using Identity.Application;
+using Identity.Infrastructure;
+using Usm.Shared.BuildingBlocks.Bootstrap;
+using Usm.Shared.BuildingBlocks.Observability;
+
+var builder = WebApplication.CreateBuilder(args)
+    .AddDefaultBootstrap();
+
+builder.Services.AddIdentityApplication();
+builder.Services.AddIdentityInfrastructure(builder.Configuration);
+builder.Services.AddObservability(builder.Configuration, "Identity.Api");
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
+        ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_admin_dev");
+
+var app = builder.Build()
+    .UseDefaultMiddleware();
+
+app.MapHealthChecks("/health");
+app.MapGet("/", () => Results.Ok(new
+{
+    Service = "Identity.Api",
+    Status = "Up",
+    Utc = DateTimeOffset.UtcNow
+}));
+
+app.Run();
+
+public partial class Program;

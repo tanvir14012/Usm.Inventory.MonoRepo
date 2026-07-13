@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
+    <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Data\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Localization\Usm.Shared.BuildingBlocks.Localization.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Messaging\Usm.Shared.BuildingBlocks.Messaging.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Persistence.Migrations\Usm.Shared.BuildingBlocks.Persistence.Migrations.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

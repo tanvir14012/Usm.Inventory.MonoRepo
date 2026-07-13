@@ -1,0 +1,41 @@
+# Build artifacts
+[Bb]in/
+[Oo]bj/
+out/
+publish/
+
+# User and IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Test
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Local settings and secrets
+appsettings.Development.json
+appsettings.Local.json
+*.pfx
+*.snk
+.env
+.env.*
+
+# OS
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,184 @@
+<Solution>
+  <Folder Name="/Services/" />
+  <Folder Name="/Services/Administration/" />
+  <Folder Name="/Services/Administration/src/">
+    <Project Path="Services/Administration/src/Administration.Api/Administration.Api.csproj" />
+    <Project Path="Services/Administration/src/Administration.Application/Administration.Application.csproj" />
+    <Project Path="Services/Administration/src/Administration.Domain/Administration.Domain.csproj" />
+    <Project Path="Services/Administration/src/Administration.Infrastructure/Administration.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/BudgetPlanning/" />
+  <Folder Name="/Services/BudgetPlanning/src/">
+    <Project Path="Services/BudgetPlanning/src/BudgetPlanning.Api/BudgetPlanning.Api.csproj" />
+    <Project Path="Services/BudgetPlanning/src/BudgetPlanning.Application/BudgetPlanning.Application.csproj" />
+    <Project Path="Services/BudgetPlanning/src/BudgetPlanning.Domain/BudgetPlanning.Domain.csproj" />
+    <Project Path="Services/BudgetPlanning/src/BudgetPlanning.Infrastructure/BudgetPlanning.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Communication/" />
+  <Folder Name="/Services/Communication/src/">
+    <Project Path="Services/Communication/src/Communication.Api/Communication.Api.csproj" />
+    <Project Path="Services/Communication/src/Communication.Application/Communication.Application.csproj" />
+    <Project Path="Services/Communication/src/Communication.Domain/Communication.Domain.csproj" />
+    <Project Path="Services/Communication/src/Communication.Infrastructure/Communication.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/DocumentShare/" />
+  <Folder Name="/Services/DocumentShare/src/">
+    <Project Path="Services/DocumentShare/src/DocumentShare.Api/DocumentShare.Api.csproj" />
+    <Project Path="Services/DocumentShare/src/DocumentShare.Application/DocumentShare.Application.csproj" />
+    <Project Path="Services/DocumentShare/src/DocumentShare.Domain/DocumentShare.Domain.csproj" />
+    <Project Path="Services/DocumentShare/src/DocumentShare.Infrastructure/DocumentShare.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Iam/" />
+  <Folder Name="/Services/Iam/src/">
+    <Project Path="Services/Iam/src/Iam.Api/Iam.Api.csproj" />
+    <Project Path="Services/Iam/src/Iam.Application/Iam.Application.csproj" />
+    <Project Path="Services/Iam/src/Iam.Domain/Iam.Domain.csproj" />
+    <Project Path="Services/Iam/src/Iam.Infrastructure/Iam.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Identity/" />
+  <Folder Name="/Services/Identity/src/">
+    <Project Path="Services/Identity/src/Identity.Api/Identity.Api.csproj" />
+    <Project Path="Services/Identity/src/Identity.Application/Identity.Application.csproj" />
+    <Project Path="Services/Identity/src/Identity.Domain/Identity.Domain.csproj" />
+    <Project Path="Services/Identity/src/Identity.Infrastructure/Identity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Inspectorate/" />
+  <Folder Name="/Services/Inspectorate/src/">
+    <Project Path="Services/Inspectorate/src/Inspectorate.Api/Inspectorate.Api.csproj" />
+    <Project Path="Services/Inspectorate/src/Inspectorate.Application/Inspectorate.Application.csproj" />
+    <Project Path="Services/Inspectorate/src/Inspectorate.Domain/Inspectorate.Domain.csproj" />
+    <Project Path="Services/Inspectorate/src/Inspectorate.Infrastructure/Inspectorate.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/IssueReceipt/" />
+  <Folder Name="/Services/IssueReceipt/src/">
+    <Project Path="Services/IssueReceipt/src/IssueReceipt.Api/IssueReceipt.Api.csproj" />
+    <Project Path="Services/IssueReceipt/src/IssueReceipt.Application/IssueReceipt.Application.csproj" />
+    <Project Path="Services/IssueReceipt/src/IssueReceipt.Domain/IssueReceipt.Domain.csproj" />
+    <Project Path="Services/IssueReceipt/src/IssueReceipt.Infrastructure/IssueReceipt.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Procurement/" />
+  <Folder Name="/Services/Procurement/src/">
+    <Project Path="Services/Procurement/src/Procurement.Api/Procurement.Api.csproj" />
+    <Project Path="Services/Procurement/src/Procurement.Application/Procurement.Application.csproj" />
+    <Project Path="Services/Procurement/src/Procurement.Domain/Procurement.Domain.csproj" />
+    <Project Path="Services/Procurement/src/Procurement.Infrastructure/Procurement.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/RepairMaintenance/" />
+  <Folder Name="/Services/RepairMaintenance/src/">
+    <Project Path="Services/RepairMaintenance/src/RepairMaintenance.Api/RepairMaintenance.Api.csproj" />
+    <Project Path="Services/RepairMaintenance/src/RepairMaintenance.Application/RepairMaintenance.Application.csproj" />
+    <Project Path="Services/RepairMaintenance/src/RepairMaintenance.Domain/RepairMaintenance.Domain.csproj" />
+    <Project Path="Services/RepairMaintenance/src/RepairMaintenance.Infrastructure/RepairMaintenance.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Reporting/" />
+  <Folder Name="/Services/Reporting/src/">
+    <Project Path="Services/Reporting/src/Reporting.Api/Reporting.Api.csproj" />
+    <Project Path="Services/Reporting/src/Reporting.Application/Reporting.Application.csproj" />
+    <Project Path="Services/Reporting/src/Reporting.Domain/Reporting.Domain.csproj" />
+    <Project Path="Services/Reporting/src/Reporting.Infrastructure/Reporting.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/Salvage/" />
+  <Folder Name="/Services/Salvage/src/">
+    <Project Path="Services/Salvage/src/Salvage.Api/Salvage.Api.csproj" />
+    <Project Path="Services/Salvage/src/Salvage.Application/Salvage.Application.csproj" />
+    <Project Path="Services/Salvage/src/Salvage.Domain/Salvage.Domain.csproj" />
+    <Project Path="Services/Salvage/src/Salvage.Infrastructure/Salvage.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/StoreHouse/" />
+  <Folder Name="/Services/StoreHouse/src/">
+    <Project Path="Services/StoreHouse/src/StoreHouse.Api/StoreHouse.Api.csproj" />
+    <Project Path="Services/StoreHouse/src/StoreHouse.Application/StoreHouse.Application.csproj" />
+    <Project Path="Services/StoreHouse/src/StoreHouse.Domain/StoreHouse.Domain.csproj" />
+    <Project Path="Services/StoreHouse/src/StoreHouse.Infrastructure/StoreHouse.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Services/TrafficSecurity/" />
+  <Folder Name="/Services/TrafficSecurity/src/">
+    <Project Path="Services/TrafficSecurity/src/TrafficSecurity.Api/TrafficSecurity.Api.csproj" />
+    <Project Path="Services/TrafficSecurity/src/TrafficSecurity.Application/TrafficSecurity.Application.csproj" />
+    <Project Path="Services/TrafficSecurity/src/TrafficSecurity.Domain/TrafficSecurity.Domain.csproj" />
+    <Project Path="Services/TrafficSecurity/src/TrafficSecurity.Infrastructure/TrafficSecurity.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/BuildingBlocks/" />
+  <Folder Name="/Shared/BuildingBlocks/Bootstrap/">
+    <Project Path="Shared/BuildingBlocks/Bootstrap/Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Grpc/">
+    <Project Path="Shared/BuildingBlocks/Grpc/Usm.Shared.BuildingBlocks.Grpc.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Localization/">
+    <Project Path="Shared/BuildingBlocks/Localization/Usm.Shared.BuildingBlocks.Localization.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Messaging/">
+    <Project Path="Shared/BuildingBlocks/Messaging/Usm.Shared.BuildingBlocks.Messaging.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Multitenancy/">
+    <Project Path="Shared/BuildingBlocks/Multitenancy/Usm.Shared.BuildingBlocks.Multitenancy.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Observability/">
+    <Project Path="Shared/BuildingBlocks/Observability/Usm.Shared.BuildingBlocks.Observability.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Persistence.Migrations/">
+    <Project Path="Shared/BuildingBlocks/Persistence.Migrations/Usm.Shared.BuildingBlocks.Persistence.Migrations.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Security.Mtls/">
+    <Project Path="Shared/BuildingBlocks/Security.Mtls/Usm.Shared.BuildingBlocks.Security.Mtls.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/Validation/">
+    <Project Path="Shared/BuildingBlocks/Validation/Usm.Shared.BuildingBlocks.Validation.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Contracts/" />
+  <Folder Name="/Shared/Contracts/Events/">
+    <Project Path="Shared/Contracts/Events/Usm.Shared.Contracts.Events.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Contracts/Grpc/">
+    <Project Path="Shared/Contracts/Grpc/Usm.Shared.Contracts.Grpc.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Contracts/Localization/">
+    <Project Path="Shared/Contracts/Localization/Usm.Shared.Contracts.Localization.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Data/" />
+  <Folder Name="/Shared/Data/DbContextExtensions/">
+    <Project Path="Shared/Data/DbContextExtensions/Usm.Shared.Data.DbContextExtensions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Federation/" />
+  <Folder Name="/Shared/Federation/GrpcFederation.Abstractions/">
+    <Project Path="Shared/Federation/GrpcFederation.Abstractions/Usm.Shared.Federation.GrpcFederation.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Federation/GrpcFederation.Client/">
+    <Project Path="Shared/Federation/GrpcFederation.Client/Usm.Shared.Federation.GrpcFederation.Client.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Federation/GrpcFederation.Server/">
+    <Project Path="Shared/Federation/GrpcFederation.Server/Usm.Shared.Federation.GrpcFederation.Server.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Reflection/" />
+  <Folder Name="/Shared/Reflection/AssemblyScanning/">
+    <Project Path="Shared/Reflection/AssemblyScanning/Usm.Shared.Reflection.AssemblyScanning.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Reflection/ClrEfTypeMapping/">
+    <Project Path="Shared/Reflection/ClrEfTypeMapping/Usm.Shared.Reflection.ClrEfTypeMapping.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Reflection/OpenXmlTypeConversion/">
+    <Project Path="Shared/Reflection/OpenXmlTypeConversion/Usm.Shared.Reflection.OpenXmlTypeConversion.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/" />
+  <Folder Name="/Shared/Utils/Core/">
+    <Project Path="Shared/Utils/Core/Usm.Shared.Utils.Core.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/FileSystem/">
+    <Project Path="Shared/Utils/FileSystem/Usm.Shared.Utils.FileSystem.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Http/">
+    <Project Path="Shared/Utils/Http/Usm.Shared.Utils.Http.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Regex/">
+    <Project Path="Shared/Utils/Regex/Usm.Shared.Utils.Regex.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".env" />
+    <File Path=".env.example" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+  </Folder>
+</Solution>

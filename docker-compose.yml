@@ -1,0 +1,297 @@
+name: usm-inventory-platform
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: usm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: usm-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "${RABBITMQ_PORT}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: usm-prometheus
+    restart: unless-stopped
+    ports:
+      - "${PROMETHEUS_PORT}:9090"
+    volumes:
+      - ./Platform/Observability/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  loki:
+    image: grafana/loki:3.1.0
+    container_name: usm-loki
+    restart: unless-stopped
+    ports:
+      - "${LOKI_PORT}:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  grafana:
+    image: grafana/grafana:11.1.0
+    container_name: usm-grafana
+    restart: unless-stopped
+    ports:
+      - "${GRAFANA_PORT}:3000"
+    depends_on:
+      - prometheus
+      - loki
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  identity-api:
+    build:
+      context: .
+      dockerfile: ./Services/Identity/src/Identity.Api/Dockerfile
+    ports:
+      - "${IDENTITY_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  iam-api:
+    build:
+      context: .
+      dockerfile: ./Services/Iam/src/Iam.Api/Dockerfile
+    ports:
+      - "${IAM_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  administration-api:
+    build:
+      context: .
+      dockerfile: ./Services/Administration/src/Administration.Api/Dockerfile
+    ports:
+      - "${ADMINISTRATION_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  storehouse-api:
+    build:
+      context: .
+      dockerfile: ./Services/StoreHouse/src/StoreHouse.Api/Dockerfile
+    ports:
+      - "${STOREHOUSE_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  documentshare-api:
+    build:
+      context: .
+      dockerfile: ./Services/DocumentShare/src/DocumentShare.Api/Dockerfile
+    ports:
+      - "${DOCUMENTSHARE_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  issuereceipt-api:
+    build:
+      context: .
+      dockerfile: ./Services/IssueReceipt/src/IssueReceipt.Api/Dockerfile
+    ports:
+      - "${ISSUERECEIPT_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  trafficsecurity-api:
+    build:
+      context: .
+      dockerfile: ./Services/TrafficSecurity/src/TrafficSecurity.Api/Dockerfile
+    ports:
+      - "${TRAFFICSECURITY_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  salvage-api:
+    build:
+      context: .
+      dockerfile: ./Services/Salvage/src/Salvage.Api/Dockerfile
+    ports:
+      - "${SALVAGE_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  repairmaintenance-api:
+    build:
+      context: .
+      dockerfile: ./Services/RepairMaintenance/src/RepairMaintenance.Api/Dockerfile
+    ports:
+      - "${REPAIRMAINTENANCE_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  budgetplanning-api:
+    build:
+      context: .
+      dockerfile: ./Services/BudgetPlanning/src/BudgetPlanning.Api/Dockerfile
+    ports:
+      - "${BUDGETPLANNING_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  communication-api:
+    build:
+      context: .
+      dockerfile: ./Services/Communication/src/Communication.Api/Dockerfile
+    ports:
+      - "${COMMUNICATION_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  inspectorate-api:
+    build:
+      context: .
+      dockerfile: ./Services/Inspectorate/src/Inspectorate.Api/Dockerfile
+    ports:
+      - "${INSPECTORATE_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  reporting-api:
+    build:
+      context: .
+      dockerfile: ./Services/Reporting/src/Reporting.Api/Dockerfile
+    ports:
+      - "${REPORTING_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  procurement-api:
+    build:
+      context: .
+      dockerfile: ./Services/Procurement/src/Procurement.Api/Dockerfile
+    ports:
+      - "${PROCUREMENT_API_PORT}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
+      RabbitMq__Host: ${RABBITMQ_HOST}
+      RabbitMq__Username: ${RABBITMQ_USERNAME}
+      RabbitMq__Password: ${RABBITMQ_PASSWORD}
+      Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+    depends_on:
+      - postgres
+      - rabbitmq
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  grafana_data:
