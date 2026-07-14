@@ -1,4 +1,5 @@
 using Identity.Domain.Common;
+using System.Net;
 using Usm.Shared.Data.DbContextExtensions;
 
 namespace Identity.Domain.Users;
@@ -12,12 +13,24 @@ public sealed class User : AggregateRoot<Guid>, IAuditable
 {
     public string Username { get; private set; } = string.Empty;
     public string Email { get; private set; } = string.Empty;
-    public string PasswordHash { get; private set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
     public bool IsActive { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
+
+    private readonly List<UserCredential> _credentials = [];
+    public IReadOnlyCollection<UserCredential> Credentials => _credentials;
+
 
     private User() { }
+
+    public void AddCredential(UserCredential credential)
+    {
+        _credentials.Add(credential);
+    }
 
     public static User Create(string username, string email, string passwordHash)
     {
@@ -26,7 +39,6 @@ public sealed class User : AggregateRoot<Guid>, IAuditable
             Id = Guid.NewGuid(),
             Username = username,
             Email = email,
-            PasswordHash = passwordHash,
             IsActive = true,
             CreatedAt = DateTimeOffset.UtcNow
         };

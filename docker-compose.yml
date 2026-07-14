@@ -66,6 +66,13 @@ services:
       RabbitMq__Username: ${RABBITMQ_USERNAME}
       RabbitMq__Password: ${RABBITMQ_PASSWORD}
       Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
+      OpenIddict__CertificatePath: /etc/usm/certs/Identity.pfx
+      OpenIddict__CertificatePassword: ${OPENIDDICT_CERTIFICATE_PASSWORD}
+      OpenIddict__EncryptionKey: ${OPENIDDICT_ENCRYPTION_KEY}
+
+    volumes:
+      - ./certs:/etc/usm/certs:ro
+
     depends_on:
       - postgres
       - rabbitmq

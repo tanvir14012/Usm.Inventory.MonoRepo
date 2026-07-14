@@ -16,6 +16,8 @@ public sealed class ReceiptTransaction : AggregateRoot<Guid>, IAuditable
     public string? Notes { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     public static ReceiptTransaction Create(
         string transactionNumber, Guid inventoryItemId, Guid warehouseId,

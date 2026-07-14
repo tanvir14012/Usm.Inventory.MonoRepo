@@ -19,8 +19,12 @@ builder.Services
     .AddTransientServices(typeof(Program).Assembly)
     .AddSingletonServices(typeof(Program).Assembly);
 
+builder.Services.AddEndpoints(typeof(Program).Assembly);
+
 var app = builder.Build()
     .UseDefaultMiddleware();
+
+app.MapEndpoints();
 
 app.MapHealthChecks("/health");
 app.MapGet("/", () => Results.Ok(new

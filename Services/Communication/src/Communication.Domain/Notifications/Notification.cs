@@ -30,8 +30,10 @@ public class Notification : AggregateRoot<Guid>, IAuditable
     public DateTimeOffset? ReadAt { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+	public Guid? CreatedBy { get; set; }
+	public Guid? UpdatedBy { get; set; }
 
-    private Notification() { }
+	private Notification() { }
 
     public static Notification Create(Guid recipientId, string subject, string body, NotificationChannel channel)
     {

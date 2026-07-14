@@ -14,6 +14,8 @@ public sealed class Warehouse : AggregateRoot<Guid>, IAuditable
     public bool IsActive { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     public static Warehouse Create(LocalizedText name, string code, string? location = null)
     {

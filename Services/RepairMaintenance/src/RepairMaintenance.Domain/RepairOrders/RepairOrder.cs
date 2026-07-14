@@ -18,6 +18,8 @@ public sealed class RepairOrder : AggregateRoot<Guid>, IAuditable
     public DateTimeOffset? CompletedDate { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     public static RepairOrder Create(string orderNumber, Guid inventoryItemId, string description, DateTimeOffset reportedDate)
     {

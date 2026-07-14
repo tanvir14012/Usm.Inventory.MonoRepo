@@ -16,6 +16,8 @@ public class Document : AggregateRoot<Guid>, IAuditable
     public string Tags { get; private set; } = "[]";
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     private Document() { }
 

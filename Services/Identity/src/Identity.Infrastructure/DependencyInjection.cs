@@ -1,10 +1,14 @@
 using Identity.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using OpenIddict.Abstractions;
+using System.Security.Cryptography.X509Certificates;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
 
 namespace Identity.Infrastructure;
 
@@ -19,16 +23,75 @@ public static class DependencyInjection
 
         services.AddServiceDbContext<IdentityDbContext>(connectionString, "identity");
 
+        var signingCertificate = X509CertificateLoader.LoadPkcs12FromFile(
+            path: configuration["OpenIddict:CertificatePath"]!,
+            password: configuration["OpenIddict:CertificatePassword"],
+            keyStorageFlags: X509KeyStorageFlags.EphemeralKeySet);
+
         services.AddOpenIddict()
+
             .AddCore(options =>
             {
                 options.UseEntityFrameworkCore()
-                       .UseDbContext<IdentityDbContext>();
+                       .UseDbContext<IdentityDbContext>()
+                       .ReplaceDefaultEntities<Guid>();
+            })
+            .AddServer(options =>
+            {
+                // Endpoints
+                options.SetAuthorizationEndpointUris("/connect/authorize");
+                options.SetTokenEndpointUris("/connect/token");
+                options.SetEndSessionEndpointUris("/connect/logout");
+                options.SetUserInfoEndpointUris("/connect/userinfo");
+
+                // OAuth flows
+                options.AllowAuthorizationCodeFlow()
+                       .RequireProofKeyForCodeExchange();
+
+                options.AllowRefreshTokenFlow();
+
+                // Scopes
+                options.RegisterScopes(
+                    OpenIddictConstants.Scopes.OpenId,
+                    OpenIddictConstants.Scopes.OfflineAccess);
+
+
+                options.AddSigningCertificate(signingCertificate);
+
+                options.AddEncryptionKey(
+                    new SymmetricSecurityKey(
+                        Convert.FromHexString(
+                            configuration["OpenIddict:EncryptionKey"]!)));
+
+                // ASP.NET Core integration
+                options.UseAspNetCore()
+                    .EnableAuthorizationEndpointPassthrough()
+                    .EnableTokenEndpointPassthrough()
+                    .EnableEndSessionEndpointPassthrough()
+                    .EnableUserInfoEndpointPassthrough();
+
+                // Token lifetimes
+                options.SetAccessTokenLifetime(TimeSpan.FromMinutes(30));
+                options.SetRefreshTokenLifetime(TimeSpan.FromDays(30));
+
+            })
+            .AddValidation(options =>
+            {
+                // Import the configuration from the local OpenIddict server instance.
+                options.UseLocalServer();
+
+                // Register the ASP.NET Core host.
+                options.UseAspNetCore();
             });
 
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IdentityDbContext>();
+
+        services
+            .AddScopedServices(typeof(DependencyInjection).Assembly)
+            .AddTransientServices(typeof(DependencyInjection).Assembly)
+            .AddSingletonServices(typeof(DependencyInjection).Assembly);
 
         return services;
     }

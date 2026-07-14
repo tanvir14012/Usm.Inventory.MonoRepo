@@ -4,10 +4,11 @@ using Usm.Shared.Data.DbContextExtensions;
 
 namespace Identity.Infrastructure.Persistence;
 
-public sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> options)
-    : ServiceDbContext(options, "identity")
+public sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> options): ServiceDbContext(options, "identity"), IIdentityDbContext
 {
     public DbSet<User> Users => Set<User>();
+
+    public DbSet<UserCredential> UserCredentials => Set<UserCredential>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -18,6 +18,8 @@ public sealed class SalvageRecord : AggregateRoot<Guid>, IAuditable
     public SalvageStatus Status { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     public static SalvageRecord Create(string recordNumber, Guid inventoryItemId, decimal quantity, string reason, DateTimeOffset salvageDate)
     {

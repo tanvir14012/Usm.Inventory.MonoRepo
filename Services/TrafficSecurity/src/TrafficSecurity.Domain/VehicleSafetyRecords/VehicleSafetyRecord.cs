@@ -21,6 +21,8 @@ public class VehicleSafetyRecord : AggregateRoot<Guid>, IAuditable
     public DateTimeOffset? NextInspectionDate { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     private VehicleSafetyRecord() { }
 

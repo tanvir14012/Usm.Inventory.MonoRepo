@@ -17,6 +17,8 @@ public sealed class InventoryItem : AggregateRoot<Guid>, IAuditable
     public bool IsActive { get; private set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
     public static InventoryItem Create(LocalizedText name, string code, string unit, decimal reorderLevel)
     {

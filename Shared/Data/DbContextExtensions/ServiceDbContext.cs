@@ -31,9 +31,15 @@ public abstract class ServiceDbContext(DbContextOptions options, string schema) 
             if (entry.Entity is IAuditable auditable)
             {
                 if (entry.State == EntityState.Added)
+                {
                     auditable.CreatedAt = DateTimeOffset.UtcNow;
+                    auditable.CreatedBy = Guid.NewGuid(); // Replace with actual user ID if available
+                }
                 else if (entry.State == EntityState.Modified)
+                {
                     auditable.UpdatedAt = DateTimeOffset.UtcNow;
+                    auditable.UpdatedBy = Guid.NewGuid(); // Replace with actual user ID if available
+                }
             }
         }
     }
@@ -43,6 +49,9 @@ public interface IAuditable
 {
     DateTimeOffset CreatedAt { get; set; }
     DateTimeOffset? UpdatedAt { get; set; }
+
+    Guid? CreatedBy { get; set; }
+    Guid? UpdatedBy { get; set; }
 }
 
 public static class DbContextServiceExtensions
