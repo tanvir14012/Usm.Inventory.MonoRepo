@@ -69,6 +69,9 @@ services:
       OpenIddict__CertificatePath: /etc/usm/certs/Identity.pfx
       OpenIddict__CertificatePassword: ${OPENIDDICT_CERTIFICATE_PASSWORD}
       OpenIddict__EncryptionKey: ${OPENIDDICT_ENCRYPTION_KEY}
+      Fido2__RpId: ${FIDO2_RPID}
+      Fido2__RpName: ${FIDO2_RPNAME}
+      Fido2__Origin: ${FIDO2_ORIGIN}
 
     volumes:
       - ./certs:/etc/usm/certs:ro

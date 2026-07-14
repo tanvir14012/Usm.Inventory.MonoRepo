@@ -21,7 +21,8 @@
     <PackageReference Include="OpenIddict.EntityFrameworkCore" />
     <PackageReference Include="OpenIddict.Server.AspNetCore" />
     <PackageReference Include="OpenIddict.Abstractions" />
-    <PackageReference Include="OpenIddict.AspNetCore"/>
+    <PackageReference Include="OpenIddict.AspNetCore" />
+    <PackageReference Include="Fido2.AspNet" />
   </ItemGroup>
 
 

@@ -15,4 +15,9 @@ public sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> option
         base.OnModelCreating(modelBuilder);
         modelBuilder.UseOpenIddict();
     }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken ct = default)
+    {
+        return await base.SaveChangesAsync(ct);
+    }
 }

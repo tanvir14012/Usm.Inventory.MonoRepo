@@ -175,8 +175,10 @@
     <Project Path="Shared/Utils/Regex/Usm.Shared.Utils.Regex.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path=".env" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
   </Folder>
   <Project Path="AppHost/Usm.Inventory.MonoRepo.AppHost.csproj" />
   <Project Path="Gateway/ApiGateway/ApiGateway.csproj" />

@@ -9,6 +9,7 @@ using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
 using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
+using Fido2NetLib;
 
 namespace Identity.Infrastructure;
 
@@ -87,6 +88,13 @@ public static class DependencyInjection
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IdentityDbContext>();
+
+        services.AddFido2(options =>
+        {
+            options.ServerDomain = configuration["Fido2:RpId"]!;
+            options.ServerName = configuration["Fido2:RpName"]!;
+            options.Origins.Append(configuration["Fido2:Origin"]!);
+        });
 
         services
             .AddScopedServices(typeof(DependencyInjection).Assembly)

@@ -56,5 +56,11 @@ namespace Identity.Domain.Users
 
     public sealed record PasswordCredentialMetadata(string PasswordHash);
     public sealed record CacCredentialMetadata();
-    public sealed record Fido2CredentialMetadata(byte[] PublicKey, uint SignatureCounter, Guid AaGuid, string[] Transports, bool UserVerified);
+    public sealed record Fido2CredentialMetadata(
+        byte[] CredentialId,
+        byte[] PublicKey,
+        uint SignatureCounter,
+        Guid AaGuid,
+        string[] Transports,
+        bool UserVerified);
 }
