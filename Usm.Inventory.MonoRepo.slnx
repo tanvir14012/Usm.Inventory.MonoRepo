@@ -147,6 +147,17 @@
   <Folder Name="/Shared/Data/DbContextExtensions/">
     <Project Path="Shared/Data/DbContextExtensions/Usm.Shared.Data.DbContextExtensions.csproj" />
   </Folder>
+  <Folder Name="/Shared/Caching/">
+    <Project Path="Shared/Caching/Usm.Shared.Caching.csproj" />
+  </Folder>
+  <Folder Name="/Shared/EntityFramework/" />
+  <Folder Name="/Shared/EntityFramework/Caching/">
+    <Project Path="Shared/EntityFramework/Caching/Usm.Shared.EntityFramework.Caching.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Http/" />
+  <Folder Name="/Shared/Http/ResponseCaching/">
+    <Project Path="Shared/Http/ResponseCaching/Usm.Shared.Http.ResponseCaching.csproj" />
+  </Folder>
   <Folder Name="/Shared/Federation/" />
   <Folder Name="/Shared/Federation/GrpcFederation.Abstractions/">
     <Project Path="Shared/Federation/GrpcFederation.Abstractions/Usm.Shared.Federation.GrpcFederation.Abstractions.csproj" />
@@ -195,6 +206,7 @@
     <Project Path="Shared/Utils/Regex/Usm.Shared.Utils.Regex.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path=".env.example" />
     <File Path=".env" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
