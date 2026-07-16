@@ -1,0 +1,22 @@
+export const environment = {
+  production: true,
+  apiGatewayUrl: '/api',
+  oidc: {
+    issuer: 'https://identity.yourdomain.com',
+    clientId: 'usm-inventory-spa',
+    scope: 'openid profile email offline_access api',
+    redirectUri: `${window.location.origin}/callback`,
+    postLogoutRedirectUri: `${window.location.origin}/logout`,
+    responseType: 'code',
+    useSilentRefresh: true,
+    silentRefreshTimeout: 5000,
+    timeoutFactor: 0.75,
+    sessionChecksEnabled: true,
+    showDebugInformation: false,
+    clearHashAfterLogin: true,
+    requireHttps: true,
+  },
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'ar'],
+  cacheTtlMs: 5 * 60 * 1000,
+};
