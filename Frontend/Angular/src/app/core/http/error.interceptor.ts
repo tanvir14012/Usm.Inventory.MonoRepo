@@ -1,13 +1,11 @@
-import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { NotificationService } from '../services/notification.service';
 import { AuthService } from '../auth/auth.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
-  const notify = inject(NotificationService);
   const auth = inject(AuthService);
 
   return next(req).pipe(
@@ -28,11 +26,11 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           break;
         case 500:
         case 503:
-          notify.error('common.error');
+          console.error('HTTP server error', error);
           break;
         default:
           if (!navigator.onLine) {
-            notify.error('Network offline. Please check your connection.');
+            console.warn('Network offline. Please check your connection.');
           }
       }
       return throwError(() => error);
