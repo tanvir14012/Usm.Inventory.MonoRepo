@@ -4,6 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:https": "ng serve --ssl true --ssl-cert ./certs/localhost.pem --ssl-key ./certs/localhost-key.pem --host localhost --port 4200",
+    "start:https:open": "ng serve --ssl true --ssl-cert ./certs/localhost.pem --ssl-key ./certs/localhost-key.pem --host localhost --port 4200 --open",
+    "cert:setup": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-dev-certs.ps1",
     "start:en": "ng serve --configuration=en",
     "start:ar": "ng serve --configuration=ar",
     "build": "ng build",

@@ -40,3 +40,12 @@ appsettings.Local.json
 # OS
 Thumbs.db
 Desktop.ini
+
+# Frontend (Angular)
+Frontend/Angular/node_modules/
+Frontend/Angular/dist/
+Frontend/Angular/.angular/
+Frontend/Angular/coverage/
+Frontend/Angular/.sass-cache/
+Frontend/Angular/.cache/
+Frontend/Angular/certs/
