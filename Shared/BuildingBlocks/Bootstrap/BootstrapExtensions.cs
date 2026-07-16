@@ -13,6 +13,8 @@ public static class BootstrapExtensions
 {
     public static WebApplicationBuilder AddDefaultBootstrap(this WebApplicationBuilder builder)
     {
+        builder.Configuration.AddDotEnvFile(builder.Environment.ContentRootPath);
+
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
