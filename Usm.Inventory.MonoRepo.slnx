@@ -100,6 +100,12 @@
   </Folder>
   <Folder Name="/Shared/" />
   <Folder Name="/Shared/BuildingBlocks/" />
+  <Folder Name="/Shared/BuildingBlocks/BackgroundJobs/">
+    <Project Path="Shared/BuildingBlocks/BackgroundJobs/Usm.Shared.BuildingBlocks.BackgroundJobs.csproj" />
+  </Folder>
+  <Folder Name="/Shared/BuildingBlocks/BackgroundJobs.Tests/">
+    <Project Path="Shared/BuildingBlocks/BackgroundJobs.Tests/Usm.Shared.BuildingBlocks.BackgroundJobs.Tests.csproj" />
+  </Folder>
   <Folder Name="/Shared/BuildingBlocks/Bootstrap/">
     <Project Path="Shared/BuildingBlocks/Bootstrap/Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
   </Folder>
@@ -164,6 +170,20 @@
   <Folder Name="/Shared/Utils/" />
   <Folder Name="/Shared/Utils/Core/">
     <Project Path="Shared/Utils/Core/Usm.Shared.Utils.Core.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Excel/">
+  </Folder>
+  <Folder Name="/Shared/Utils/Excel/Reader/">
+    <Project Path="Shared/Utils/Excel/Reader/Usm.Shared.Utils.Excel.Reader.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Excel/Reader.Tests/">
+    <Project Path="Shared/Utils/Excel/Reader.Tests/Usm.Shared.Utils.Excel.Reader.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Excel/Writer/">
+    <Project Path="Shared/Utils/Excel/Writer/Usm.Shared.Utils.Excel.Writer.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Utils/Excel/Writer.Tests/">
+    <Project Path="Shared/Utils/Excel/Writer.Tests/Usm.Shared.Utils.Excel.Writer.Tests.csproj" />
   </Folder>
   <Folder Name="/Shared/Utils/FileSystem/">
     <Project Path="Shared/Utils/FileSystem/Usm.Shared.Utils.FileSystem.csproj" />
