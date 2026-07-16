@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Contracts\Localization\Usm.Shared.Contracts.Localization.csproj" />
+    <ProjectReference Include="..\..\EntityFramework\Caching\Usm.Shared.EntityFramework.Caching.csproj" />
   </ItemGroup>
 
 </Project>

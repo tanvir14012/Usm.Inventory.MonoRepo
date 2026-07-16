@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Usm.Shared.EntityFramework.Caching.Extensions;
 
 namespace Usm.Shared.Data.DbContextExtensions;
 
@@ -62,12 +64,20 @@ public static class DbContextServiceExtensions
         string schema)
         where TContext : ServiceDbContext
     {
-        services.AddDbContext<TContext>(options =>
+        services.AddEntityFrameworkCaching();
+
+        services.AddDbContext<TContext>((serviceProvider, options) =>
+        {
             options.UseNpgsql(connectionString, npgsql =>
             {
                 npgsql.MigrationsHistoryTable("__EFMigrationsHistory", schema);
                 npgsql.EnableRetryOnFailure(3);
-            }));
+            });
+
+            var interceptors = serviceProvider.GetServices<IInterceptor>().ToArray();
+            if (interceptors.Length > 0)
+                options.AddInterceptors(interceptors);
+        });
 
         return services;
     }

@@ -17,4 +17,9 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Caching\Usm.Shared.Caching.csproj" />
+    <ProjectReference Include="..\..\Http\ResponseCaching\Usm.Shared.Http.ResponseCaching.csproj" />
+  </ItemGroup>
+
 </Project>

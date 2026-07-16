@@ -35,6 +35,7 @@ appsettings.Local.json
 *.snk
 .env
 .env.*
+!.env.example
 
 # OS
 Thumbs.db

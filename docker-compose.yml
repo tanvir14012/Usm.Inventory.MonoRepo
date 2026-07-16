@@ -24,6 +24,16 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
+  redis:
+    image: redis:7.4-alpine
+    container_name: usm-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+
   prometheus:
     image: prom/prometheus:latest
     container_name: usm-prometheus
@@ -304,4 +314,5 @@ services:
 volumes:
   postgres_data:
   rabbitmq_data:
+  redis_data:
   grafana_data:

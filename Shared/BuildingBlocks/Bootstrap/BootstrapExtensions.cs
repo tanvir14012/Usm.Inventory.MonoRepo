@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Usm.Shared.Caching.Extensions;
+using Usm.Shared.Http.ResponseCaching.Extensions;
 
 namespace Usm.Shared.BuildingBlocks.Bootstrap;
 
@@ -27,6 +29,8 @@ public static class BootstrapExtensions
         });
 
         builder.Services.AddOpenApi();
+        builder.Services.AddRedisCaching(builder.Configuration);
+        builder.Services.AddHttpResponseCaching(builder.Configuration);
 
         builder.Services
             .AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)
@@ -73,6 +77,7 @@ public static class BootstrapExtensions
 
         app.UseSerilogRequestLogging();
         app.UseCors();
+        app.UseHttpResponseCaching();
         app.UseAuthentication();
         app.UseAuthorization();
 
