@@ -12,6 +12,30 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## HTTPS development with mkcert
+
+Generate and trust a local development certificate:
+
+```bash
+npm run cert:setup
+```
+
+Start Angular with HTTPS:
+
+```bash
+npm run start:https
+```
+
+Then open: `https://localhost:4200/`
+
+### VS Code debug profiles
+
+The workspace includes VS Code profiles in `.vscode/launch.json`:
+
+- **Angular HTTPS (Chrome)**
+- **Angular HTTPS (Edge)**
+- **Attach to Angular Chrome** (attach to a Chrome instance started with `--remote-debugging-port=9222`)
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
