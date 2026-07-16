@@ -1,10 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 export const languageInterceptor: HttpInterceptorFn = (req, next) => {
-  const translate = inject(TranslateService);
-  const lang = translate.currentLang || translate.defaultLang || 'en';
+  const storedLang = localStorage.getItem('app_language');
+  const htmlLang = document?.documentElement?.lang;
+  const lang = storedLang || htmlLang || 'en';
 
   return next(
     req.clone({ setHeaders: { 'Accept-Language': lang } }),
