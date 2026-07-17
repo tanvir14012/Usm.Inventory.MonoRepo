@@ -141,6 +141,7 @@ public static class DependencyInjection
             options.ServerName = configuration["Fido2:RpName"]!;
             options.Origins.Append(configuration["Fido2:Origin"]!);
         });
+        services.AddScoped<Fido2>(sp => (Fido2)sp.GetRequiredService<IFido2>());
 
         services
             .AddScopedServices(typeof(DependencyInjection).Assembly)
