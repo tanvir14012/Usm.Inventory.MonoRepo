@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Procurement.Domain.Suppliers;
+using Usm.Shared.Data.DbContextExtensions;
 
 namespace Procurement.Infrastructure.Persistence.Configurations;
 
