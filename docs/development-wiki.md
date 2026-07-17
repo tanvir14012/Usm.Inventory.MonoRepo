@@ -46,6 +46,15 @@ Backend services follow Clean Architecture and CQRS patterns:
 
 - Angular 21 with npm (`Frontend/Angular/package.json`).
 - Common scripts include `start`, `start:https`, `build`, `test`, and `lint`.
+- PDF export infrastructure is available through `Frontend/Angular/src/app/shared/services/pdf-export.service.ts` (based on `jspdf` + `jspdf-autotable`) using `TableExportTemplateDto` + table `pdfRender` column hooks.
+
+### Frontend PDF export usage
+
+Use this path to add PDF export on list screens with minimal duplication:
+
+1. Define export columns using `TableColumn<T>[]` and optional `pdfRender` for computed/translated values.
+2. Build a `TableExportTemplateDto<T>` with `fileName`, `title`, `rows`, `columns`, and optional `subtitle`/`orientation`.
+3. Call `PdfExportService.exportTable(template)` from a page action (for example, Departments and Module Navigation).
 
 ## 4. Local development setup
 
