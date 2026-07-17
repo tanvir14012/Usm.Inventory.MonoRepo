@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Sinks.Grafana.Loki;
+using Usm.Shared.BuildingBlocks.Bootstrap.Middleware;
 using Usm.Shared.Caching.Extensions;
 using Usm.Shared.Http.ResponseCaching.Extensions;
 
@@ -15,12 +17,26 @@ public static class BootstrapExtensions
     {
         builder.Configuration.AddDotEnvFile(builder.Environment.ContentRootPath);
 
-        Log.Logger = new LoggerConfiguration()
+        var loggerConfiguration = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
             .Enrich.WithProperty("Application", builder.Environment.ApplicationName)
-            .WriteTo.Console()
-            .CreateLogger();
+            .WriteTo.Console();
+
+        var lokiEndpoint = builder.Configuration["Observability:LokiEndpoint"];
+        if (string.IsNullOrWhiteSpace(lokiEndpoint) && !builder.Environment.IsDevelopment())
+        {
+            lokiEndpoint = "http://loki:3100";
+        }
+
+        if (!string.IsNullOrWhiteSpace(lokiEndpoint))
+        {
+            loggerConfiguration.WriteTo.GrafanaLoki(
+                lokiEndpoint,
+                [new LokiLabel { Key = "application", Value = builder.Environment.ApplicationName }]);
+        }
+
+        Log.Logger = loggerConfiguration.CreateLogger();
 
         builder.Host.UseSerilog();
 
@@ -31,6 +47,8 @@ public static class BootstrapExtensions
         });
 
         builder.Services.AddOpenApi();
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<AuditLoggingMiddleware>();
         builder.Services.AddRedisCaching(builder.Configuration);
         builder.Services.AddHttpResponseCaching(builder.Configuration);
 
@@ -82,6 +100,7 @@ public static class BootstrapExtensions
         app.UseHttpResponseCaching();
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseMiddleware<AuditLoggingMiddleware>();
 
         return app;
     }
