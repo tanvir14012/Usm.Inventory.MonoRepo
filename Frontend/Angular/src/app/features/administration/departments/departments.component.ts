@@ -13,6 +13,8 @@ import { TableColumn, TableAction } from '../../../shared/components/data-table/
 import { QueryParams } from '../../../shared/models/query-params.model';
 import { toClientPagedResult } from '../../../shared/utils/client-paging.utils';
 import { DepartmentFormDialogComponent } from './department-form-dialog.component';
+import { PdfExportService } from '../../../shared/services/pdf-export.service';
+import { TableExportTemplateDto } from '../../../shared/models/template-dto.model';
 
 @Component({
   selector: 'app-departments',
@@ -38,13 +40,26 @@ import { DepartmentFormDialogComponent } from './department-form-dialog.componen
 })
 export class DepartmentsComponent extends BaseCrudComponent<DepartmentDto> {
   private readonly service = inject(DepartmentsService);
+  private readonly pdfExport = inject(PdfExportService);
 
   readonly columns: TableColumn<DepartmentDto>[] = [
     { key: 'nameEn', headerKey: 'administration.departments.fields.nameEn', sortable: true },
     { key: 'nameAr', headerKey: 'administration.departments.fields.nameAr', sortable: true },
     { key: 'code', headerKey: 'administration.departments.fields.code', sortable: true, width: '120px' },
-    { key: 'isActive', headerKey: 'common.status', pipe: 'boolean', width: '100px' },
-    { key: 'createdAt', headerKey: 'common.createdAt', pipe: 'localDate', sortable: true },
+    {
+      key: 'isActive',
+      headerKey: 'common.status',
+      pipe: 'boolean',
+      width: '100px',
+      pdfRender: row => this.translate.instant(row.isActive ? 'common.active' : 'common.inactive'),
+    },
+    {
+      key: 'createdAt',
+      headerKey: 'common.createdAt',
+      pipe: 'localDate',
+      sortable: true,
+      pdfRender: row => new Date(row.createdAt),
+    },
   ];
 
   readonly tableActions: TableAction<DepartmentDto>[] = [
@@ -62,6 +77,12 @@ export class DepartmentsComponent extends BaseCrudComponent<DepartmentDto> {
     {
       labelKey: 'administration.departments.addNew', icon: 'add', permission: 'departments.create',
       action: () => this.openForm(),
+    },
+    {
+      labelKey: 'common.exportPdf',
+      icon: 'picture_as_pdf',
+      action: () => this.exportPdf(),
+      color: 'accent',
     },
   ];
 
@@ -94,5 +115,19 @@ export class DepartmentsComponent extends BaseCrudComponent<DepartmentDto> {
 
   protected deleteItem(item: DepartmentDto) {
     return this.service.delete(item.id);
+  }
+
+  private exportPdf(): void {
+    const items = this.pagedResult().items;
+    const template: TableExportTemplateDto<DepartmentDto> = {
+      fileName: 'departments',
+      title: this.translate.instant('administration.departments.title'),
+      subtitle: `${this.translate.instant('common.total')}: ${this.pagedResult().totalCount}`,
+      rows: items,
+      columns: this.columns,
+      orientation: 'landscape',
+      resolveHeader: (headerKey: string) => this.translate.instant(headerKey),
+    };
+    void this.pdfExport.exportTable(template).catch(() => this.notify.error('common.error'));
   }
 }

@@ -8,6 +8,7 @@
     "search": "Search",
     "filter": "Filter",
     "export": "Export",
+    "exportPdf": "Export PDF",
     "import": "Import",
     "close": "Close",
     "confirm": "Confirm",

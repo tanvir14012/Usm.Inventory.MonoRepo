@@ -1,5 +1,7 @@
 import { SortDirection } from '../../models/query-params.model';
 
+export type TableExportValue = string | number | boolean | Date | null | undefined;
+
 export interface TableColumn<T = Record<string, unknown>> {
   /** Column field key matching the DTO property (camelCase). */
   key: keyof T | string;
@@ -17,6 +19,10 @@ export interface TableColumn<T = Record<string, unknown>> {
   sticky?: 'start' | 'end';
   /** Width hint (CSS value, e.g. '200px' or '15%') */
   width?: string;
+  /** Optional PDF value resolver for export scenarios. */
+  pdfRender?: (row: T) => TableExportValue;
+  /** Skip column in PDF export. */
+  excludeFromPdf?: boolean;
 }
 
 export interface TableAction<T> {
