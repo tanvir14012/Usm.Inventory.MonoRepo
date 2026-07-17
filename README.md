@@ -29,6 +29,7 @@ The repository combines service autonomy with shared platform components so team
 ## Developer documentation
 
 - [Development Wiki](docs/development-wiki.md) - detailed developer and maintenance reference
+- [Azure Cloud Deployment Guide](docs/azure-cloud-deployment-guide.md) - end-to-end AKS/ACR deployment guide for frontend, backend, gateway, and telemetry
 
 ## Telemetry, audit logs, and observability
 
