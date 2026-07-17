@@ -7,6 +7,14 @@
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Localization\Usm.Shared.BuildingBlocks.Localization.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Messaging\Usm.Shared.BuildingBlocks.Messaging.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Persistence.Migrations\Usm.Shared.BuildingBlocks.Persistence.Migrations.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Utils\Excel\Reader\Usm.Shared.Utils.Excel.Reader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup>

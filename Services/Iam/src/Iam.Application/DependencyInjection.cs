@@ -1,4 +1,4 @@
-using Iam.Application.Roles.Queries;
+using Iam.Application.Organograms.Commands;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
@@ -14,7 +14,7 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        services.AddAssemblyValidators<GetRolesQueryHandler>();
+        services.AddAssemblyValidators<ImportOrganogramTemplateCommandHandler>();
         return services;
     }
 }
