@@ -1,6 +1,6 @@
 {
   "templateName": "US Military Module Navigation Reference",
-  "templateVersion": "2026.1",
+  "templateVersion": "2026.2",
   "language": "en",
   "modules": [
     {
@@ -36,12 +36,68 @@
       "LocalizedName": "Traffic & Security"
     },
     {
-      "MenuId": "others",
-      "SystemName": "others",
+      "MenuId": "store-management",
+      "SystemName": "store-management",
       "DisplayOrder": 50,
-      "MaterialIconName": "apps",
+      "MaterialIconName": "inventory_2",
       "IsActive": true,
-      "LocalizedName": "Others"
+      "LocalizedName": "Store Management"
+    },
+    {
+      "MenuId": "repair-maintenance",
+      "SystemName": "repair-maintenance",
+      "DisplayOrder": 60,
+      "MaterialIconName": "build",
+      "IsActive": true,
+      "LocalizedName": "Repair & Maintenance"
+    },
+    {
+      "MenuId": "salvage",
+      "SystemName": "salvage",
+      "DisplayOrder": 70,
+      "MaterialIconName": "recycling",
+      "IsActive": true,
+      "LocalizedName": "Salvage"
+    },
+    {
+      "MenuId": "budget-planning",
+      "SystemName": "budget-planning",
+      "DisplayOrder": 80,
+      "MaterialIconName": "account_balance_wallet",
+      "IsActive": true,
+      "LocalizedName": "Budget & Planning"
+    },
+    {
+      "MenuId": "inspectorate",
+      "SystemName": "inspectorate",
+      "DisplayOrder": 90,
+      "MaterialIconName": "manage_search",
+      "IsActive": true,
+      "LocalizedName": "Inspectorate"
+    },
+    {
+      "MenuId": "administration",
+      "SystemName": "administration",
+      "DisplayOrder": 100,
+      "MaterialIconName": "admin_panel_settings",
+      "IsActive": true,
+      "LocalizedName": "Administration"
+    },
+    {
+      "MenuId": "communication",
+      "SystemName": "communication",
+      "DisplayOrder": 110,
+      "MaterialIconName": "chat",
+      "IsActive": true,
+      "LocalizedName": "Communication"
+    },
+    {
+      "MenuId": "dms",
+      "SystemName": "dms",
+      "DisplayOrder": 120,
+      "MaterialIconName": "description",
+      "IsActive": true,
+      "LocalizedName": "DMS"
     }
   ],
   "sidebarItems": [
@@ -466,19 +522,9 @@
       "SystemName": "escalation-notices"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "store-management",
-      "ParentMenuId": "",
-      "LocalizedName": "Store Management",
-      "DisplayOrder": 10,
-      "MaterialIconName": "inventory_2",
-      "IsActive": true,
-      "SystemName": "store-management"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "store-management",
       "MenuId": "stock-levels",
-      "ParentMenuId": "store-management",
+      "ParentMenuId": "",
       "LocalizedName": "Stock Levels",
       "DisplayOrder": 10,
       "MaterialIconName": "stacked_bar_chart",
@@ -486,9 +532,9 @@
       "SystemName": "stock-levels"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "store-management",
       "MenuId": "reorder-alerts",
-      "ParentMenuId": "store-management",
+      "ParentMenuId": "",
       "LocalizedName": "Reorder Alerts",
       "DisplayOrder": 20,
       "MaterialIconName": "notification_important",
@@ -496,9 +542,9 @@
       "SystemName": "reorder-alerts"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "store-management",
       "MenuId": "asset-cards",
-      "ParentMenuId": "store-management",
+      "ParentMenuId": "",
       "LocalizedName": "Asset Cards",
       "DisplayOrder": 30,
       "MaterialIconName": "badge",
@@ -506,19 +552,9 @@
       "SystemName": "asset-cards"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "repair-maintenance",
-      "ParentMenuId": "",
-      "LocalizedName": "Repair & Maintenance",
-      "DisplayOrder": 20,
-      "MaterialIconName": "build",
-      "IsActive": true,
-      "SystemName": "repair-maintenance"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "repair-maintenance",
       "MenuId": "work-orders",
-      "ParentMenuId": "repair-maintenance",
+      "ParentMenuId": "",
       "LocalizedName": "Work Orders",
       "DisplayOrder": 10,
       "MaterialIconName": "handyman",
@@ -526,9 +562,9 @@
       "SystemName": "work-orders"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "repair-maintenance",
       "MenuId": "maintenance-schedule",
-      "ParentMenuId": "repair-maintenance",
+      "ParentMenuId": "",
       "LocalizedName": "Maintenance Schedule",
       "DisplayOrder": 20,
       "MaterialIconName": "calendar_month",
@@ -536,9 +572,9 @@
       "SystemName": "maintenance-schedule"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "repair-maintenance",
       "MenuId": "parts-usage",
-      "ParentMenuId": "repair-maintenance",
+      "ParentMenuId": "",
       "LocalizedName": "Parts Usage",
       "DisplayOrder": 30,
       "MaterialIconName": "precision_manufacturing",
@@ -546,19 +582,9 @@
       "SystemName": "parts-usage"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "salvage",
-      "ParentMenuId": "",
-      "LocalizedName": "Salvage",
-      "DisplayOrder": 30,
-      "MaterialIconName": "recycling",
-      "IsActive": true,
-      "SystemName": "salvage"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "salvage",
       "MenuId": "recovery-cases",
-      "ParentMenuId": "salvage",
+      "ParentMenuId": "",
       "LocalizedName": "Recovery Cases",
       "DisplayOrder": 10,
       "MaterialIconName": "inventory",
@@ -566,9 +592,9 @@
       "SystemName": "recovery-cases"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "salvage",
       "MenuId": "disposal-records",
-      "ParentMenuId": "salvage",
+      "ParentMenuId": "",
       "LocalizedName": "Disposal Records",
       "DisplayOrder": 20,
       "MaterialIconName": "delete_forever",
@@ -576,19 +602,9 @@
       "SystemName": "disposal-records"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "budget-planning",
-      "ParentMenuId": "",
-      "LocalizedName": "Budget & Planning",
-      "DisplayOrder": 40,
-      "MaterialIconName": "account_balance_wallet",
-      "IsActive": true,
-      "SystemName": "budget-planning"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "budget-planning",
       "MenuId": "allocations",
-      "ParentMenuId": "budget-planning",
+      "ParentMenuId": "",
       "LocalizedName": "Allocations",
       "DisplayOrder": 10,
       "MaterialIconName": "payments",
@@ -596,9 +612,9 @@
       "SystemName": "allocations"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "budget-planning",
       "MenuId": "spend-forecast",
-      "ParentMenuId": "budget-planning",
+      "ParentMenuId": "",
       "LocalizedName": "Spend Forecast",
       "DisplayOrder": 20,
       "MaterialIconName": "trending_up",
@@ -606,9 +622,9 @@
       "SystemName": "spend-forecast"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "budget-planning",
       "MenuId": "budget-vs-actual",
-      "ParentMenuId": "budget-planning",
+      "ParentMenuId": "",
       "LocalizedName": "Budget vs Actual",
       "DisplayOrder": 30,
       "MaterialIconName": "compare_arrows",
@@ -616,19 +632,9 @@
       "SystemName": "budget-vs-actual"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "inspectorate",
-      "ParentMenuId": "",
-      "LocalizedName": "Inspectorate",
-      "DisplayOrder": 50,
-      "MaterialIconName": "manage_search",
-      "IsActive": true,
-      "SystemName": "inspectorate"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "inspectorate",
       "MenuId": "audits",
-      "ParentMenuId": "inspectorate",
+      "ParentMenuId": "",
       "LocalizedName": "Audits",
       "DisplayOrder": 10,
       "MaterialIconName": "search_check",
@@ -636,9 +642,9 @@
       "SystemName": "audits"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "inspectorate",
       "MenuId": "findings",
-      "ParentMenuId": "inspectorate",
+      "ParentMenuId": "",
       "LocalizedName": "Findings",
       "DisplayOrder": 20,
       "MaterialIconName": "rule_folder",
@@ -646,9 +652,9 @@
       "SystemName": "findings"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "inspectorate",
       "MenuId": "corrective-actions",
-      "ParentMenuId": "inspectorate",
+      "ParentMenuId": "",
       "LocalizedName": "Corrective Actions",
       "DisplayOrder": 30,
       "MaterialIconName": "fact_check",
@@ -656,19 +662,9 @@
       "SystemName": "corrective-actions"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "administration",
-      "ParentMenuId": "",
-      "LocalizedName": "Administration",
-      "DisplayOrder": 60,
-      "MaterialIconName": "admin_panel_settings",
-      "IsActive": true,
-      "SystemName": "administration"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "administration",
       "MenuId": "departments",
-      "ParentMenuId": "administration",
+      "ParentMenuId": "",
       "LocalizedName": "Departments",
       "DisplayOrder": 10,
       "MaterialIconName": "corporate_fare",
@@ -676,9 +672,9 @@
       "SystemName": "departments"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "administration",
       "MenuId": "roles",
-      "ParentMenuId": "administration",
+      "ParentMenuId": "",
       "LocalizedName": "Roles",
       "DisplayOrder": 20,
       "MaterialIconName": "admin_panel_settings",
@@ -686,9 +682,9 @@
       "SystemName": "roles"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "administration",
       "MenuId": "users",
-      "ParentMenuId": "administration",
+      "ParentMenuId": "",
       "LocalizedName": "Users",
       "DisplayOrder": 30,
       "MaterialIconName": "groups",
@@ -696,19 +692,9 @@
       "SystemName": "users"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "communication",
-      "ParentMenuId": "",
-      "LocalizedName": "Communication",
-      "DisplayOrder": 70,
-      "MaterialIconName": "chat",
-      "IsActive": true,
-      "SystemName": "communication"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "communication",
       "MenuId": "channels",
-      "ParentMenuId": "communication",
+      "ParentMenuId": "",
       "LocalizedName": "Channels",
       "DisplayOrder": 10,
       "MaterialIconName": "forum",
@@ -716,9 +702,9 @@
       "SystemName": "channels"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "communication",
       "MenuId": "announcements",
-      "ParentMenuId": "communication",
+      "ParentMenuId": "",
       "LocalizedName": "Announcements",
       "DisplayOrder": 20,
       "MaterialIconName": "campaign",
@@ -726,9 +712,9 @@
       "SystemName": "announcements"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "communication",
       "MenuId": "messages",
-      "ParentMenuId": "communication",
+      "ParentMenuId": "",
       "LocalizedName": "Messages",
       "DisplayOrder": 30,
       "MaterialIconName": "message",
@@ -736,19 +722,9 @@
       "SystemName": "messages"
     },
     {
-      "ModuleMenuId": "others",
-      "MenuId": "dms",
-      "ParentMenuId": "",
-      "LocalizedName": "DMS",
-      "DisplayOrder": 80,
-      "MaterialIconName": "description",
-      "IsActive": true,
-      "SystemName": "dms"
-    },
-    {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "dms",
       "MenuId": "documents",
-      "ParentMenuId": "dms",
+      "ParentMenuId": "",
       "LocalizedName": "Documents",
       "DisplayOrder": 10,
       "MaterialIconName": "description",
@@ -756,9 +732,9 @@
       "SystemName": "documents"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "dms",
       "MenuId": "folders",
-      "ParentMenuId": "dms",
+      "ParentMenuId": "",
       "LocalizedName": "Folders",
       "DisplayOrder": 20,
       "MaterialIconName": "folder",
@@ -766,9 +742,9 @@
       "SystemName": "folders"
     },
     {
-      "ModuleMenuId": "others",
+      "ModuleMenuId": "dms",
       "MenuId": "versions",
-      "ParentMenuId": "dms",
+      "ParentMenuId": "",
       "LocalizedName": "Versions",
       "DisplayOrder": 30,
       "MaterialIconName": "history",
