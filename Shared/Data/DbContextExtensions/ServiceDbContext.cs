@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 using Usm.Shared.Contracts.Localization;
 using Usm.Shared.EntityFramework.Caching.Extensions;
 
@@ -13,6 +14,7 @@ namespace Usm.Shared.Data.DbContextExtensions;
 public abstract class ServiceDbContext(DbContextOptions options, string schema) : DbContext(options)
 {
     protected readonly string Schema = schema;
+    private static readonly JsonSerializerOptions LocalizedTextJsonSerializerOptions = new(JsonSerializerDefaults.Web);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,7 +37,13 @@ public abstract class ServiceDbContext(DbContextOptions options, string schema) 
 
             var entityBuilder = modelBuilder.Entity(entityType.ClrType);
             foreach (var property in localizedProperties)
-                ModelBuilderExtensions.HasJsonbLocalization(entityBuilder.Property<LocalizedText>(property.Name));
+            {
+                var localizedProperty = entityBuilder.Property<LocalizedText>(property.Name);
+                localizedProperty.HasConversion(
+                    value => JsonSerializer.Serialize(value, LocalizedTextJsonSerializerOptions),
+                    value => JsonSerializer.Deserialize<LocalizedText>(value, LocalizedTextJsonSerializerOptions) ?? LocalizedText.Empty);
+                localizedProperty.HasColumnType("jsonb");
+            }
         }
     }
 
