@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text.Json;
 using Usm.Shared.Contracts.Localization;
 using Usm.Shared.EntityFramework.Caching.Extensions;
 
@@ -14,37 +13,20 @@ namespace Usm.Shared.Data.DbContextExtensions;
 public abstract class ServiceDbContext(DbContextOptions options, string schema) : DbContext(options)
 {
     protected readonly string Schema = schema;
-    private static readonly JsonSerializerOptions LocalizedTextJsonSerializerOptions = new(JsonSerializerDefaults.Web);
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        base.ConfigureConventions(configurationBuilder);
+        configurationBuilder.Properties<LocalizedText>()
+            .HaveConversion<LocalizedTextValueConverter>()
+            .HaveColumnType("jsonb");
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema(Schema);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
-        ApplyLocalizedJsonbConventions(modelBuilder);
-    }
-
-    private static void ApplyLocalizedJsonbConventions(ModelBuilder modelBuilder)
-    {
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            var localizedProperties = entityType.GetProperties()
-                .Where(property => property.ClrType == typeof(LocalizedText) && property.GetValueConverter() is null)
-                .ToArray();
-
-            if (localizedProperties.Length == 0)
-                continue;
-
-            var entityBuilder = modelBuilder.Entity(entityType.ClrType);
-            foreach (var property in localizedProperties)
-            {
-                var localizedProperty = entityBuilder.Property<LocalizedText>(property.Name);
-                localizedProperty.HasConversion(
-                    value => JsonSerializer.Serialize(value, LocalizedTextJsonSerializerOptions),
-                    value => JsonSerializer.Deserialize<LocalizedText>(value, LocalizedTextJsonSerializerOptions) ?? LocalizedText.Empty);
-                localizedProperty.HasColumnType("jsonb");
-            }
-        }
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

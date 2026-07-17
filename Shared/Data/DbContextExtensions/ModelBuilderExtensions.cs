@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Usm.Shared.Contracts.Localization;
 
 namespace Usm.Shared.Data.DbContextExtensions;
@@ -20,10 +21,7 @@ public static class ModelBuilderExtensions
 {
     public static PropertyBuilder<LocalizedText> HasJsonbLocalization(this PropertyBuilder<LocalizedText> builder)
     {
-        var serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-        builder.HasConversion(
-            value => JsonSerializer.Serialize(value, serializerOptions),
-            value => JsonSerializer.Deserialize<LocalizedText>(value, serializerOptions) ?? LocalizedText.Empty);
+        builder.HasConversion<LocalizedTextValueConverter>();
         builder.HasColumnType("jsonb");
         return builder;
     }
@@ -39,6 +37,13 @@ public static class ModelBuilderExtensions
     {
         builder.HasQueryFilter(entity => entity.TenantId == tenantId);
     }
+}
+
+internal sealed class LocalizedTextValueConverter() : ValueConverter<LocalizedText, string>(
+    value => JsonSerializer.Serialize(value, SerializerOptions),
+    value => JsonSerializer.Deserialize<LocalizedText>(value, SerializerOptions) ?? LocalizedText.Empty)
+{
+    private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
 }
 
 public static class DbContextQueryExtensions
