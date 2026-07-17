@@ -96,6 +96,7 @@
     "users": "المستخدمون",
     "identity": "الهوية",
     "moduleNavigation": "تنقل الوحدات",
+    "operations": "العمليات",
     "procurement": "المشتريات",
     "storeHouse": "المستودع",
     "issueReceipt": "الصرف والاستلام",
@@ -146,6 +147,31 @@
         "description": "الوصف",
         "permissions": "الصلاحيات"
       }
+    }
+  },
+  "operations": {
+    "headers": {
+      "orderNumber": "رقم الأمر",
+      "supplier": "المورّد",
+      "amount": "القيمة",
+      "expectedDate": "تاريخ التوريد المتوقع",
+      "item": "الصنف",
+      "unit": "الوحدة",
+      "onHand": "المتوفر",
+      "reorderLevel": "حد إعادة الطلب",
+      "reorderAlert": "تنبيه إعادة الطلب",
+      "transactionNumber": "رقم الحركة",
+      "transactionType": "نوع الحركة",
+      "counterparty": "الجهة المقابلة",
+      "quantity": "الكمية",
+      "date": "التاريخ",
+      "description": "الوصف",
+      "reportedDate": "تاريخ البلاغ",
+      "completedDate": "تاريخ الإكمال",
+      "vehicle": "المركبة",
+      "inspectionDate": "تاريخ الفحص",
+      "nextInspectionDate": "الفحص القادم",
+      "remarks": "الملاحظات"
     }
   }
 }

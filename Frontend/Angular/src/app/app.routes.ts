@@ -28,6 +28,11 @@ export const routes: Routes = [
         loadChildren: () => import('./features/iam/iam.routes').then(m => m.iamRoutes),
         data: { breadcrumb: 'navigation.iam' },
       },
+      {
+        path: 'operations',
+        loadChildren: () => import('./features/operations/operations.routes').then(m => m.operationsRoutes),
+        data: { breadcrumb: 'navigation.operations' },
+      },
     ],
   },
   // Auth callback (handled by angular-oauth2-oidc)

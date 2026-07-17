@@ -1,9 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../../../core/http/api.service';
-import { PagedResult } from '../../../shared/models/paged-result.model';
-import { QueryParams } from '../../../shared/models/query-params.model';
-import { HttpCacheService } from '../../../core/services/http-cache.service';
 
 export interface DepartmentDto {
   id: string;
@@ -20,6 +17,7 @@ export interface CreateDepartmentCommand {
   nameAr: string;
   code: string;
   parentId?: string | null;
+  isActive?: boolean;
 }
 
 export interface UpdateDepartmentCommand extends CreateDepartmentCommand {
@@ -29,15 +27,10 @@ export interface UpdateDepartmentCommand extends CreateDepartmentCommand {
 @Injectable({ providedIn: 'root' })
 export class DepartmentsService {
   private readonly api = inject(ApiService);
-  private readonly cache = inject(HttpCacheService);
   private readonly path = 'administration/departments';
 
-  getAll(query: QueryParams): Observable<PagedResult<DepartmentDto>> {
-    return this.api.getPaged<DepartmentDto>(this.path, query);
-  }
-
-  getById(id: string): Observable<DepartmentDto> {
-    return this.api.get<DepartmentDto>(`${this.path}/${id}`);
+  getAll(): Observable<DepartmentDto[]> {
+    return this.api.get<DepartmentDto[]>(this.path);
   }
 
   create(command: CreateDepartmentCommand): Observable<DepartmentDto> {

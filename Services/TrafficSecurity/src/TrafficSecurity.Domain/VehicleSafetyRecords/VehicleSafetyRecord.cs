@@ -13,6 +13,7 @@ public enum SafetyStatus
 
 public class VehicleSafetyRecord : AggregateRoot<Guid>, IAuditable
 {
+    public string VehicleRegistrationNumber { get; private set; } = string.Empty;
     public Guid VehicleId { get; private set; }
     public DateTimeOffset InspectionDate { get; private set; }
     public Guid InspectorId { get; private set; }
@@ -26,11 +27,12 @@ public class VehicleSafetyRecord : AggregateRoot<Guid>, IAuditable
 
     private VehicleSafetyRecord() { }
 
-    public static VehicleSafetyRecord Create(Guid vehicleId, DateTimeOffset inspectionDate, Guid inspectorId)
+    public static VehicleSafetyRecord Create(string vehicleRegistrationNumber, Guid vehicleId, DateTimeOffset inspectionDate, Guid inspectorId)
     {
         return new VehicleSafetyRecord
         {
             Id = Guid.NewGuid(),
+            VehicleRegistrationNumber = vehicleRegistrationNumber,
             VehicleId = vehicleId,
             InspectionDate = inspectionDate,
             InspectorId = inspectorId,
@@ -49,5 +51,12 @@ public class VehicleSafetyRecord : AggregateRoot<Guid>, IAuditable
     {
         Status = SafetyStatus.Failed;
         Remarks = remarks;
+    }
+
+    public void RequiresAttention(string remarks, DateTimeOffset nextInspectionDate)
+    {
+        Status = SafetyStatus.RequiresAttention;
+        Remarks = remarks;
+        NextInspectionDate = nextInspectionDate;
     }
 }

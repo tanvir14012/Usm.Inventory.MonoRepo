@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TrafficSecurity.Application.Abstractions;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
@@ -17,6 +18,7 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("Postgres")
             ?? throw new InvalidOperationException("Postgres connection string is required.");
         services.AddServiceDbContext<TrafficSecurityDbContext>(connectionString, "trafficsecurity");
+        services.AddScoped<ITrafficSecurityDbContext>(sp => sp.GetRequiredService<TrafficSecurityDbContext>());
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<TrafficSecurityDbContext>();

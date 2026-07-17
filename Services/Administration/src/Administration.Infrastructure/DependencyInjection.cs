@@ -1,3 +1,4 @@
+using Administration.Application.Abstractions;
 using Administration.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ public static class DependencyInjection
             ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass";
 
         services.AddServiceDbContext<AdministrationDbContext>(connectionString, "administration");
+        services.AddScoped<IAdministrationDbContext>(sp => sp.GetRequiredService<AdministrationDbContext>());
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<AdministrationDbContext>();

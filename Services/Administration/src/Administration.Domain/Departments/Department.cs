@@ -37,4 +37,12 @@ public sealed class Department : AggregateRoot<Guid>, IAuditable
         department.RaiseDomainEvent(new DepartmentCreatedDomainEvent(department.Id, code));
         return department;
     }
+
+    public void Update(LocalizedText name, string code, Guid? parentId, bool isActive)
+    {
+        Name = name;
+        Code = code.Trim();
+        ParentId = parentId;
+        IsActive = isActive;
+    }
 }

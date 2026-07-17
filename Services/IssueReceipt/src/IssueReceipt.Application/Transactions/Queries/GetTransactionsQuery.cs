@@ -1,20 +1,56 @@
 using IssueReceipt.Application.Abstractions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace IssueReceipt.Application.Transactions.Queries;
 
 public record GetTransactionsQuery : IRequest<IReadOnlyList<TransactionDto>>;
 
-public record TransactionDto(Guid Id, string TransactionNumber, Guid InventoryItemId, decimal Quantity, DateTimeOffset Date);
+public record TransactionDto(
+    Guid Id,
+    string TransactionNumber,
+    string TransactionType,
+    Guid InventoryItemId,
+    Guid WarehouseId,
+    decimal Quantity,
+    string Counterparty,
+    DateTimeOffset Date,
+    string? Remarks);
 
 public sealed class GetTransactionsQueryHandler(IIssueReceiptDbContext context)
     : IRequestHandler<GetTransactionsQuery, IReadOnlyList<TransactionDto>>
 {
-    public Task<IReadOnlyList<TransactionDto>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<TransactionDto>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
     {
-        var result = context.IssueTransactions
-            .Select(x => new TransactionDto(x.Id, x.TransactionNumber, x.InventoryItemId, x.Quantity, x.IssuedDate))
-            .ToList();
-        return Task.FromResult<IReadOnlyList<TransactionDto>>(result);
+        var issueTransactions = await context.IssueTransactions
+            .Select(x => new TransactionDto(
+                x.Id,
+                x.TransactionNumber,
+                "Issue",
+                x.InventoryItemId,
+                x.WarehouseId,
+                x.Quantity,
+                x.IssuedTo,
+                x.IssuedDate,
+                x.Purpose))
+            .ToListAsync(cancellationToken);
+
+        var receiptTransactions = await context.ReceiptTransactions
+            .Select(x => new TransactionDto(
+                x.Id,
+                x.TransactionNumber,
+                "Receipt",
+                x.InventoryItemId,
+                x.WarehouseId,
+                x.Quantity,
+                x.ReceivedFrom,
+                x.ReceivedDate,
+                x.Notes))
+            .ToListAsync(cancellationToken);
+
+        return issueTransactions
+            .Concat(receiptTransactions)
+            .OrderByDescending(x => x.Date)
+            .ToArray();
     }
 }

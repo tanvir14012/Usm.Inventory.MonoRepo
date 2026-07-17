@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Procurement.Application.Abstractions;
 using Procurement.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
@@ -15,6 +16,7 @@ public static class DependencyInjection
         var cs = configuration.GetConnectionString("Postgres")
             ?? throw new InvalidOperationException("Postgres connection string is required.");
         services.AddServiceDbContext<ProcurementDbContext>(cs, "procurement");
+        services.AddScoped<IProcurementDbContext>(sp => sp.GetRequiredService<ProcurementDbContext>());
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<ProcurementDbContext>();
