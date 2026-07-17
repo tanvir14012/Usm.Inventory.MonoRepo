@@ -1,0 +1,779 @@
+{
+  "templateName": "R?f?rence de navigation des modules militaires am?ricains",
+  "templateVersion": "2026.1",
+  "language": "fr",
+  "modules": [
+    {
+      "MenuId": "dashboard",
+      "SystemName": "dashboard",
+      "DisplayOrder": 10,
+      "MaterialIconName": "dashboard",
+      "IsActive": true,
+      "LocalizedName": "Tableau de bord"
+    },
+    {
+      "MenuId": "procurement",
+      "SystemName": "procurement",
+      "DisplayOrder": 20,
+      "MaterialIconName": "shopping_cart",
+      "IsActive": true,
+      "LocalizedName": "Achats"
+    },
+    {
+      "MenuId": "issue-receipt",
+      "SystemName": "issue-receipt",
+      "DisplayOrder": 30,
+      "MaterialIconName": "inventory_2",
+      "IsActive": true,
+      "LocalizedName": "Sortie et r?ception"
+    },
+    {
+      "MenuId": "traffic-security",
+      "SystemName": "traffic-security",
+      "DisplayOrder": 40,
+      "MaterialIconName": "shield",
+      "IsActive": true,
+      "LocalizedName": "Trafic et s?curit?"
+    },
+    {
+      "MenuId": "others",
+      "SystemName": "others",
+      "DisplayOrder": 50,
+      "MaterialIconName": "apps",
+      "IsActive": true,
+      "LocalizedName": "Autres"
+    }
+  ],
+  "sidebarItems": [
+    {
+      "ModuleMenuId": "dashboard",
+      "MenuId": "situation-overview",
+      "ParentMenuId": "",
+      "LocalizedName": "Vue de la situation",
+      "DisplayOrder": 10,
+      "MaterialIconName": "dashboard",
+      "IsActive": true,
+      "SystemName": "situation-overview"
+    },
+    {
+      "ModuleMenuId": "dashboard",
+      "MenuId": "readiness-snapshot",
+      "ParentMenuId": "",
+      "LocalizedName": "Instantan? de pr?paration",
+      "DisplayOrder": 20,
+      "MaterialIconName": "military_tech",
+      "IsActive": true,
+      "SystemName": "readiness-snapshot"
+    },
+    {
+      "ModuleMenuId": "dashboard",
+      "MenuId": "alert-feed",
+      "ParentMenuId": "",
+      "LocalizedName": "Flux des alertes",
+      "DisplayOrder": 30,
+      "MaterialIconName": "notifications_active",
+      "IsActive": true,
+      "SystemName": "alert-feed"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "requisition",
+      "ParentMenuId": "",
+      "LocalizedName": "R?quisition",
+      "DisplayOrder": 10,
+      "MaterialIconName": "assignment",
+      "IsActive": true,
+      "SystemName": "requisition"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "requisition-create",
+      "ParentMenuId": "requisition",
+      "LocalizedName": "Cr?er une r?quisition",
+      "DisplayOrder": 10,
+      "MaterialIconName": "post_add",
+      "IsActive": true,
+      "SystemName": "requisition-create"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "requisition-queue",
+      "ParentMenuId": "requisition",
+      "LocalizedName": "File des r?quisitions",
+      "DisplayOrder": 20,
+      "MaterialIconName": "pending_actions",
+      "IsActive": true,
+      "SystemName": "requisition-queue"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "requisition-history",
+      "ParentMenuId": "requisition",
+      "LocalizedName": "Historique des r?quisitions",
+      "DisplayOrder": 30,
+      "MaterialIconName": "history",
+      "IsActive": true,
+      "SystemName": "requisition-history"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "vendor-vetting",
+      "ParentMenuId": "",
+      "LocalizedName": "V?rification des fournisseurs",
+      "DisplayOrder": 20,
+      "MaterialIconName": "fact_check",
+      "IsActive": true,
+      "SystemName": "vendor-vetting"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "vendor-register",
+      "ParentMenuId": "vendor-vetting",
+      "LocalizedName": "Registre des fournisseurs",
+      "DisplayOrder": 10,
+      "MaterialIconName": "how_to_reg",
+      "IsActive": true,
+      "SystemName": "vendor-register"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "vendor-assessment",
+      "ParentMenuId": "vendor-vetting",
+      "LocalizedName": "?valuation des fournisseurs",
+      "DisplayOrder": 20,
+      "MaterialIconName": "rule",
+      "IsActive": true,
+      "SystemName": "vendor-assessment"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "contract-awards",
+      "ParentMenuId": "",
+      "LocalizedName": "Attributions de contrats",
+      "DisplayOrder": 30,
+      "MaterialIconName": "gavel",
+      "IsActive": true,
+      "SystemName": "contract-awards"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "award-list",
+      "ParentMenuId": "contract-awards",
+      "LocalizedName": "Liste des attributions",
+      "DisplayOrder": 10,
+      "MaterialIconName": "receipt_long",
+      "IsActive": true,
+      "SystemName": "award-list"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "award-amendments",
+      "ParentMenuId": "contract-awards",
+      "LocalizedName": "Avenants des attributions",
+      "DisplayOrder": 20,
+      "MaterialIconName": "edit_note",
+      "IsActive": true,
+      "SystemName": "award-amendments"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "award-status",
+      "ParentMenuId": "contract-awards",
+      "LocalizedName": "Statut des attributions",
+      "DisplayOrder": 30,
+      "MaterialIconName": "timeline",
+      "IsActive": true,
+      "SystemName": "award-status"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "logistics-tracking",
+      "ParentMenuId": "",
+      "LocalizedName": "Suivi logistique",
+      "DisplayOrder": 40,
+      "MaterialIconName": "local_shipping",
+      "IsActive": true,
+      "SystemName": "logistics-tracking"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "shipment-tracker",
+      "ParentMenuId": "logistics-tracking",
+      "LocalizedName": "Suivi des exp?ditions",
+      "DisplayOrder": 10,
+      "MaterialIconName": "route",
+      "IsActive": true,
+      "SystemName": "shipment-tracker"
+    },
+    {
+      "ModuleMenuId": "procurement",
+      "MenuId": "delivery-confirmations",
+      "ParentMenuId": "logistics-tracking",
+      "LocalizedName": "Confirmations de livraison",
+      "DisplayOrder": 20,
+      "MaterialIconName": "task_alt",
+      "IsActive": true,
+      "SystemName": "delivery-confirmations"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "issue-request",
+      "ParentMenuId": "",
+      "LocalizedName": "Demande de sortie",
+      "DisplayOrder": 10,
+      "MaterialIconName": "outbox",
+      "IsActive": true,
+      "SystemName": "issue-request"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "issue-create",
+      "ParentMenuId": "issue-request",
+      "LocalizedName": "Cr?er une sortie",
+      "DisplayOrder": 10,
+      "MaterialIconName": "add_box",
+      "IsActive": true,
+      "SystemName": "issue-create"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "issue-approval",
+      "ParentMenuId": "issue-request",
+      "LocalizedName": "Approbation de sortie",
+      "DisplayOrder": 20,
+      "MaterialIconName": "fact_check",
+      "IsActive": true,
+      "SystemName": "issue-approval"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "issue-history",
+      "ParentMenuId": "issue-request",
+      "LocalizedName": "Historique des sorties",
+      "DisplayOrder": 30,
+      "MaterialIconName": "history",
+      "IsActive": true,
+      "SystemName": "issue-history"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "receipt-confirmation",
+      "ParentMenuId": "",
+      "LocalizedName": "Confirmation de r?ception",
+      "DisplayOrder": 20,
+      "MaterialIconName": "inbox",
+      "IsActive": true,
+      "SystemName": "receipt-confirmation"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "receipt-scan",
+      "ParentMenuId": "receipt-confirmation",
+      "LocalizedName": "Num?risation de r?ception",
+      "DisplayOrder": 10,
+      "MaterialIconName": "qr_code_scanner",
+      "IsActive": true,
+      "SystemName": "receipt-scan"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "receipt-discrepancies",
+      "ParentMenuId": "receipt-confirmation",
+      "LocalizedName": "?carts de r?ception",
+      "DisplayOrder": 20,
+      "MaterialIconName": "report",
+      "IsActive": true,
+      "SystemName": "receipt-discrepancies"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "transfer-ledger",
+      "ParentMenuId": "",
+      "LocalizedName": "Registre des transferts",
+      "DisplayOrder": 30,
+      "MaterialIconName": "receipt_long",
+      "IsActive": true,
+      "SystemName": "transfer-ledger"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "unit-transfer",
+      "ParentMenuId": "transfer-ledger",
+      "LocalizedName": "Transfert d?unit?",
+      "DisplayOrder": 10,
+      "MaterialIconName": "sync_alt",
+      "IsActive": true,
+      "SystemName": "unit-transfer"
+    },
+    {
+      "ModuleMenuId": "issue-receipt",
+      "MenuId": "transfer-audit",
+      "ParentMenuId": "transfer-ledger",
+      "LocalizedName": "Audit des transferts",
+      "DisplayOrder": 20,
+      "MaterialIconName": "verified_user",
+      "IsActive": true,
+      "SystemName": "transfer-audit"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "convoy-routing",
+      "ParentMenuId": "",
+      "LocalizedName": "Itin?raire de convoi",
+      "DisplayOrder": 10,
+      "MaterialIconName": "alt_route",
+      "IsActive": true,
+      "SystemName": "convoy-routing"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "route-plan",
+      "ParentMenuId": "convoy-routing",
+      "LocalizedName": "Plan de route",
+      "DisplayOrder": 10,
+      "MaterialIconName": "map",
+      "IsActive": true,
+      "SystemName": "route-plan"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "checkpoint-map",
+      "ParentMenuId": "convoy-routing",
+      "LocalizedName": "Carte des points de contr?le",
+      "DisplayOrder": 20,
+      "MaterialIconName": "place",
+      "IsActive": true,
+      "SystemName": "checkpoint-map"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "route-brief",
+      "ParentMenuId": "convoy-routing",
+      "LocalizedName": "Brief de route",
+      "DisplayOrder": 30,
+      "MaterialIconName": "assignment",
+      "IsActive": true,
+      "SystemName": "route-brief"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "gate-control",
+      "ParentMenuId": "",
+      "LocalizedName": "Contr?le des acc?s",
+      "DisplayOrder": 20,
+      "MaterialIconName": "security",
+      "IsActive": true,
+      "SystemName": "gate-control"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "access-log",
+      "ParentMenuId": "gate-control",
+      "LocalizedName": "Journal d?acc?s",
+      "DisplayOrder": 10,
+      "MaterialIconName": "book",
+      "IsActive": true,
+      "SystemName": "access-log"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "badge-management",
+      "ParentMenuId": "gate-control",
+      "LocalizedName": "Gestion des badges",
+      "DisplayOrder": 20,
+      "MaterialIconName": "badge",
+      "IsActive": true,
+      "SystemName": "badge-management"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "visitor-screening",
+      "ParentMenuId": "gate-control",
+      "LocalizedName": "Contr?le des visiteurs",
+      "DisplayOrder": 30,
+      "MaterialIconName": "person_search",
+      "IsActive": true,
+      "SystemName": "visitor-screening"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "incident-reports",
+      "ParentMenuId": "",
+      "LocalizedName": "Rapports d?incident",
+      "DisplayOrder": 30,
+      "MaterialIconName": "report",
+      "IsActive": true,
+      "SystemName": "incident-reports"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "submit-report",
+      "ParentMenuId": "incident-reports",
+      "LocalizedName": "Soumettre un rapport",
+      "DisplayOrder": 10,
+      "MaterialIconName": "create",
+      "IsActive": true,
+      "SystemName": "submit-report"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "triage-queue",
+      "ParentMenuId": "incident-reports",
+      "LocalizedName": "File de triage",
+      "DisplayOrder": 20,
+      "MaterialIconName": "queue",
+      "IsActive": true,
+      "SystemName": "triage-queue"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "closed-incidents",
+      "ParentMenuId": "incident-reports",
+      "LocalizedName": "Incidents cl?tur?s",
+      "DisplayOrder": 30,
+      "MaterialIconName": "archive",
+      "IsActive": true,
+      "SystemName": "closed-incidents"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "threat-advisory",
+      "ParentMenuId": "",
+      "LocalizedName": "Avis de menace",
+      "DisplayOrder": 40,
+      "MaterialIconName": "warning",
+      "IsActive": true,
+      "SystemName": "threat-advisory"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "watchlist",
+      "ParentMenuId": "threat-advisory",
+      "LocalizedName": "Liste de surveillance",
+      "DisplayOrder": 10,
+      "MaterialIconName": "visibility",
+      "IsActive": true,
+      "SystemName": "watchlist"
+    },
+    {
+      "ModuleMenuId": "traffic-security",
+      "MenuId": "escalation-notices",
+      "ParentMenuId": "threat-advisory",
+      "LocalizedName": "Notifications d?escalade",
+      "DisplayOrder": 20,
+      "MaterialIconName": "priority_high",
+      "IsActive": true,
+      "SystemName": "escalation-notices"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "store-management",
+      "ParentMenuId": "",
+      "LocalizedName": "Gestion du magasin",
+      "DisplayOrder": 10,
+      "MaterialIconName": "inventory_2",
+      "IsActive": true,
+      "SystemName": "store-management"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "stock-levels",
+      "ParentMenuId": "store-management",
+      "LocalizedName": "Niveaux de stock",
+      "DisplayOrder": 10,
+      "MaterialIconName": "stacked_bar_chart",
+      "IsActive": true,
+      "SystemName": "stock-levels"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "reorder-alerts",
+      "ParentMenuId": "store-management",
+      "LocalizedName": "Alertes de r?approvisionnement",
+      "DisplayOrder": 20,
+      "MaterialIconName": "notification_important",
+      "IsActive": true,
+      "SystemName": "reorder-alerts"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "asset-cards",
+      "ParentMenuId": "store-management",
+      "LocalizedName": "Fiches d?actifs",
+      "DisplayOrder": 30,
+      "MaterialIconName": "badge",
+      "IsActive": true,
+      "SystemName": "asset-cards"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "repair-maintenance",
+      "ParentMenuId": "",
+      "LocalizedName": "R?paration et maintenance",
+      "DisplayOrder": 20,
+      "MaterialIconName": "build",
+      "IsActive": true,
+      "SystemName": "repair-maintenance"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "work-orders",
+      "ParentMenuId": "repair-maintenance",
+      "LocalizedName": "Ordres de travail",
+      "DisplayOrder": 10,
+      "MaterialIconName": "handyman",
+      "IsActive": true,
+      "SystemName": "work-orders"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "maintenance-schedule",
+      "ParentMenuId": "repair-maintenance",
+      "LocalizedName": "Calendrier de maintenance",
+      "DisplayOrder": 20,
+      "MaterialIconName": "calendar_month",
+      "IsActive": true,
+      "SystemName": "maintenance-schedule"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "parts-usage",
+      "ParentMenuId": "repair-maintenance",
+      "LocalizedName": "Utilisation des pi?ces",
+      "DisplayOrder": 30,
+      "MaterialIconName": "precision_manufacturing",
+      "IsActive": true,
+      "SystemName": "parts-usage"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "salvage",
+      "ParentMenuId": "",
+      "LocalizedName": "R?cup?ration",
+      "DisplayOrder": 30,
+      "MaterialIconName": "recycling",
+      "IsActive": true,
+      "SystemName": "salvage"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "recovery-cases",
+      "ParentMenuId": "salvage",
+      "LocalizedName": "Dossiers de r?cup?ration",
+      "DisplayOrder": 10,
+      "MaterialIconName": "inventory",
+      "IsActive": true,
+      "SystemName": "recovery-cases"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "disposal-records",
+      "ParentMenuId": "salvage",
+      "LocalizedName": "Registres d??limination",
+      "DisplayOrder": 20,
+      "MaterialIconName": "delete_forever",
+      "IsActive": true,
+      "SystemName": "disposal-records"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "budget-planning",
+      "ParentMenuId": "",
+      "LocalizedName": "Budget et planification",
+      "DisplayOrder": 40,
+      "MaterialIconName": "account_balance_wallet",
+      "IsActive": true,
+      "SystemName": "budget-planning"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "allocations",
+      "ParentMenuId": "budget-planning",
+      "LocalizedName": "Affectations",
+      "DisplayOrder": 10,
+      "MaterialIconName": "payments",
+      "IsActive": true,
+      "SystemName": "allocations"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "spend-forecast",
+      "ParentMenuId": "budget-planning",
+      "LocalizedName": "Pr?vision des d?penses",
+      "DisplayOrder": 20,
+      "MaterialIconName": "trending_up",
+      "IsActive": true,
+      "SystemName": "spend-forecast"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "budget-vs-actual",
+      "ParentMenuId": "budget-planning",
+      "LocalizedName": "Budget vs r?el",
+      "DisplayOrder": 30,
+      "MaterialIconName": "compare_arrows",
+      "IsActive": true,
+      "SystemName": "budget-vs-actual"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "inspectorate",
+      "ParentMenuId": "",
+      "LocalizedName": "Inspection",
+      "DisplayOrder": 50,
+      "MaterialIconName": "manage_search",
+      "IsActive": true,
+      "SystemName": "inspectorate"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "audits",
+      "ParentMenuId": "inspectorate",
+      "LocalizedName": "Audits",
+      "DisplayOrder": 10,
+      "MaterialIconName": "search_check",
+      "IsActive": true,
+      "SystemName": "audits"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "findings",
+      "ParentMenuId": "inspectorate",
+      "LocalizedName": "Constats",
+      "DisplayOrder": 20,
+      "MaterialIconName": "rule_folder",
+      "IsActive": true,
+      "SystemName": "findings"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "corrective-actions",
+      "ParentMenuId": "inspectorate",
+      "LocalizedName": "Actions correctives",
+      "DisplayOrder": 30,
+      "MaterialIconName": "fact_check",
+      "IsActive": true,
+      "SystemName": "corrective-actions"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "administration",
+      "ParentMenuId": "",
+      "LocalizedName": "Administration",
+      "DisplayOrder": 60,
+      "MaterialIconName": "admin_panel_settings",
+      "IsActive": true,
+      "SystemName": "administration"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "departments",
+      "ParentMenuId": "administration",
+      "LocalizedName": "D?partements",
+      "DisplayOrder": 10,
+      "MaterialIconName": "corporate_fare",
+      "IsActive": true,
+      "SystemName": "departments"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "roles",
+      "ParentMenuId": "administration",
+      "LocalizedName": "R?les",
+      "DisplayOrder": 20,
+      "MaterialIconName": "admin_panel_settings",
+      "IsActive": true,
+      "SystemName": "roles"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "users",
+      "ParentMenuId": "administration",
+      "LocalizedName": "Utilisateurs",
+      "DisplayOrder": 30,
+      "MaterialIconName": "groups",
+      "IsActive": true,
+      "SystemName": "users"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "communication",
+      "ParentMenuId": "",
+      "LocalizedName": "Communication",
+      "DisplayOrder": 70,
+      "MaterialIconName": "chat",
+      "IsActive": true,
+      "SystemName": "communication"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "channels",
+      "ParentMenuId": "communication",
+      "LocalizedName": "Canaux",
+      "DisplayOrder": 10,
+      "MaterialIconName": "forum",
+      "IsActive": true,
+      "SystemName": "channels"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "announcements",
+      "ParentMenuId": "communication",
+      "LocalizedName": "Annonces",
+      "DisplayOrder": 20,
+      "MaterialIconName": "campaign",
+      "IsActive": true,
+      "SystemName": "announcements"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "messages",
+      "ParentMenuId": "communication",
+      "LocalizedName": "Messages",
+      "DisplayOrder": 30,
+      "MaterialIconName": "message",
+      "IsActive": true,
+      "SystemName": "messages"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "dms",
+      "ParentMenuId": "",
+      "LocalizedName": "GED",
+      "DisplayOrder": 80,
+      "MaterialIconName": "description",
+      "IsActive": true,
+      "SystemName": "dms"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "documents",
+      "ParentMenuId": "dms",
+      "LocalizedName": "Documents",
+      "DisplayOrder": 10,
+      "MaterialIconName": "description",
+      "IsActive": true,
+      "SystemName": "documents"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "folders",
+      "ParentMenuId": "dms",
+      "LocalizedName": "Dossiers",
+      "DisplayOrder": 20,
+      "MaterialIconName": "folder",
+      "IsActive": true,
+      "SystemName": "folders"
+    },
+    {
+      "ModuleMenuId": "others",
+      "MenuId": "versions",
+      "ParentMenuId": "dms",
+      "LocalizedName": "Versions",
+      "DisplayOrder": 30,
+      "MaterialIconName": "history",
+      "IsActive": true,
+      "SystemName": "versions"
+    }
+  ]
+}
