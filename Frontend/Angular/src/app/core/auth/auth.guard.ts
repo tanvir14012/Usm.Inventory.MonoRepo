@@ -9,8 +9,7 @@ export const authGuard: CanActivateFn = () => {
   if (auth.isAuthenticated()) {
     return true;
   }
-  auth.login();
-  return false;
+  return router.createUrlTree(['/login']);
 };
 
 export const authGuardChild: CanActivateChildFn = () => authGuard(null as never, null as never);
@@ -27,8 +26,7 @@ export function permissionGuard(permission: string | string[]): CanActivateFn {
     const router = inject(Router);
 
     if (!auth.isAuthenticated()) {
-      auth.login();
-      return false;
+      return router.createUrlTree(['/login']);
     }
 
     const permissions = Array.isArray(permission) ? permission : [permission];

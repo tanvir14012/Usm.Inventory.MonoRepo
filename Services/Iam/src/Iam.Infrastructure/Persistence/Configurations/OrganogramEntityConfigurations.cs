@@ -1,4 +1,5 @@
 using Iam.Domain.Organograms;
+using Iam.Domain.Navigation;
 using Iam.Domain.Permissions;
 using Iam.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,41 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
         builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
         builder.Property(x => x.Resource).HasMaxLength(256).IsRequired();
         builder.Property(x => x.Action).HasMaxLength(128).IsRequired();
+    }
+
+    internal sealed class ModuleNavigationConfiguration : IEntityTypeConfiguration<ModuleNavigation>
+    {
+        public void Configure(EntityTypeBuilder<ModuleNavigation> builder)
+        {
+            builder.ToTable("module_navigations");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.BuildingBlockType).HasConversion<int>().IsRequired();
+            builder.Property(x => x.SystemName).HasMaxLength(120).IsRequired();
+            builder.Property(x => x.MenuId).HasMaxLength(120).IsRequired();
+            builder.Property(x => x.LocalizedName).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.DisplayOrder).IsRequired();
+            builder.Property(x => x.MaterialIconName).HasMaxLength(80).IsRequired();
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.HasIndex(x => new { x.BuildingBlockType, x.MenuId }).IsUnique();
+            builder.HasMany(x => x.SidebarItems).WithOne().HasForeignKey(x => x.ModuleNavigationId).OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+
+    internal sealed class SidebarMenuItemConfiguration : IEntityTypeConfiguration<SidebarMenuItem>
+    {
+        public void Configure(EntityTypeBuilder<SidebarMenuItem> builder)
+        {
+            builder.ToTable("sidebar_menu_items");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.SystemName).HasMaxLength(120).IsRequired();
+            builder.Property(x => x.MenuId).HasMaxLength(120).IsRequired();
+            builder.Property(x => x.LocalizedName).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.DisplayOrder).IsRequired();
+            builder.Property(x => x.MaterialIconName).HasMaxLength(80).IsRequired();
+            builder.Property(x => x.IsActive).IsRequired();
+            builder.HasIndex(x => new { x.ModuleNavigationId, x.MenuId }).IsUnique();
+            builder.HasIndex(x => x.ParentSidebarMenuItemId);
+        }
     }
 }
 

@@ -95,6 +95,7 @@
     "roles": "Roles",
     "users": "Users",
     "identity": "Identity",
+    "moduleNavigation": "Module Navigation",
     "procurement": "Procurement",
     "storeHouse": "Store House",
     "issueReceipt": "Issue & Receipt",
@@ -113,6 +114,26 @@
         "code": "Code",
         "parentId": "Parent Department",
         "isActive": "Active"
+      }
+    },
+    "moduleNavigation": {
+      "title": "Military Module Navigation",
+      "topNavHint": "Top navigation menus for the selected building block",
+      "editorTitle": "Add or Update Module",
+      "sidebarPreviewTitle": "Sidebar Preview",
+      "actions": {
+        "importDefault": "Import US Military Template",
+        "export": "Export JSON"
+      },
+      "fields": {
+        "buildingBlock": "Building Block",
+        "systemName": "System Name",
+        "menuId": "Menu Id",
+        "localizedName": "Localized Name",
+        "displayOrder": "Display Order",
+        "materialIconName": "Material Icon Name",
+        "isActive": "Is Active",
+        "sidebarItemsJson": "Sidebar Items (JSON, 2-Level Hierarchy)"
       }
     }
   },

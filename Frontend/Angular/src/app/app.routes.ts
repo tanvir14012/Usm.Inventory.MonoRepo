@@ -4,6 +4,10 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 
 export const routes: Routes = [
   {
+    path: 'login',
+    loadComponent: () => import('./features/auth/login.component').then(m => m.LoginComponent),
+  },
+  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [authGuard],
