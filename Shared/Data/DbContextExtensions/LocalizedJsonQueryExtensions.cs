@@ -6,6 +6,19 @@ namespace Usm.Shared.Data.DbContextExtensions;
 
 public static class LocalizationHeaderExtensions
 {
+    private static readonly ISet<string> SupportedLanguages = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "en",
+        "zh",
+        "hi",
+        "es",
+        "fr",
+        "ar",
+        "bn",
+        "pt",
+        "ru"
+    };
+
     public static string ResolveLanguageFromContentType(string? contentTypeHeader)
     {
         if (string.IsNullOrWhiteSpace(contentTypeHeader))
@@ -48,7 +61,14 @@ public static class LocalizationHeaderExtensions
 
         return language switch
         {
+            "zh" => current with { Zh = normalizedValue },
+            "hi" => current with { Hi = normalizedValue },
+            "es" => current with { Es = normalizedValue },
             "fr" => current with { Fr = normalizedValue },
+            "ar" => current with { Ar = normalizedValue },
+            "bn" => current with { Bn = normalizedValue },
+            "pt" => current with { Pt = normalizedValue },
+            "ru" => current with { Ru = normalizedValue },
             _ => current with { En = normalizedValue }
         };
     }
@@ -61,11 +81,15 @@ public static class LocalizationHeaderExtensions
         try
         {
             var culture = CultureInfo.GetCultureInfo(language);
-            return culture.TwoLetterISOLanguageName.Equals("fr", StringComparison.OrdinalIgnoreCase) ? "fr" : "en";
+            var isoCode = culture.TwoLetterISOLanguageName;
+            return SupportedLanguages.Contains(isoCode) ? isoCode : "en";
         }
         catch (CultureNotFoundException)
         {
-            return language.Trim().StartsWith("fr", StringComparison.OrdinalIgnoreCase) ? "fr" : "en";
+            var trimmed = language.Trim();
+            var matched = SupportedLanguages.FirstOrDefault(code =>
+                trimmed.StartsWith(code, StringComparison.OrdinalIgnoreCase));
+            return matched ?? "en";
         }
     }
 }
