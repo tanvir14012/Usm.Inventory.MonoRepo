@@ -8,9 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../../../core/services/notification.service';
 import { PageHeaderComponent, PageAction } from '../../../shared/components/page-header/page-header.component';
+import { TableColumn } from '../../../shared/components/data-table/data-table.model';
+import { TableExportTemplateDto } from '../../../shared/models/template-dto.model';
+import { PdfExportService } from '../../../shared/services/pdf-export.service';
 import {
   ImportModuleNavigationsInput,
   ModuleNavigationDto,
@@ -167,6 +171,8 @@ export class ModuleNavigationComponent {
   private readonly service = inject(ModuleNavigationService);
   private readonly notify = inject(NotificationService);
   private readonly fb = inject(FormBuilder);
+  private readonly pdfExport = inject(PdfExportService);
+  private readonly translate = inject(TranslateService);
 
   readonly selectedBuildingBlock = signal<number>(1);
   readonly modules = signal<ModuleNavigationDto[]>([]);
@@ -175,6 +181,23 @@ export class ModuleNavigationComponent {
   readonly selectedModule = computed(() =>
     this.modules().find(x => x.id === this.selectedModuleId()) ?? null,
   );
+
+  readonly pdfColumns: TableColumn<ModuleNavigationDto>[] = [
+    { key: 'localizedName', headerKey: 'administration.moduleNavigation.fields.localizedName' },
+    { key: 'systemName', headerKey: 'administration.moduleNavigation.fields.systemName' },
+    { key: 'menuId', headerKey: 'administration.moduleNavigation.fields.menuId' },
+    { key: 'displayOrder', headerKey: 'administration.moduleNavigation.fields.displayOrder' },
+    {
+      key: 'isActive',
+      headerKey: 'common.status',
+      pdfRender: row => this.translate.instant(row.isActive ? 'common.active' : 'common.inactive'),
+    },
+    {
+      key: 'sidebarItems',
+      headerKey: 'administration.moduleNavigation.sidebarPreviewTitle',
+      pdfRender: row => this.countSidebarItems(row.sidebarItems),
+    },
+  ];
 
   readonly buildingBlocks: BuildingBlockOption[] = [
     { value: 1, label: 'Headquarters' },
@@ -217,6 +240,12 @@ export class ModuleNavigationComponent {
       labelKey: 'administration.moduleNavigation.actions.export',
       icon: 'download',
       action: () => this.exportCurrent(),
+      color: 'accent',
+    },
+    {
+      labelKey: 'common.exportPdf',
+      icon: 'picture_as_pdf',
+      action: () => this.exportCurrentPdf(),
       color: 'accent',
     },
   ];
@@ -366,6 +395,25 @@ export class ModuleNavigationComponent {
       },
       error: () => this.notify.error('common.error'),
     });
+  }
+
+  private exportCurrentPdf(): void {
+    const rows = this.modules();
+    const selectedBlock = this.buildingBlocks.find(x => x.value === this.selectedBuildingBlock())?.label ?? '';
+    const template: TableExportTemplateDto<ModuleNavigationDto> = {
+      fileName: `module-navigation-${this.selectedBuildingBlock()}`,
+      title: this.translate.instant('administration.moduleNavigation.title'),
+      subtitle: `${this.translate.instant('administration.moduleNavigation.fields.buildingBlock')}: ${selectedBlock} | ${this.translate.instant('common.total')}: ${rows.length}`,
+      rows,
+      columns: this.pdfColumns,
+      orientation: 'landscape',
+      resolveHeader: (headerKey: string) => this.translate.instant(headerKey),
+    };
+    void this.pdfExport.exportTable(template).catch(() => this.notify.error('common.error'));
+  }
+
+  private countSidebarItems(items: SidebarMenuItemDto[]): number {
+    return items.reduce((total, item) => total + 1 + this.countSidebarItems(item.children), 0);
   }
 
   private toSidebarInputs(items: SidebarMenuItemDto[]): SidebarMenuItemInput[] {
