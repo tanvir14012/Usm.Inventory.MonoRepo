@@ -326,7 +326,14 @@ export class ModuleNavigationComponent {
         { systemName: 'procurement', menuId: 'procurement', localizedName: 'Procurement', displayOrder: 20, materialIconName: 'shopping_cart', isActive: true, sidebarItems: [] },
         { systemName: 'issue-receipt', menuId: 'issue-receipt', localizedName: 'Issue & Receipt', displayOrder: 30, materialIconName: 'inventory_2', isActive: true, sidebarItems: [] },
         { systemName: 'traffic-security', menuId: 'traffic-security', localizedName: 'Traffic & Security', displayOrder: 40, materialIconName: 'shield', isActive: true, sidebarItems: [] },
-        { systemName: 'others', menuId: 'others', localizedName: 'Others', displayOrder: 50, materialIconName: 'more_horiz', isActive: true, sidebarItems: [] },
+        { systemName: 'store-management', menuId: 'store-management', localizedName: 'Store Management', displayOrder: 50, materialIconName: 'inventory_2', isActive: true, sidebarItems: [] },
+        { systemName: 'repair-maintenance', menuId: 'repair-maintenance', localizedName: 'Repair & Maintenance', displayOrder: 60, materialIconName: 'build', isActive: true, sidebarItems: [] },
+        { systemName: 'salvage', menuId: 'salvage', localizedName: 'Salvage', displayOrder: 70, materialIconName: 'recycling', isActive: true, sidebarItems: [] },
+        { systemName: 'budget-planning', menuId: 'budget-planning', localizedName: 'Budget & Planning', displayOrder: 80, materialIconName: 'account_balance_wallet', isActive: true, sidebarItems: [] },
+        { systemName: 'inspectorate', menuId: 'inspectorate', localizedName: 'Inspectorate', displayOrder: 90, materialIconName: 'manage_search', isActive: true, sidebarItems: [] },
+        { systemName: 'administration', menuId: 'administration', localizedName: 'Administration', displayOrder: 100, materialIconName: 'admin_panel_settings', isActive: true, sidebarItems: [] },
+        { systemName: 'communication', menuId: 'communication', localizedName: 'Communication', displayOrder: 110, materialIconName: 'chat', isActive: true, sidebarItems: [] },
+        { systemName: 'dms', menuId: 'dms', localizedName: 'DMS', displayOrder: 120, materialIconName: 'description', isActive: true, sidebarItems: [] },
       ],
     };
 

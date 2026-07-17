@@ -31,16 +31,52 @@ internal static class UsMilitaryNavigationDefaults
                 new SidebarSeedItem("incident-reports", "incident-reports", "Incident Reports", 30, "report", true),
                 new SidebarSeedItem("threat-advisory", "threat-advisory", "Threat Advisory", 40, "warning", true)
             ],
-            ["others"] =
+            ["store-management"] =
             [
-                new SidebarSeedItem("store-management", "store-management", "Store Management", 10, "inventory_2", true),
-                new SidebarSeedItem("repair-maintenance", "repair-maintenance", "Repair & Maintenance", 20, "build", true),
-                new SidebarSeedItem("salvage", "salvage", "Salvage", 30, "recycling", true),
-                new SidebarSeedItem("budget-planning", "budget-planning", "Budget & Planning", 40, "account_balance_wallet", true),
-                new SidebarSeedItem("inspectorate", "inspectorate", "Inspectorate", 50, "manage_search", true),
-                new SidebarSeedItem("administration", "administration", "Administration", 60, "admin_panel_settings", true),
-                new SidebarSeedItem("communication", "communication", "Communication", 70, "chat", true),
-                new SidebarSeedItem("dms", "dms", "DMS", 80, "description", true)
+                new SidebarSeedItem("stock-levels", "stock-levels", "Stock Levels", 10, "stacked_bar_chart", true),
+                new SidebarSeedItem("reorder-alerts", "reorder-alerts", "Reorder Alerts", 20, "notification_important", true),
+                new SidebarSeedItem("asset-cards", "asset-cards", "Asset Cards", 30, "badge", true)
+            ],
+            ["repair-maintenance"] =
+            [
+                new SidebarSeedItem("work-orders", "work-orders", "Work Orders", 10, "handyman", true),
+                new SidebarSeedItem("maintenance-schedule", "maintenance-schedule", "Maintenance Schedule", 20, "calendar_month", true),
+                new SidebarSeedItem("parts-usage", "parts-usage", "Parts Usage", 30, "precision_manufacturing", true)
+            ],
+            ["salvage"] =
+            [
+                new SidebarSeedItem("recovery-cases", "recovery-cases", "Recovery Cases", 10, "inventory", true),
+                new SidebarSeedItem("disposal-records", "disposal-records", "Disposal Records", 20, "delete_forever", true)
+            ],
+            ["budget-planning"] =
+            [
+                new SidebarSeedItem("allocations", "allocations", "Allocations", 10, "payments", true),
+                new SidebarSeedItem("spend-forecast", "spend-forecast", "Spend Forecast", 20, "trending_up", true),
+                new SidebarSeedItem("budget-vs-actual", "budget-vs-actual", "Budget vs Actual", 30, "compare_arrows", true)
+            ],
+            ["inspectorate"] =
+            [
+                new SidebarSeedItem("audits", "audits", "Audits", 10, "search_check", true),
+                new SidebarSeedItem("findings", "findings", "Findings", 20, "rule_folder", true),
+                new SidebarSeedItem("corrective-actions", "corrective-actions", "Corrective Actions", 30, "fact_check", true)
+            ],
+            ["administration"] =
+            [
+                new SidebarSeedItem("departments", "departments", "Departments", 10, "corporate_fare", true),
+                new SidebarSeedItem("roles", "roles", "Roles", 20, "admin_panel_settings", true),
+                new SidebarSeedItem("users", "users", "Users", 30, "groups", true)
+            ],
+            ["communication"] =
+            [
+                new SidebarSeedItem("channels", "channels", "Channels", 10, "forum", true),
+                new SidebarSeedItem("announcements", "announcements", "Announcements", 20, "campaign", true),
+                new SidebarSeedItem("messages", "messages", "Messages", 30, "message", true)
+            ],
+            ["dms"] =
+            [
+                new SidebarSeedItem("documents", "documents", "Documents", 10, "description", true),
+                new SidebarSeedItem("folders", "folders", "Folders", 20, "folder", true),
+                new SidebarSeedItem("versions", "versions", "Versions", 30, "history", true)
             ]
         };
 
