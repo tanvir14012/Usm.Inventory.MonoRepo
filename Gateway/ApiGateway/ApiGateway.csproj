@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ServiceDefaults\Usm.Inventory.MonoRepo.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\Shared\BuildingBlocks\Bootstrap\Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
   </ItemGroup>
 </Project>

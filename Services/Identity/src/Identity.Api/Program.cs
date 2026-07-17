@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args)
     .AddDefaultBootstrap();
 
 builder.Services.AddIdentityApplication();
-builder.Services.AddIdentityInfrastructure(builder.Configuration);
+builder.Services.AddIdentityInfrastructure(builder.Configuration, builder.Environment);
 builder.Services.AddObservability(builder.Configuration, "Identity.Api");
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
