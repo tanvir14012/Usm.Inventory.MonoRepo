@@ -1,4 +1,4 @@
-using Inspectorate.Application;
+﻿using Inspectorate.Application;
 using Inspectorate.Infrastructure;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 using Usm.Shared.BuildingBlocks.Observability;
@@ -11,7 +11,7 @@ builder.Services.AddInspectorateInfrastructure(builder.Configuration);
 builder.Services.AddObservability(builder.Configuration, "Inspectorate.Api");
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
-        ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass");
+        ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_admin_dev");
 
 var app = builder.Build()
     .UseDefaultMiddleware();
