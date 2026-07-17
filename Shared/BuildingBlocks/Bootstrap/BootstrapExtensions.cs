@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -16,6 +17,7 @@ public static class BootstrapExtensions
     public static WebApplicationBuilder AddDefaultBootstrap(this WebApplicationBuilder builder)
     {
         builder.Configuration.AddDotEnvFile(builder.Environment.ContentRootPath);
+        NormalizePostgresConnectionString(builder.Configuration);
 
         var loggerConfiguration = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
@@ -65,6 +67,36 @@ public static class BootstrapExtensions
 
         return builder;
     }
+
+    private static void NormalizePostgresConnectionString(ConfigurationManager configuration)
+    {
+        var postgresConnectionString = configuration.GetConnectionString("Postgres");
+        var usmDbConnectionString = configuration.GetConnectionString("usmdb");
+        var postgresConnectionStringFromEnv = configuration["POSTGRES_CONNECTION_STRING"];
+
+        if ((string.IsNullOrWhiteSpace(postgresConnectionString) || IsMaskedPlaceholder(postgresConnectionString))
+            && !string.IsNullOrWhiteSpace(postgresConnectionStringFromEnv))
+        {
+            configuration["ConnectionStrings:Postgres"] = postgresConnectionStringFromEnv;
+            postgresConnectionString = postgresConnectionStringFromEnv;
+        }
+
+        if ((string.IsNullOrWhiteSpace(postgresConnectionString) || IsMaskedPlaceholder(postgresConnectionString))
+            && !string.IsNullOrWhiteSpace(usmDbConnectionString))
+        {
+            configuration["ConnectionStrings:Postgres"] = usmDbConnectionString;
+            postgresConnectionString = usmDbConnectionString;
+        }
+
+        if ((string.IsNullOrWhiteSpace(usmDbConnectionString) || IsMaskedPlaceholder(usmDbConnectionString))
+            && !string.IsNullOrWhiteSpace(postgresConnectionString))
+        {
+            configuration["ConnectionStrings:usmdb"] = postgresConnectionString;
+        }
+    }
+
+    private static bool IsMaskedPlaceholder(string value)
+        => value.Contains("******", StringComparison.Ordinal);
 
     public static WebApplication UseDefaultMiddleware(this WebApplication app)
     {
