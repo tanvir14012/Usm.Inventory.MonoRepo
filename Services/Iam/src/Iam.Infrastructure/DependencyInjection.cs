@@ -1,10 +1,14 @@
 using Iam.Infrastructure.Persistence;
+using Iam.Infrastructure.Authorization;
+using Iam.Application.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using Usm.Shared.Utils.Excel.Reader.Extensions;
 
 namespace Iam.Infrastructure;
 
@@ -18,6 +22,10 @@ public static class DependencyInjection
             ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass";
 
         services.AddServiceDbContext<IamDbContext>(connectionString, "iam");
+        services.AddScoped<IIamDbContext>(sp => sp.GetRequiredService<IamDbContext>());
+        services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+        services.AddExcelReader();
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IamDbContext>();
