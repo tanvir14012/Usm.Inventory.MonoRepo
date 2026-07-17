@@ -4,14 +4,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using Usm.Shared.Caching.Abstractions;
+using Usm.Shared.Caching.Models;
 
 namespace Iam.Infrastructure.Authorization;
 
 public sealed record PermissionRequirement(string PermissionCode) : IAuthorizationRequirement;
 
-public sealed class PermissionAuthorizationHandler(IamDbContext dbContext)
+public sealed class PermissionAuthorizationHandler(
+    IamDbContext dbContext,
+    ICacheService cacheService)
     : AuthorizationHandler<PermissionRequirement>
 {
+    private static readonly CacheEntryOptions PermissionSnapshotCacheOptions = new()
+    {
+        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+        SlidingExpiration = TimeSpan.FromMinutes(1)
+    };
+
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
         PermissionRequirement requirement)
@@ -28,8 +38,13 @@ public sealed class PermissionAuthorizationHandler(IamDbContext dbContext)
             return;
         }
 
-        var isSuperAdmin = await dbContext.SuperAdminAssignments.AnyAsync(x => x.UserId == userId.Value);
-        if (isSuperAdmin)
+        var instanceId = TryGetInstanceId(context.User);
+        var snapshot = await cacheService.GetOrCreateAsync(
+            PermissionCacheKeys.Snapshot(userId.Value, instanceId),
+            token => LoadSnapshotAsync(dbContext, userId.Value, instanceId, token),
+            PermissionSnapshotCacheOptions);
+
+        if (snapshot.IsSuperAdmin)
         {
             context.Succeed(requirement);
             return;
@@ -41,19 +56,7 @@ public sealed class PermissionAuthorizationHandler(IamDbContext dbContext)
             return;
         }
 
-        var instanceId = TryGetInstanceId(context.User);
-
-        var hasPermission = await dbContext.UserOrganogramAssignments
-            .Where(x => x.UserId == userId.Value && x.IsActive)
-            .Where(x => !instanceId.HasValue || x.InstanceId == instanceId.Value)
-            .Join(
-                dbContext.InstanceRolePermissions,
-                assignment => new { assignment.InstanceId, assignment.RoleCode },
-                rolePermission => new { rolePermission.InstanceId, rolePermission.RoleCode },
-                (assignment, rolePermission) => rolePermission)
-            .AnyAsync(x => x.PermissionCode == requirement.PermissionCode);
-
-        if (hasPermission)
+        if (snapshot.HasPermission(requirement.PermissionCode))
         {
             context.Succeed(requirement);
         }
@@ -84,6 +87,58 @@ public sealed class PermissionAuthorizationHandler(IamDbContext dbContext)
     {
         var raw = principal.FindFirstValue("instance_id");
         return Guid.TryParse(raw, out var instanceId) ? instanceId : null;
+    }
+
+    private static async Task<PermissionSnapshot> LoadSnapshotAsync(
+        IamDbContext dbContext,
+        Guid userId,
+        Guid? instanceId,
+        CancellationToken cancellationToken)
+    {
+        var isSuperAdmin = await dbContext.SuperAdminAssignments
+            .AnyAsync(x => x.UserId == userId, cancellationToken);
+
+        if (isSuperAdmin)
+        {
+            return PermissionSnapshot.SuperAdmin;
+        }
+
+        var permissions = await dbContext.UserOrganogramAssignments
+            .AsNoTracking()
+            .Where(x => x.UserId == userId && x.IsActive)
+            .Where(x => !instanceId.HasValue || x.InstanceId == instanceId.Value)
+            .Join(
+                dbContext.InstanceRolePermissions.AsNoTracking(),
+                assignment => new { assignment.InstanceId, assignment.RoleCode },
+                rolePermission => new { rolePermission.InstanceId, rolePermission.RoleCode },
+                (_, rolePermission) => rolePermission.PermissionCode)
+            .Distinct()
+            .ToListAsync(cancellationToken);
+
+        return PermissionSnapshot.FromPermissions(permissions);
+    }
+
+    private sealed class PermissionSnapshot
+    {
+        public static PermissionSnapshot SuperAdmin { get; } = new() { IsSuperAdmin = true };
+
+        public bool IsSuperAdmin { get; init; }
+        public IReadOnlyList<string> Permissions { get; init; } = Array.Empty<string>();
+
+        public static PermissionSnapshot FromPermissions(IEnumerable<string> permissions)
+        {
+            return new PermissionSnapshot
+            {
+                Permissions = permissions
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToArray()
+            };
+        }
+
+        public bool HasPermission(string permissionCode)
+        {
+            return Permissions.Contains(permissionCode, StringComparer.OrdinalIgnoreCase);
+        }
     }
 }
 
