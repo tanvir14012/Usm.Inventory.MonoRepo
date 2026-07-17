@@ -119,6 +119,8 @@ The platform integrates OpenTelemetry + Grafana/Loki/Prometheus/Jaeger in local 
 
 Kubernetes manifests live under `Platform/Kubernetes/` and include namespace, observability stack, and workloads.
 
+For full Azure deployment runbook (frontend, backend microservices, gateway, telemetry, ingress, and rollout sequence), see [Azure Cloud Deployment Guide](azure-cloud-deployment-guide.md).
+
 ## 8. Adding or evolving a service (maintenance checklist)
 
 Use this checklist when introducing a new bounded context or making major structural changes:
