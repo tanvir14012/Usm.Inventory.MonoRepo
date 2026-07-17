@@ -47,19 +47,24 @@ public abstract class ServiceDbContext(DbContextOptions options, string schema) 
 
     private void StampAuditFields()
     {
+        var actorId = AuditActorContext.ActorId;
+        var now = DateTimeOffset.UtcNow;
+
         foreach (var entry in ChangeTracker.Entries())
         {
             if (entry.Entity is IAuditable auditable)
             {
                 if (entry.State == EntityState.Added)
                 {
-                    auditable.CreatedAt = DateTimeOffset.UtcNow;
-                    auditable.CreatedBy = Guid.NewGuid(); // Replace with actual user ID if available
+                    auditable.CreatedAt = now;
+                    if (actorId.HasValue)
+                        auditable.CreatedBy = actorId.Value;
                 }
                 else if (entry.State == EntityState.Modified)
                 {
-                    auditable.UpdatedAt = DateTimeOffset.UtcNow;
-                    auditable.UpdatedBy = Guid.NewGuid(); // Replace with actual user ID if available
+                    auditable.UpdatedAt = now;
+                    if (actorId.HasValue)
+                        auditable.UpdatedBy = actorId.Value;
                 }
             }
         }
@@ -73,6 +78,35 @@ public interface IAuditable
 
     Guid? CreatedBy { get; set; }
     Guid? UpdatedBy { get; set; }
+}
+
+public static class AuditActorContext
+{
+    private static readonly AsyncLocal<Guid?> CurrentActorId = new();
+
+    public static Guid? ActorId => CurrentActorId.Value;
+
+    public static IDisposable Use(Guid? actorId)
+    {
+        var previous = CurrentActorId.Value;
+        CurrentActorId.Value = actorId;
+        return new RestoreScope(() => CurrentActorId.Value = previous);
+    }
+
+    private sealed class RestoreScope(Action restore) : IDisposable
+    {
+        private readonly Action _restore = restore;
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            if (_disposed)
+                return;
+
+            _restore();
+            _disposed = true;
+        }
+    }
 }
 
 public static class DbContextServiceExtensions

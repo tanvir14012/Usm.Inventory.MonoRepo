@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Serilog.AspNetCore" />
     <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.Grafana.Loki" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
   </ItemGroup>
@@ -20,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Caching\Usm.Shared.Caching.csproj" />
     <ProjectReference Include="..\..\Http\ResponseCaching\Usm.Shared.Http.ResponseCaching.csproj" />
+    <ProjectReference Include="..\..\Data\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
   </ItemGroup>
 
 </Project>

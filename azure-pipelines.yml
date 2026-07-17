@@ -1,0 +1,142 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - master
+
+variables:
+  buildConfiguration: Release
+  dotnetSdkVersion: 10.0.x
+  imageTag: $(Build.BuildId)
+  acrServiceConnection: usm-acr-connection
+  aksServiceConnection: usm-aks-connection
+  acrLoginServer: usmregistry.azurecr.io
+  kubernetesNamespace: usm-platform
+
+stages:
+  - stage: BuildAndTest
+    displayName: Build and test
+    jobs:
+      - job: DotNet
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UseDotNet@2
+            displayName: Use .NET SDK
+            inputs:
+              packageType: sdk
+              version: $(dotnetSdkVersion)
+
+          - script: dotnet restore Usm.Inventory.MonoRepo.slnx
+            displayName: Restore solution
+
+          - script: dotnet build Usm.Inventory.MonoRepo.slnx --configuration $(buildConfiguration) --no-restore
+            displayName: Build solution
+
+          - script: dotnet test Usm.Inventory.MonoRepo.slnx --configuration $(buildConfiguration) --no-build --verbosity minimal
+            displayName: Run tests
+
+  - stage: BuildAndPushImages
+    displayName: Build and push container images
+    dependsOn: BuildAndTest
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - job: Containers
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Docker@2
+            displayName: Login to ACR
+            inputs:
+              command: login
+              containerRegistry: $(acrServiceConnection)
+
+          - script: |
+              set -euo pipefail
+              declare -a services=(
+                "identity-api|Services/Identity/src/Identity.Api/Dockerfile"
+                "iam-api|Services/Iam/src/Iam.Api/Dockerfile"
+                "administration-api|Services/Administration/src/Administration.Api/Dockerfile"
+                "storehouse-api|Services/StoreHouse/src/StoreHouse.Api/Dockerfile"
+                "documentshare-api|Services/DocumentShare/src/DocumentShare.Api/Dockerfile"
+                "issuereceipt-api|Services/IssueReceipt/src/IssueReceipt.Api/Dockerfile"
+                "trafficsecurity-api|Services/TrafficSecurity/src/TrafficSecurity.Api/Dockerfile"
+                "salvage-api|Services/Salvage/src/Salvage.Api/Dockerfile"
+                "repairmaintenance-api|Services/RepairMaintenance/src/RepairMaintenance.Api/Dockerfile"
+                "budgetplanning-api|Services/BudgetPlanning/src/BudgetPlanning.Api/Dockerfile"
+                "communication-api|Services/Communication/src/Communication.Api/Dockerfile"
+                "inspectorate-api|Services/Inspectorate/src/Inspectorate.Api/Dockerfile"
+                "reporting-api|Services/Reporting/src/Reporting.Api/Dockerfile"
+                "procurement-api|Services/Procurement/src/Procurement.Api/Dockerfile"
+                "api-gateway|Gateway/ApiGateway/Dockerfile"
+              )
+
+              for svc in "${services[@]}"; do
+                IFS="|" read -r image dockerfile <<< "$svc"
+                full_image="$(acrLoginServer)/${image}:$(imageTag)"
+                echo "Building ${full_image}"
+                docker build -f "$dockerfile" -t "$full_image" .
+                docker push "$full_image"
+              done
+            displayName: Build and push images
+
+  - stage: DeployToAks
+    displayName: Deploy to AKS
+    dependsOn: BuildAndPushImages
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: Deploy
+        environment: aks-production
+        pool:
+          vmImage: ubuntu-latest
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - task: PowerShell@2
+                  displayName: Inject image placeholders
+                  inputs:
+                    targetType: inline
+                    script: |
+                      $manifests = Get-ChildItem "$(Build.SourcesDirectory)/Platform/Kubernetes" -Filter *.yaml -Recurse
+                      foreach ($manifest in $manifests) {
+                          $content = Get-Content $manifest.FullName -Raw
+                          $content = $content.Replace("__ACR_LOGIN_SERVER__", "$(acrLoginServer)")
+                          $content = $content.Replace("__IMAGE_TAG__", "$(imageTag)")
+                          Set-Content -Path $manifest.FullName -Value $content -NoNewline
+                      }
+
+                - task: Kubernetes@1
+                  displayName: Apply namespace
+                  inputs:
+                    connectionType: Kubernetes Service Connection
+                    kubernetesServiceEndpoint: $(aksServiceConnection)
+                    command: apply
+                    useConfigurationFile: true
+                    configuration: Platform/Kubernetes/namespace.yaml
+
+                - task: Kubernetes@1
+                  displayName: Apply observability stack
+                  inputs:
+                    connectionType: Kubernetes Service Connection
+                    kubernetesServiceEndpoint: $(aksServiceConnection)
+                    command: apply
+                    useConfigurationFile: true
+                    namespace: $(kubernetesNamespace)
+                    configuration: Platform/Kubernetes/observability.yaml
+
+                - task: Kubernetes@1
+                  displayName: Apply workloads
+                  inputs:
+                    connectionType: Kubernetes Service Connection
+                    kubernetesServiceEndpoint: $(aksServiceConnection)
+                    command: apply
+                    useConfigurationFile: true
+                    namespace: $(kubernetesNamespace)
+                    configuration: Platform/Kubernetes/workloads.yaml

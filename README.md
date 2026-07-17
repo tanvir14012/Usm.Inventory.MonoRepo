@@ -25,3 +25,25 @@ Usm.Inventory.MonoRepo is a .NET-based US military inventory management platform
 ## Notes
 
 The repository combines service autonomy with shared platform components so teams can build inventory capabilities consistently while reusing common infrastructure and operational patterns.
+
+## Telemetry, audit logs, and observability
+
+- Services emit traces and metrics through OpenTelemetry (OTLP), including ASP.NET Core, outgoing HTTP calls, and runtime metrics.
+- Structured application and audit logs are captured through Serilog and can be shipped to Loki.
+- `docker-compose.yml` now runs a GLP observability stack plus OTEL collector:
+  - Grafana (`:3000`)
+  - Loki (`:3100`)
+  - Prometheus (`:9090`)
+  - OpenTelemetry Collector (`:4317`, `:4318`, `:8889`)
+  - Jaeger UI (`:16686`)
+
+## Azure DevOps CI/CD and Kubernetes workflow
+
+- `azure-pipelines.yml` includes:
+  - **BuildAndTest**: restore, build, test solution
+  - **BuildAndPushImages**: build/push backend and gateway images to ACR on `master`
+  - **DeployToAks**: apply Kubernetes manifests with image tag injection
+- Kubernetes manifests are in `Platform/Kubernetes/`:
+  - `namespace.yaml`
+  - `observability.yaml` (GLP + OTEL collector stack)
+  - `workloads.yaml` (identity API and gateway workloads)
