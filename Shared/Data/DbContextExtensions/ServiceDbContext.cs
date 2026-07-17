@@ -35,7 +35,7 @@ public abstract class ServiceDbContext(DbContextOptions options, string schema) 
 
             var entityBuilder = modelBuilder.Entity(entityType.ClrType);
             foreach (var property in localizedProperties)
-                entityBuilder.Property<LocalizedText>(property.Name).HasJsonbLocalization();
+                ModelBuilderExtensions.HasJsonbLocalization(entityBuilder.Property<LocalizedText>(property.Name));
         }
     }
 
