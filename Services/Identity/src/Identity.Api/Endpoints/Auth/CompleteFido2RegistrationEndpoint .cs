@@ -20,7 +20,8 @@ public sealed class CompleteFido2RegistrationEndpoint : IEndpoint
     {
         await sender.Send(
             new CompleteFido2RegistrationCommand(
-                request.AttestationResponse));
+                request.AttestationResponse,
+                request.AttestationOptionsJson));
 
         return Results.Ok();
     }

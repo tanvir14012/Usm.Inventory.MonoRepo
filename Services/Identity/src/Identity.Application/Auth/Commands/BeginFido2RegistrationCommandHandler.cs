@@ -1,8 +1,7 @@
-﻿using Fido2NetLib;
+using Fido2NetLib;
 using Fido2NetLib.Objects;
 using Identity.Domain.Users;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Buffers.Text;
 
@@ -10,8 +9,7 @@ namespace Identity.Application.Auth.Commands;
 
 public sealed class BeginFido2RegistrationCommandHandler(
     IIdentityDbContext db,
-    IFido2 fido2,
-    IHttpContextAccessor httpContextAccessor)
+    IFido2 fido2)
     : IRequestHandler<BeginFido2RegistrationCommand, string>
 {
     public async Task<string> Handle(
@@ -45,12 +43,6 @@ public sealed class BeginFido2RegistrationCommandHandler(
             AuthenticatorSelection = AuthenticatorSelection.Default,
             AttestationPreference = AttestationConveyancePreference.None
         });
-
-        httpContextAccessor.HttpContext!
-            .Session
-            .SetString(
-                "fido2.attestation",
-                options.ToJson());
 
         return options.ToJson();
     }

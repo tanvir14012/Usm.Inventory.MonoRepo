@@ -9,9 +9,9 @@ namespace Identity.Application.Auth.Commands
     public sealed class LoginPasswordCommandHandler : IRequestHandler<LoginPasswordCommand, AuthenticatedUser?>
     {
         private readonly IIdentityDbContext _db;
-        private readonly PasswordHasher<User> _passwordHasher;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public LoginPasswordCommandHandler(IIdentityDbContext db, PasswordHasher<User> passwordHasher)
+        public LoginPasswordCommandHandler(IIdentityDbContext db, IPasswordHasher<User> passwordHasher)
         {
             _db = db;
             _passwordHasher = passwordHasher;

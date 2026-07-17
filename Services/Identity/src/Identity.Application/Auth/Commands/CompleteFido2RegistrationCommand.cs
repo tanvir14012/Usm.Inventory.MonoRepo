@@ -4,5 +4,6 @@ using MediatR;
 namespace Identity.Application.Auth.Commands;
 
 public sealed record CompleteFido2RegistrationCommand(
-    AuthenticatorAttestationRawResponse AttestationResponse)
+    AuthenticatorAttestationRawResponse AttestationResponse,
+    string AttestationOptionsJson)
     : IRequest;

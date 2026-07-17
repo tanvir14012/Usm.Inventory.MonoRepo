@@ -7,7 +7,6 @@ import {
 } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
@@ -53,7 +52,6 @@ export const appConfig: ApplicationConfig = {
       ]),
     ),
     provideAnimationsAsync(),
-    provideOAuthClient(),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'en',

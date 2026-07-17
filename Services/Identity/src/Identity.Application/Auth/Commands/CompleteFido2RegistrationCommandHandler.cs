@@ -1,7 +1,6 @@
-﻿using Fido2NetLib;
+using Fido2NetLib;
 using Identity.Domain.Users;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Buffers.Text;
 using System.Text.Json;
@@ -10,19 +9,14 @@ namespace Identity.Application.Auth.Commands;
 
 public sealed class CompleteFido2RegistrationCommandHandler(
     IIdentityDbContext db,
-    IFido2 fido2,
-    IHttpContextAccessor accessor)
+    IFido2 fido2)
     : IRequestHandler<CompleteFido2RegistrationCommand>
 {
     public async Task Handle(
         CompleteFido2RegistrationCommand request,
         CancellationToken ct)
     {
-        var json = accessor.HttpContext!.Session
-            .GetString("fido2.attestation")
-            ?? throw new InvalidOperationException("Registration challenge expired.");
-
-        var options = CredentialCreateOptions.FromJson(json);
+        var options = CredentialCreateOptions.FromJson(request.AttestationOptionsJson);
 
         var credential = await fido2.MakeNewCredentialAsync(
             new MakeNewCredentialParams

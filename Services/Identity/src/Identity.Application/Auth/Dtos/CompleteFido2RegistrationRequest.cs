@@ -3,4 +3,5 @@
 namespace Identity.Application.Auth.Dtos;
 
 public sealed record CompleteFido2RegistrationRequest(
-    AuthenticatorAttestationRawResponse AttestationResponse);
+    AuthenticatorAttestationRawResponse AttestationResponse,
+    string AttestationOptionsJson);
