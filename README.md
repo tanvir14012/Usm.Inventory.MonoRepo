@@ -26,6 +26,10 @@ Usm.Inventory.MonoRepo is a .NET-based US military inventory management platform
 
 The repository combines service autonomy with shared platform components so teams can build inventory capabilities consistently while reusing common infrastructure and operational patterns.
 
+## Developer documentation
+
+- [Development Wiki](docs/development-wiki.md) - detailed developer and maintenance reference
+
 ## Telemetry, audit logs, and observability
 
 - Services emit traces and metrics through OpenTelemetry (OTLP), including ASP.NET Core, outgoing HTTP calls, and runtime metrics.
