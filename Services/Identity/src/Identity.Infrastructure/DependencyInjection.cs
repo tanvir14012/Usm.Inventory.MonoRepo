@@ -27,6 +27,7 @@ public static class DependencyInjection
             ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;******";
 
         services.AddServiceDbContext<IdentityDbContext>(connectionString, "identity");
+        services.AddScoped<IIdentityDbContext>(sp => sp.GetRequiredService<IdentityDbContext>());
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
         var certPath = configuration["OpenIddict:CertificatePath"];
