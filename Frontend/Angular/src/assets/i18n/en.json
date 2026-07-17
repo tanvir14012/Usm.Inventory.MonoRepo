@@ -96,6 +96,7 @@
     "users": "Users",
     "identity": "Identity",
     "moduleNavigation": "Module Navigation",
+    "operations": "Operations",
     "procurement": "Procurement",
     "storeHouse": "Store House",
     "issueReceipt": "Issue & Receipt",
@@ -146,6 +147,31 @@
         "description": "Description",
         "permissions": "Permissions"
       }
+    }
+  },
+  "operations": {
+    "headers": {
+      "orderNumber": "Order Number",
+      "supplier": "Supplier",
+      "amount": "Amount",
+      "expectedDate": "Expected Date",
+      "item": "Item",
+      "unit": "Unit",
+      "onHand": "On Hand",
+      "reorderLevel": "Reorder Level",
+      "reorderAlert": "Reorder Alert",
+      "transactionNumber": "Transaction Number",
+      "transactionType": "Transaction Type",
+      "counterparty": "Counterparty",
+      "quantity": "Quantity",
+      "date": "Date",
+      "description": "Description",
+      "reportedDate": "Reported Date",
+      "completedDate": "Completed Date",
+      "vehicle": "Vehicle",
+      "inspectionDate": "Inspection Date",
+      "nextInspectionDate": "Next Inspection",
+      "remarks": "Remarks"
     }
   }
 }

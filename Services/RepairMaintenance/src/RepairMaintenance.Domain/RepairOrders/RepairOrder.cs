@@ -40,8 +40,9 @@ public sealed class RepairOrder : AggregateRoot<Guid>, IAuditable
         CompletedDate = completedDate;
     }
 
-    public void Assign(Guid technicianId)
+    public void StartWork(Guid technicianId)
     {
         AssignedTechnicianId = technicianId;
+        Status = RepairOrderStatus.InProgress;
     }
 }

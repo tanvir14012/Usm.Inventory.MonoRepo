@@ -38,4 +38,6 @@ public sealed class PurchaseOrder : AggregateRoot<Guid>, IAuditable
     public void Submit() => Status = PurchaseOrderStatus.Submitted;
     public void Approve() => Status = PurchaseOrderStatus.Approved;
     public void MarkDelivered() => Status = PurchaseOrderStatus.Delivered;
+    public void Cancel() => Status = PurchaseOrderStatus.Cancelled;
+    public void SetTotalAmount(decimal totalAmount) => TotalAmount = totalAmount < 0 ? 0 : totalAmount;
 }

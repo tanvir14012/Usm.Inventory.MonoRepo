@@ -1,14 +1,17 @@
-import { Component, ChangeDetectionStrategy, inject, output, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLinkActive } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TranslateModule } from '@ngx-translate/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { PermissionService } from '../../shared/services/permission.service';
+import { ModuleNavigationService } from '../../features/administration/module-navigation/module-navigation.service';
 
 interface NavItem {
-  labelKey: string;
+  labelKey?: string;
+  label?: string;
   icon: string;
   route?: string;
   permission?: string;
@@ -32,28 +35,28 @@ interface NavItem {
 
       <!-- Navigation -->
       <mat-nav-list class="flex-1 pt-2">
-        @for (item of navItems; track item.labelKey) {
+        @for (item of navItems(); track item.route ?? item.label ?? item.labelKey) {
           @if (!item.permission || permissions.can(item.permission)) {
             @if (!item.children?.length) {
               <a mat-list-item [routerLink]="item.route" routerLinkActive="active-link"
                  (click)="linkClicked.emit()">
                 <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-                <span matListItemTitle>{{ item.labelKey | translate }}</span>
+                <span matListItemTitle>{{ item.labelKey ? (item.labelKey | translate) : item.label }}</span>
               </a>
             } @else {
               <mat-expansion-panel class="nav-expansion mat-elevation-z0">
                 <mat-expansion-panel-header>
                   <mat-panel-title class="flex items-center gap-2">
                     <mat-icon>{{ item.icon }}</mat-icon>
-                    {{ item.labelKey | translate }}
+                    {{ item.labelKey ? (item.labelKey | translate) : item.label }}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                @for (child of item.children; track child.labelKey) {
+                @for (child of item.children; track child.route ?? child.label ?? child.labelKey) {
                   @if (!child.permission || permissions.can(child.permission)) {
                     <a mat-list-item [routerLink]="child.route" routerLinkActive="active-link"
                        class="pl-8" (click)="linkClicked.emit()">
                       <mat-icon matListItemIcon>{{ child.icon }}</mat-icon>
-                      <span matListItemTitle>{{ child.labelKey | translate }}</span>
+                      <span matListItemTitle>{{ child.labelKey ? (child.labelKey | translate) : child.label }}</span>
                     </a>
                   }
                 }
@@ -73,8 +76,10 @@ interface NavItem {
 export class SidebarComponent {
   readonly linkClicked = output<void>();
   readonly permissions = inject(PermissionService);
+  private readonly navigationService = inject(ModuleNavigationService);
+  private readonly militaryModules = toSignal(this.navigationService.loadMilitaryModules(1), { initialValue: [] });
 
-  readonly navItems: NavItem[] = [
+  readonly navItems = computed<NavItem[]>(() => [
     { labelKey: 'navigation.dashboard', icon: 'dashboard', route: '/dashboard' },
     {
       labelKey: 'navigation.administration', icon: 'business',
@@ -90,10 +95,26 @@ export class SidebarComponent {
         { labelKey: 'navigation.users', icon: 'people', route: '/iam/users', permission: 'users.read' },
       ],
     },
-    { labelKey: 'navigation.procurement', icon: 'shopping_cart', route: '/procurement', permission: 'procurement.read' },
-    { labelKey: 'navigation.storeHouse', icon: 'warehouse', route: '/store-house', permission: 'storehouse.read' },
-    { labelKey: 'navigation.issueReceipt', icon: 'swap_horiz', route: '/issue-receipt', permission: 'issuedreceipts.read' },
-    { labelKey: 'navigation.reporting', icon: 'bar_chart', route: '/reporting', permission: 'reporting.read' },
-    { labelKey: 'navigation.settings', icon: 'settings', route: '/settings' },
-  ];
+    ...this.militaryModules()
+      .filter(module => module.isActive && !['dashboard', 'administration'].includes(module.menuId))
+      .map(module => ({
+        label: module.localizedName,
+        icon: module.materialIconName,
+        children: module.sidebarItems.length
+          ? module.sidebarItems
+              .filter(item => item.isActive)
+              .map(item => ({
+                label: item.localizedName,
+                icon: item.materialIconName,
+                route: `/operations/${module.menuId}/${item.menuId}`,
+              }))
+          : [
+              {
+                label: `${module.localizedName} Overview`,
+                icon: module.materialIconName,
+                route: `/operations/${module.menuId}`,
+              },
+            ],
+      })),
+  ]);
 }

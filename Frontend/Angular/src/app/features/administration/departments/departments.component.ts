@@ -11,6 +11,8 @@ import { PageHeaderComponent, PageAction } from '../../../shared/components/page
 import { DepartmentsService, DepartmentDto } from './departments.service';
 import { TableColumn, TableAction } from '../../../shared/components/data-table/data-table.model';
 import { QueryParams } from '../../../shared/models/query-params.model';
+import { toClientPagedResult } from '../../../shared/utils/client-paging.utils';
+import { DepartmentFormDialogComponent } from './department-form-dialog.component';
 
 @Component({
   selector: 'app-departments',
@@ -66,11 +68,13 @@ export class DepartmentsComponent extends BaseCrudComponent<DepartmentDto> {
   protected loadData(): void {
     this.isLoading.set(true);
     this.service
-      .getAll(this.queryParams())
+      .getAll()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (result) => {
-          this.pagedResult.set(result);
+          this.pagedResult.set(
+            toClientPagedResult(result, this.queryParams(), ['nameEn', 'nameAr', 'code']),
+          );
           this.isLoading.set(false);
         },
         error: () => this.isLoading.set(false),
@@ -78,10 +82,14 @@ export class DepartmentsComponent extends BaseCrudComponent<DepartmentDto> {
   }
 
   openForm(item?: DepartmentDto): void {
-    // TODO: Open DepartmentFormDialogComponent
-    // this.dialog.open(DepartmentFormDialogComponent, { data: item, width: '600px' })
-    //   .afterClosed().pipe(takeUntil(this.destroy$))
-    //   .subscribe(saved => { if (saved) this.loadData(); });
+    this.dialog.open(DepartmentFormDialogComponent, { data: item ?? null, width: '680px' })
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(saved => {
+        if (saved) {
+          this.loadData();
+        }
+      });
   }
 
   protected deleteItem(item: DepartmentDto) {
