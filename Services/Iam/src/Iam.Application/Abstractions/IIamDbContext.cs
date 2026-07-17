@@ -1,4 +1,5 @@
 using Iam.Domain.Organograms;
+using Iam.Domain.Navigation;
 using Iam.Domain.Permissions;
 using Iam.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,8 @@ public interface IIamDbContext
 {
     DbSet<Role> Roles { get; }
     DbSet<Permission> Permissions { get; }
+    DbSet<ModuleNavigation> ModuleNavigations { get; }
+    DbSet<SidebarMenuItem> SidebarMenuItems { get; }
 
     DbSet<OrganogramTemplate> OrganogramTemplates { get; }
     DbSet<TemplateDepartment> TemplateDepartments { get; }

@@ -95,6 +95,7 @@
     "roles": "الأدوار",
     "users": "المستخدمون",
     "identity": "الهوية",
+    "moduleNavigation": "تنقل الوحدات",
     "procurement": "المشتريات",
     "storeHouse": "المستودع",
     "issueReceipt": "الصرف والاستلام",
@@ -113,6 +114,26 @@
         "code": "الرمز",
         "parentId": "القسم الأصل",
         "isActive": "نشط"
+      }
+    },
+    "moduleNavigation": {
+      "title": "تنقل وحدات الهيكل العسكري",
+      "topNavHint": "قوائم التنقل العلوية للكتلة المختارة",
+      "editorTitle": "إضافة أو تحديث قائمة",
+      "sidebarPreviewTitle": "معاينة القائمة الجانبية",
+      "actions": {
+        "importDefault": "استيراد قالب العمليات العسكري",
+        "export": "تصدير JSON"
+      },
+      "fields": {
+        "buildingBlock": "الكتلة التنظيمية",
+        "systemName": "الاسم النظامي",
+        "menuId": "معرف القائمة",
+        "localizedName": "الاسم المحلي",
+        "displayOrder": "ترتيب العرض",
+        "materialIconName": "أيقونة Material",
+        "isActive": "نشط",
+        "sidebarItemsJson": "عناصر القائمة الجانبية (JSON بهيكل من مستويين)"
       }
     }
   },

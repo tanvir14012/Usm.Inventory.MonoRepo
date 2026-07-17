@@ -1,5 +1,6 @@
 using Iam.Application.Abstractions;
 using Iam.Domain.Organograms;
+using Iam.Domain.Navigation;
 using Iam.Domain.Permissions;
 using Iam.Domain.Roles;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,8 @@ public sealed class IamDbContext(DbContextOptions<IamDbContext> options)
 {
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<Permission> Permissions => Set<Permission>();
+    public DbSet<ModuleNavigation> ModuleNavigations => Set<ModuleNavigation>();
+    public DbSet<SidebarMenuItem> SidebarMenuItems => Set<SidebarMenuItem>();
 
     public DbSet<OrganogramTemplate> OrganogramTemplates => Set<OrganogramTemplate>();
     public DbSet<TemplateDepartment> TemplateDepartments => Set<TemplateDepartment>();

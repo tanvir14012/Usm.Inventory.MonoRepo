@@ -79,6 +79,7 @@ export class SidebarComponent {
     {
       labelKey: 'navigation.administration', icon: 'business',
       children: [
+        { labelKey: 'navigation.moduleNavigation', icon: 'menu_open', route: '/administration/module-navigation' },
         { labelKey: 'navigation.departments', icon: 'account_tree', route: '/administration/departments', permission: 'departments.read' },
       ],
     },
