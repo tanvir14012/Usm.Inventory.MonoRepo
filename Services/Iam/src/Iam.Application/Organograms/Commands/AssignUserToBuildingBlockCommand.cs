@@ -1,8 +1,10 @@
 using Iam.Application.Abstractions;
+using Iam.Application.Authorization;
 using Iam.Application.Common;
 using Iam.Domain.Organograms;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Usm.Shared.Caching.Abstractions;
 
 namespace Iam.Application.Organograms.Commands;
 
@@ -14,7 +16,9 @@ public sealed record AssignUserToBuildingBlockCommand(
     string RoleCode,
     bool AsSuperAdmin) : IRequest<Guid>;
 
-public sealed class AssignUserToBuildingBlockCommandHandler(IIamDbContext dbContext)
+public sealed class AssignUserToBuildingBlockCommandHandler(
+    IIamDbContext dbContext,
+    ICacheService cacheService)
     : IRequestHandler<AssignUserToBuildingBlockCommand, Guid>
 {
     public async Task<Guid> Handle(AssignUserToBuildingBlockCommand request, CancellationToken cancellationToken)
@@ -29,9 +33,11 @@ public sealed class AssignUserToBuildingBlockCommandHandler(IIamDbContext dbCont
                 var superAdmin = SuperAdminAssignment.Create(request.UserId);
                 dbContext.SuperAdminAssignments.Add(superAdmin);
                 await dbContext.SaveChangesAsync(cancellationToken);
+                await cacheService.RemoveByPatternAsync(PermissionCacheKeys.UserPattern(request.UserId), cancellationToken);
                 return superAdmin.Id;
             }
 
+            await cacheService.RemoveByPatternAsync(PermissionCacheKeys.UserPattern(request.UserId), cancellationToken);
             return existing.Id;
         }
 
@@ -64,6 +70,7 @@ public sealed class AssignUserToBuildingBlockCommandHandler(IIamDbContext dbCont
 
         dbContext.UserOrganogramAssignments.Add(assignment);
         await dbContext.SaveChangesAsync(cancellationToken);
+        await cacheService.RemoveByPatternAsync(PermissionCacheKeys.UserPattern(request.UserId), cancellationToken);
 
         return assignment.Id;
     }
