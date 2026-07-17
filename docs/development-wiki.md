@@ -149,6 +149,25 @@ Use this checklist when introducing a new bounded context or making major struct
 3. Review authentication and authorization impact for any endpoint or policy change.
 4. Keep dependency versions current through central package/version management.
 
+### Authentication maintenance (CAC, FIDO2, password + refresh token)
+
+Use this checklist for ongoing auth operations:
+
+1. **CAC root certificate lifecycle**
+   - Generate a new CAC root CA with:
+     - `powershell -ExecutionPolicy Bypass -File ./scripts/gen-cac-root-ca.ps1`
+   - Distribute and trust only `cac-root-ca.crt` on client/test machines.
+   - Keep `cac-root-ca.key` protected/offline and rotate immediately if exposed.
+2. **FIDO2 configuration integrity**
+   - Ensure `Fido2:RpId`, `Fido2:RpName`, and `Fido2:Origin` match deployed frontend origin(s).
+   - Re-validate FIDO2 login after origin, DNS, or ingress TLS changes.
+3. **Password and refresh-token flow**
+   - Keep refresh-token lifetime aligned with policy and incident response requirements.
+   - Verify login endpoints and `/connect/token` refresh flow whenever OpenIddict settings are changed.
+4. **Routine verification**
+   - Test all three sign-in methods (password, CAC, FIDO2) after auth-related deployments.
+   - Confirm refresh-token renewal works and expired/invalid refresh tokens are rejected.
+
 ## 10. Troubleshooting quick guide
 
 ### Common local issues

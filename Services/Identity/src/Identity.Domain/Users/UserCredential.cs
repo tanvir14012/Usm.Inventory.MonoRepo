@@ -46,11 +46,18 @@ namespace Identity.Domain.Users
                 Identifier = identifier,
                 Metadata = metadata,
                 DisplayName = displayName,
+                IsEnabled = true,
                 CreatedAt = DateTimeOffset.UtcNow
             };
         }
 
         public T GetMetadata<T>() => JsonSerializer.Deserialize<T>(Metadata)!;
+
+        public void UpdateMetadata(string metadata)
+        {
+            Metadata = metadata;
+            UpdatedAt = DateTimeOffset.UtcNow;
+        }
 
     }
 

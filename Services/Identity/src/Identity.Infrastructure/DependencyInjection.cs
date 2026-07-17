@@ -1,4 +1,6 @@
 using Identity.Infrastructure.Persistence;
+using Identity.Domain.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -23,6 +25,7 @@ public static class DependencyInjection
             ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass";
 
         services.AddServiceDbContext<IdentityDbContext>(connectionString, "identity");
+        services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
         var signingCertificate = X509CertificateLoader.LoadPkcs12FromFile(
             path: configuration["OpenIddict:CertificatePath"]!,
@@ -54,6 +57,8 @@ public static class DependencyInjection
                 // Scopes
                 options.RegisterScopes(
                     OpenIddictConstants.Scopes.OpenId,
+                    OpenIddictConstants.Scopes.Profile,
+                    OpenIddictConstants.Scopes.Email,
                     OpenIddictConstants.Scopes.OfflineAccess);
 
 

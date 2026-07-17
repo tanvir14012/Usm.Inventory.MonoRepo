@@ -32,7 +32,14 @@ namespace Identity.Infrastructure
                 _ => [Destinations.AccessToken]
             });
 
-            return new ClaimsPrincipal(identity);
+            var principal = new ClaimsPrincipal(identity);
+            principal.SetScopes(
+                Scopes.OpenId,
+                Scopes.Profile,
+                Scopes.Email,
+                Scopes.OfflineAccess);
+
+            return principal;
         }
     }
 }
