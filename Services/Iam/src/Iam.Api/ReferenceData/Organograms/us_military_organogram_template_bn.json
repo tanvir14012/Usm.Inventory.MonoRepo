@@ -1,0 +1,586 @@
+{
+  "templateName": "??????? ?????? ???????????? ?????????",
+  "templateVersion": "2026.1",
+  "language": "bn",
+  "sheets": {
+    "departments": [
+      {
+        "DepartmentCode": "DOD",
+        "DepartmentName": "?????????? ?????",
+        "ParentDepartmentCode": ""
+      },
+      {
+        "DepartmentCode": "DA",
+        "DepartmentName": "????? ?????",
+        "ParentDepartmentCode": "DOD"
+      },
+      {
+        "DepartmentCode": "DN",
+        "DepartmentName": "???????? ?????",
+        "ParentDepartmentCode": "DOD"
+      },
+      {
+        "DepartmentCode": "DAF",
+        "DepartmentName": "????? ?????? ?????",
+        "ParentDepartmentCode": "DOD"
+      },
+      {
+        "DepartmentCode": "USMC",
+        "DepartmentName": "??????? ????? ???",
+        "ParentDepartmentCode": "DN"
+      },
+      {
+        "DepartmentCode": "USSF",
+        "DepartmentName": "??????? ????? ?????",
+        "ParentDepartmentCode": "DAF"
+      },
+      {
+        "DepartmentCode": "JS",
+        "DepartmentName": "??? ?????",
+        "ParentDepartmentCode": "DOD"
+      },
+      {
+        "DepartmentCode": "CCMD",
+        "DepartmentName": "????????????? ??????????",
+        "ParentDepartmentCode": "DOD"
+      }
+    ],
+    "buildingBlocks": [
+      {
+        "BuildingBlockCode": "OSD-HQ",
+        "BuildingBlockName": "?????????? ?? ??????? ???????? (???)",
+        "DepartmentCode": "DOD",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "HQDA",
+        "BuildingBlockName": "????? ??????? ??? ?????",
+        "DepartmentCode": "DA",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "FORSCOM",
+        "BuildingBlockName": "??????? ????? ??????? ??????",
+        "DepartmentCode": "DA",
+        "ParentBuildingBlockCode": "HQDA"
+      },
+      {
+        "BuildingBlockCode": "TRADOC",
+        "BuildingBlockName": "??????? ????? ??????? ? ??????? ??????",
+        "DepartmentCode": "DA",
+        "ParentBuildingBlockCode": "HQDA"
+      },
+      {
+        "BuildingBlockCode": "NAVPERS",
+        "BuildingBlockName": "???? ????????? ??????",
+        "DepartmentCode": "DN",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "FLEETFORCOM",
+        "BuildingBlockName": "??????? ????? ??????? ??????",
+        "DepartmentCode": "DN",
+        "ParentBuildingBlockCode": "NAVPERS"
+      },
+      {
+        "BuildingBlockCode": "HAF",
+        "BuildingBlockName": "????? ?????? ???",
+        "DepartmentCode": "DAF",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "ACC",
+        "BuildingBlockName": "????? ??????? ??????",
+        "DepartmentCode": "DAF",
+        "ParentBuildingBlockCode": "HAF"
+      },
+      {
+        "BuildingBlockCode": "HQMC",
+        "BuildingBlockName": "????? ??? ???",
+        "DepartmentCode": "USMC",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "I-MEF",
+        "BuildingBlockName": "?? ????? ????????????? ?????",
+        "DepartmentCode": "USMC",
+        "ParentBuildingBlockCode": "HQMC"
+      },
+      {
+        "BuildingBlockCode": "CSO-STAFF",
+        "BuildingBlockName": "??? ?? ????? ???????? ?????",
+        "DepartmentCode": "USSF",
+        "ParentBuildingBlockCode": ""
+      },
+      {
+        "BuildingBlockCode": "SPACECOM-CC",
+        "BuildingBlockName": "??????? ????? ?????? ??????????",
+        "DepartmentCode": "CCMD",
+        "ParentBuildingBlockCode": ""
+      }
+    ],
+    "roles": [
+      {
+        "RoleCode": "SECDEF",
+        "RoleName": "?????????? ?? ???????",
+        "Description": "?????????? ????? ?????? ???? ??? DoD ???????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "DEPSECDEF",
+        "RoleName": "?????? ?????????? ?? ???????",
+        "Description": "?????????? ?? ????????? ?????? ???????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CJCS",
+        "RoleName": "??????? ?????? ???????????",
+        "Description": "???????? ???????????? ?????? ?????????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "VCJCS",
+        "RoleName": "??????? ?????? ???? ???????????",
+        "Description": "?????? ??????? ?????? ?????????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CSA",
+        "RoleName": "?????? ??? ?? ?????",
+        "Description": "??????? ?????? ???????? ?????? ??????????",
+        "BuildingBlockCode": "HQDA",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CNO",
+        "RoleName": "????? ????????? ??????",
+        "Description": "??????? ????????? ???????? ?????? ??????????",
+        "BuildingBlockCode": "NAVPERS",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CSAF",
+        "RoleName": "????? ????? ??? ?? ?????",
+        "Description": "??????? ????? ??????? ???????? ?????? ??????????",
+        "BuildingBlockCode": "HAF",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CMC",
+        "RoleName": "????? ????? ????????????",
+        "Description": "??????? ????? ????? ???????? ?????? ??????????",
+        "BuildingBlockCode": "HQMC",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CSO",
+        "RoleName": "????? ????????? ??????",
+        "Description": "??????? ????? ??????? ???????? ?????? ??????????",
+        "BuildingBlockCode": "CSO-STAFF",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "CCDR",
+        "RoleName": "????????????? ????????",
+        "Description": "?????? ????????????? ???????? ?????????",
+        "BuildingBlockCode": "SPACECOM-CC",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "J1-DIRECTOR",
+        "RoleName": "J-1 ??????? (????)",
+        "Description": "??? ???? ? ???????? ?????? ?????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "J4-DIRECTOR",
+        "RoleName": "J-4 ??????? (?????????)",
+        "Description": "??? ????????? ? ??? ???? ?????? ?????",
+        "BuildingBlockCode": "OSD-HQ",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "G1-CHIEF",
+        "RoleName": "G-1 ?????? (????)",
+        "Description": "?????? ???? ?????????? ???????",
+        "BuildingBlockCode": "HQDA",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "N4-CHIEF",
+        "RoleName": "N-4 ?????? (?????????)",
+        "Description": "????????? ????????? ?????????? ???????",
+        "BuildingBlockCode": "NAVPERS",
+        "IsActive": true
+      },
+      {
+        "RoleCode": "A4-CHIEF",
+        "RoleName": "A-4 ?????? (?????????)",
+        "Description": "????? ??????? ????????? ?????????? ???????",
+        "BuildingBlockCode": "HAF",
+        "IsActive": true
+      }
+    ],
+    "permissions": [
+      {
+        "PermissionCode": "ORG.READ",
+        "PermissionName": "???????????? ????",
+        "Resource": "organogram",
+        "Action": "read",
+        "IsActive": true
+      },
+      {
+        "PermissionCode": "ORG.WRITE",
+        "PermissionName": "???????????? ????????",
+        "Resource": "organogram",
+        "Action": "write",
+        "IsActive": true
+      },
+      {
+        "PermissionCode": "ROLE.READ",
+        "PermissionName": "?????? ????",
+        "Resource": "roles",
+        "Action": "read",
+        "IsActive": true
+      },
+      {
+        "PermissionCode": "ROLE.WRITE",
+        "PermissionName": "?????? ????????",
+        "Resource": "roles",
+        "Action": "write",
+        "IsActive": true
+      },
+      {
+        "PermissionCode": "ASSIGN.USER",
+        "PermissionName": "?????? ??????????? ??????",
+        "Resource": "assignments",
+        "Action": "assign",
+        "IsActive": true
+      },
+      {
+        "PermissionCode": "WORKFLOW.APPROVE",
+        "PermissionName": "??????????? ???????",
+        "Resource": "workflow",
+        "Action": "approve",
+        "IsActive": true
+      }
+    ],
+    "rolePermissions": [
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "ROLE.WRITE"
+      },
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "ASSIGN.USER"
+      },
+      {
+        "RoleCode": "SECDEF",
+        "PermissionCode": "WORKFLOW.APPROVE"
+      },
+      {
+        "RoleCode": "DEPSECDEF",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "DEPSECDEF",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "DEPSECDEF",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "DEPSECDEF",
+        "PermissionCode": "ASSIGN.USER"
+      },
+      {
+        "RoleCode": "CJCS",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CJCS",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "CJCS",
+        "PermissionCode": "ASSIGN.USER"
+      },
+      {
+        "RoleCode": "CJCS",
+        "PermissionCode": "WORKFLOW.APPROVE"
+      },
+      {
+        "RoleCode": "VCJCS",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "VCJCS",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "CSA",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CSA",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "CNO",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CNO",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "CSAF",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CSAF",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "CMC",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CMC",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "CSO",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CSO",
+        "PermissionCode": "ORG.WRITE"
+      },
+      {
+        "RoleCode": "CCDR",
+        "PermissionCode": "ORG.READ"
+      },
+      {
+        "RoleCode": "CCDR",
+        "PermissionCode": "ASSIGN.USER"
+      },
+      {
+        "RoleCode": "J1-DIRECTOR",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "J4-DIRECTOR",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "G1-CHIEF",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "N4-CHIEF",
+        "PermissionCode": "ROLE.READ"
+      },
+      {
+        "RoleCode": "A4-CHIEF",
+        "PermissionCode": "ROLE.READ"
+      }
+    ],
+    "roleHierarchies": [
+      {
+        "ParentRoleCode": "SECDEF",
+        "ChildRoleCode": "DEPSECDEF",
+        "RankOrder": 1
+      },
+      {
+        "ParentRoleCode": "DEPSECDEF",
+        "ChildRoleCode": "CJCS",
+        "RankOrder": 2
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "VCJCS",
+        "RankOrder": 3
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "CSA",
+        "RankOrder": 4
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "CNO",
+        "RankOrder": 5
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "CSAF",
+        "RankOrder": 6
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "CMC",
+        "RankOrder": 7
+      },
+      {
+        "ParentRoleCode": "CJCS",
+        "ChildRoleCode": "CSO",
+        "RankOrder": 8
+      },
+      {
+        "ParentRoleCode": "CCDR",
+        "ChildRoleCode": "J4-DIRECTOR",
+        "RankOrder": 9
+      },
+      {
+        "ParentRoleCode": "CSA",
+        "ChildRoleCode": "G1-CHIEF",
+        "RankOrder": 10
+      },
+      {
+        "ParentRoleCode": "CNO",
+        "ChildRoleCode": "N4-CHIEF",
+        "RankOrder": 11
+      },
+      {
+        "ParentRoleCode": "CSAF",
+        "ChildRoleCode": "A4-CHIEF",
+        "RankOrder": 12
+      }
+    ],
+    "positionAllocations": [
+      {
+        "BuildingBlockCode": "OSD-HQ",
+        "RoleCode": "SECDEF",
+        "MilitaryCount": 1,
+        "CivilianCount": 1
+      },
+      {
+        "BuildingBlockCode": "OSD-HQ",
+        "RoleCode": "DEPSECDEF",
+        "MilitaryCount": 1,
+        "CivilianCount": 2
+      },
+      {
+        "BuildingBlockCode": "OSD-HQ",
+        "RoleCode": "CJCS",
+        "MilitaryCount": 1,
+        "CivilianCount": 0
+      },
+      {
+        "BuildingBlockCode": "HQDA",
+        "RoleCode": "CSA",
+        "MilitaryCount": 1,
+        "CivilianCount": 2
+      },
+      {
+        "BuildingBlockCode": "NAVPERS",
+        "RoleCode": "CNO",
+        "MilitaryCount": 1,
+        "CivilianCount": 2
+      },
+      {
+        "BuildingBlockCode": "HAF",
+        "RoleCode": "CSAF",
+        "MilitaryCount": 1,
+        "CivilianCount": 2
+      },
+      {
+        "BuildingBlockCode": "HQMC",
+        "RoleCode": "CMC",
+        "MilitaryCount": 1,
+        "CivilianCount": 1
+      },
+      {
+        "BuildingBlockCode": "CSO-STAFF",
+        "RoleCode": "CSO",
+        "MilitaryCount": 1,
+        "CivilianCount": 1
+      },
+      {
+        "BuildingBlockCode": "SPACECOM-CC",
+        "RoleCode": "CCDR",
+        "MilitaryCount": 1,
+        "CivilianCount": 3
+      },
+      {
+        "BuildingBlockCode": "FORSCOM",
+        "RoleCode": "G1-CHIEF",
+        "MilitaryCount": 2,
+        "CivilianCount": 5
+      },
+      {
+        "BuildingBlockCode": "FLEETFORCOM",
+        "RoleCode": "N4-CHIEF",
+        "MilitaryCount": 2,
+        "CivilianCount": 4
+      },
+      {
+        "BuildingBlockCode": "ACC",
+        "RoleCode": "A4-CHIEF",
+        "MilitaryCount": 2,
+        "CivilianCount": 4
+      }
+    ],
+    "approvalPaths": [
+      {
+        "WorkflowCode": "PROCUREMENT-HIGH",
+        "FromDepartmentCode": "DA",
+        "FromBuildingBlockCode": "FORSCOM",
+        "ToDepartmentCode": "DOD",
+        "ToBuildingBlockCode": "OSD-HQ",
+        "ApprovalRoleCode": "DEPSECDEF",
+        "StepOrder": 1,
+        "CrossDepartment": true
+      },
+      {
+        "WorkflowCode": "PROCUREMENT-HIGH",
+        "FromDepartmentCode": "DOD",
+        "FromBuildingBlockCode": "OSD-HQ",
+        "ToDepartmentCode": "DOD",
+        "ToBuildingBlockCode": "OSD-HQ",
+        "ApprovalRoleCode": "SECDEF",
+        "StepOrder": 2,
+        "CrossDepartment": false
+      },
+      {
+        "WorkflowCode": "JOINT-OPS-TRANSFER",
+        "FromDepartmentCode": "DN",
+        "FromBuildingBlockCode": "FLEETFORCOM",
+        "ToDepartmentCode": "DAF",
+        "ToBuildingBlockCode": "ACC",
+        "ApprovalRoleCode": "CJCS",
+        "StepOrder": 1,
+        "CrossDepartment": true
+      },
+      {
+        "WorkflowCode": "SPACE-OPS-ACCESS",
+        "FromDepartmentCode": "USSF",
+        "FromBuildingBlockCode": "CSO-STAFF",
+        "ToDepartmentCode": "CCMD",
+        "ToBuildingBlockCode": "SPACECOM-CC",
+        "ApprovalRoleCode": "CCDR",
+        "StepOrder": 1,
+        "CrossDepartment": true
+      }
+    ]
+  }
+}
