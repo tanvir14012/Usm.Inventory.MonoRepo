@@ -178,6 +178,7 @@ Use this checklist for ongoing auth operations:
 | Frontend HTTPS startup fails | Missing/invalid local cert files | Re-run cert setup and verify paths in frontend scripts |
 | Gateway route returns upstream error | Service not running or route config mismatch | Verify target service health and gateway route mapping |
 | No telemetry data in Grafana/Jaeger | OTEL collector or exporters misconfigured | Verify collector service and endpoint configuration |
+| `System.IO.FileNotFoundException: Could not load file or assembly '...'` at startup | Stale build — a shared library dependency was added or updated after the last restore/build | Run `dotnet restore Usm.Inventory.MonoRepo.slnx` then `dotnet build Usm.Inventory.MonoRepo.slnx` to pick up the new transitive assemblies |
 
 ## 11. Documentation ownership
 
