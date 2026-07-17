@@ -1,4 +1,4 @@
-using RepairMaintenance.Application;
+﻿using RepairMaintenance.Application;
 using RepairMaintenance.Infrastructure;
 using RepairMaintenance.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;
@@ -13,7 +13,7 @@ builder.Services.AddObservability(builder.Configuration, "RepairMaintenance.Api"
 builder.Services.AddEndpoints(typeof(Program).Assembly);
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
-        ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass");
+        ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_admin_dev");
 
 var app = builder.Build()
     .UseDefaultMiddleware();
