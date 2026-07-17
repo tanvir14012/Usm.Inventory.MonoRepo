@@ -1,83 +1,28 @@
-# Angular
+# Angular Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
+This Angular application is the web frontend for the US military inventory management platform in this repository. It provides the user interface for inventory operations, administration, identity and access management, and other domain workflows exposed by the backend services through the API gateway.
 
-## Development server
+## Project structure
 
-To start a local development server, run:
+- `src/app/core/` - cross-cutting frontend concerns such as authentication, HTTP interceptors, caching, language handling, and app-wide services
+- `src/app/features/` - feature areas organized by domain, such as `administration`, `iam`, and `dashboard`
+- `src/app/layout/` - shell components like the main layout, navbar, sidebar, and breadcrumbs
+- `src/app/shared/` - reusable UI components, directives, models, pipes, validators, and helper services
+- `src/environments/` - environment-specific frontend configuration
+- `src/assets/i18n/` - translation resources for supported languages
 
-```bash
-ng serve
-```
+## Design patterns
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Feature-based organization** - business capabilities are grouped under `features/` so screens and related logic stay close together
+- **Core/shared separation** - singleton infrastructure lives in `core/`, while reusable presentation and utility pieces live in `shared/`
+- **Standalone Angular APIs** - the app uses modern Angular configuration with standalone components, application-level providers, and functional routing setup
+- **Lazy-loaded routes** - feature routes are loaded on demand to keep initial startup smaller and isolate domains
+- **Interceptor pipeline** - authentication, loading state, error handling, caching, and language propagation are applied through HTTP interceptors
+- **Gateway-oriented API access** - frontend services call backend capabilities through a shared API base URL rather than coupling directly to individual service hosts
 
-## HTTPS development with mkcert
+## Development
 
-Generate and trust a local development certificate:
-
-```bash
-npm run cert:setup
-```
-
-Start Angular with HTTPS:
-
-```bash
-npm run start:https
-```
-
-Then open: `https://localhost:4200/`
-
-### VS Code debug profiles
-
-The workspace includes VS Code profiles in `.vscode/launch.json`:
-
-- **Angular HTTPS (Chrome)**
-- **Angular HTTPS (Edge)**
-- **Attach to Angular Chrome** (attach to a Chrome instance started with `--remote-debugging-port=9222`)
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `npm start` - run the local development server
+- `npm run start:https` - run the app over HTTPS with local certificates
+- `npm run build` - create a production build
+- `npm test` - run unit tests
