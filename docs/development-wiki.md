@@ -75,7 +75,7 @@ Use this path to add PDF export on list screens with minimal duplication:
 ### Typical local run options
 
 1. **Backend + infrastructure via Docker Compose**
-   - `docker compose up -d`
+   - `docker compose --env-file .env up -d --force-recreate`
 2. **Frontend local dev server**
    - `npm start` (from `Frontend/Angular`)
 3. **HTTPS frontend local dev**

@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT:?POSTGRES_PORT is required}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -20,8 +20,8 @@ services:
     container_name: usm-rabbitmq
     restart: unless-stopped
     ports:
-      - "${RABBITMQ_PORT}:5672"
-      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
+      - "${RABBITMQ_PORT:?RABBITMQ_PORT is required}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:?RABBITMQ_MANAGEMENT_PORT is required}:15672"
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     command: redis-server --appendonly yes
     ports:
-      - "${REDIS_PORT:-6379}:6379"
+      - "${REDIS_PORT:?REDIS_PORT is required}:6379"
     volumes:
       - redis_data:/data
 
@@ -41,7 +41,7 @@ services:
     container_name: usm-prometheus
     restart: unless-stopped
     ports:
-      - "${PROMETHEUS_PORT}:9090"
+      - "${PROMETHEUS_PORT:?PROMETHEUS_PORT is required}:9090"
     depends_on:
       - otel-collector
     volumes:
@@ -53,9 +53,9 @@ services:
     restart: unless-stopped
     command: ["--config=/etc/otelcol/config.yaml"]
     ports:
-      - "${OTEL_COLLECTOR_GRPC_PORT:-4317}:4317"
-      - "${OTEL_COLLECTOR_HTTP_PORT:-4318}:4318"
-      - "${OTEL_COLLECTOR_METRICS_PORT:-8889}:8889"
+      - "${OTEL_COLLECTOR_GRPC_PORT:?OTEL_COLLECTOR_GRPC_PORT is required}:4317"
+      - "${OTEL_COLLECTOR_HTTP_PORT:?OTEL_COLLECTOR_HTTP_PORT is required}:4318"
+      - "${OTEL_COLLECTOR_METRICS_PORT:?OTEL_COLLECTOR_METRICS_PORT is required}:8889"
     volumes:
       - ./Platform/Observability/OpenTelemetry/otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
     depends_on:
@@ -66,15 +66,15 @@ services:
     container_name: usm-jaeger
     restart: unless-stopped
     ports:
-      - "${JAEGER_UI_PORT:-16686}:16686"
-      - "${JAEGER_OTLP_GRPC_PORT:-4319}:4317"
+      - "${JAEGER_UI_PORT:?JAEGER_UI_PORT is required}:16686"
+      - "${JAEGER_OTLP_GRPC_PORT:?JAEGER_OTLP_GRPC_PORT is required}:4317"
 
   loki:
     image: grafana/loki:3.1.0
     container_name: usm-loki
     restart: unless-stopped
     ports:
-      - "${LOKI_PORT}:3100"
+      - "${LOKI_PORT:?LOKI_PORT is required}:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
   grafana:
@@ -82,7 +82,7 @@ services:
     container_name: usm-grafana
     restart: unless-stopped
     ports:
-      - "${GRAFANA_PORT}:3000"
+      - "${GRAFANA_PORT:?GRAFANA_PORT is required}:3000"
     depends_on:
       - prometheus
       - loki
@@ -100,8 +100,8 @@ services:
     container_name: usm-nginx
     restart: unless-stopped
     ports:
-      - "${FRONTEND_HTTP_PORT:-80}:80"
-      - "${FRONTEND_HTTPS_PORT:-443}:443"
+      - "${FRONTEND_HTTP_PORT:?FRONTEND_HTTP_PORT is required}:80"
+      - "${FRONTEND_HTTPS_PORT:?FRONTEND_HTTPS_PORT is required}:443"
     volumes:
       - ./certs/ssl/server.crt:/etc/nginx/ssl/server.crt:ro
       - ./certs/ssl/server.key:/etc/nginx/ssl/server.key:ro
@@ -117,7 +117,7 @@ services:
     container_name: usm-api-gateway
     restart: unless-stopped
     ports:
-      - "${API_GATEWAY_PORT:-5000}:8080"
+      - "${API_GATEWAY_PORT:?API_GATEWAY_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       Observability__OtlpEndpoint: ${OTLP_ENDPOINT}
@@ -148,7 +148,7 @@ services:
       context: .
       dockerfile: ./Services/Identity/src/Identity.Api/Dockerfile
     ports:
-      - "${IDENTITY_API_PORT}:8080"
+      - "${IDENTITY_API_PORT:?IDENTITY_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -174,7 +174,7 @@ services:
       context: .
       dockerfile: ./Services/Iam/src/Iam.Api/Dockerfile
     ports:
-      - "${IAM_API_PORT}:8080"
+      - "${IAM_API_PORT:?IAM_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -193,7 +193,7 @@ services:
       context: .
       dockerfile: ./Services/Administration/src/Administration.Api/Dockerfile
     ports:
-      - "${ADMINISTRATION_API_PORT}:8080"
+      - "${ADMINISTRATION_API_PORT:?ADMINISTRATION_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -212,7 +212,7 @@ services:
       context: .
       dockerfile: ./Services/StoreHouse/src/StoreHouse.Api/Dockerfile
     ports:
-      - "${STOREHOUSE_API_PORT}:8080"
+      - "${STOREHOUSE_API_PORT:?STOREHOUSE_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -231,7 +231,7 @@ services:
       context: .
       dockerfile: ./Services/DocumentShare/src/DocumentShare.Api/Dockerfile
     ports:
-      - "${DOCUMENTSHARE_API_PORT}:8080"
+      - "${DOCUMENTSHARE_API_PORT:?DOCUMENTSHARE_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -250,7 +250,7 @@ services:
       context: .
       dockerfile: ./Services/IssueReceipt/src/IssueReceipt.Api/Dockerfile
     ports:
-      - "${ISSUERECEIPT_API_PORT}:8080"
+      - "${ISSUERECEIPT_API_PORT:?ISSUERECEIPT_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -269,7 +269,7 @@ services:
       context: .
       dockerfile: ./Services/TrafficSecurity/src/TrafficSecurity.Api/Dockerfile
     ports:
-      - "${TRAFFICSECURITY_API_PORT}:8080"
+      - "${TRAFFICSECURITY_API_PORT:?TRAFFICSECURITY_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -288,7 +288,7 @@ services:
       context: .
       dockerfile: ./Services/Salvage/src/Salvage.Api/Dockerfile
     ports:
-      - "${SALVAGE_API_PORT}:8080"
+      - "${SALVAGE_API_PORT:?SALVAGE_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -307,7 +307,7 @@ services:
       context: .
       dockerfile: ./Services/RepairMaintenance/src/RepairMaintenance.Api/Dockerfile
     ports:
-      - "${REPAIRMAINTENANCE_API_PORT}:8080"
+      - "${REPAIRMAINTENANCE_API_PORT:?REPAIRMAINTENANCE_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -326,7 +326,7 @@ services:
       context: .
       dockerfile: ./Services/BudgetPlanning/src/BudgetPlanning.Api/Dockerfile
     ports:
-      - "${BUDGETPLANNING_API_PORT}:8080"
+      - "${BUDGETPLANNING_API_PORT:?BUDGETPLANNING_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -345,7 +345,7 @@ services:
       context: .
       dockerfile: ./Services/Communication/src/Communication.Api/Dockerfile
     ports:
-      - "${COMMUNICATION_API_PORT}:8080"
+      - "${COMMUNICATION_API_PORT:?COMMUNICATION_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -364,7 +364,7 @@ services:
       context: .
       dockerfile: ./Services/Inspectorate/src/Inspectorate.Api/Dockerfile
     ports:
-      - "${INSPECTORATE_API_PORT}:8080"
+      - "${INSPECTORATE_API_PORT:?INSPECTORATE_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -383,7 +383,7 @@ services:
       context: .
       dockerfile: ./Services/Reporting/src/Reporting.Api/Dockerfile
     ports:
-      - "${REPORTING_API_PORT}:8080"
+      - "${REPORTING_API_PORT:?REPORTING_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -402,7 +402,7 @@ services:
       context: .
       dockerfile: ./Services/Procurement/src/Procurement.Api/Dockerfile
     ports:
-      - "${PROCUREMENT_API_PORT}:8080"
+      - "${PROCUREMENT_API_PORT:?PROCUREMENT_API_PORT is required}:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__Postgres: ${POSTGRES_CONNECTION_STRING}
@@ -421,4 +421,3 @@ volumes:
   rabbitmq_data:
   redis_data:
   grafana_data:
-
