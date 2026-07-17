@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Usm.Shared.Contracts.Localization;
 using Usm.Shared.EntityFramework.Caching.Extensions;
 
 namespace Usm.Shared.Data.DbContextExtensions;
@@ -18,6 +19,24 @@ public abstract class ServiceDbContext(DbContextOptions options, string schema) 
         base.OnModelCreating(modelBuilder);
         modelBuilder.HasDefaultSchema(Schema);
         modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        ApplyLocalizedJsonbConventions(modelBuilder);
+    }
+
+    private static void ApplyLocalizedJsonbConventions(ModelBuilder modelBuilder)
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            var localizedProperties = entityType.GetProperties()
+                .Where(property => property.ClrType == typeof(LocalizedText) && property.GetValueConverter() is null)
+                .ToArray();
+
+            if (localizedProperties.Length == 0)
+                continue;
+
+            var entityBuilder = modelBuilder.Entity(entityType.ClrType);
+            foreach (var property in localizedProperties)
+                entityBuilder.Property<LocalizedText>(property.Name).HasJsonbLocalization();
+        }
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
