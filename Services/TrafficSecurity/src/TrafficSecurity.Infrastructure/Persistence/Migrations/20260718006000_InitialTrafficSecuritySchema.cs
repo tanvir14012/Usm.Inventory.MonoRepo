@@ -14,6 +14,9 @@ namespace TrafficSecurity.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "trafficsecurity");
+
             migrationBuilder.CreateTable(
                 name: "vehicle_safety_records",
                 schema: "trafficsecurity",

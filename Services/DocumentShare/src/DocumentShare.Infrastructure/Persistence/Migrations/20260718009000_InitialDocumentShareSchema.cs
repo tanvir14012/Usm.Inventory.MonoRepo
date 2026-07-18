@@ -14,6 +14,9 @@ namespace DocumentShare.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "documentshare");
+
             migrationBuilder.CreateTable(
                 name: "documents",
                 schema: "documentshare",

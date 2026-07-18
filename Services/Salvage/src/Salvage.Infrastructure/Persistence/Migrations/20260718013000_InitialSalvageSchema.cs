@@ -14,6 +14,9 @@ namespace Salvage.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "salvage");
+
             migrationBuilder.CreateTable(
                 name: "salvage_records",
                 schema: "salvage",

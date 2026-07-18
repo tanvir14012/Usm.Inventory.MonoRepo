@@ -14,6 +14,9 @@ namespace IssueReceipt.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "issuereceipt");
+
             migrationBuilder.CreateTable(
                 name: "issue_transactions",
                 schema: "issuereceipt",

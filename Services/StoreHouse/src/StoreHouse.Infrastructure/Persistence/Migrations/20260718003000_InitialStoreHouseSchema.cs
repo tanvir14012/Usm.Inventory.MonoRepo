@@ -14,6 +14,9 @@ namespace StoreHouse.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "storehouse");
+
             migrationBuilder.CreateTable(
                 name: "inventory_items",
                 schema: "storehouse",

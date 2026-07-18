@@ -14,6 +14,9 @@ namespace Administration.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "administration");
+
             migrationBuilder.CreateTable(
                 name: "departments",
                 schema: "administration",
