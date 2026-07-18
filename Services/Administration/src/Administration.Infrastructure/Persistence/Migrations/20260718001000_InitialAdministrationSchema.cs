@@ -1,10 +1,14 @@
 using System;
+using Administration.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Administration.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(AdministrationDbContext))]
     [Migration("20260718001000_InitialAdministrationSchema")]
     public partial class InitialAdministrationSchema : Migration
     {

@@ -1,10 +1,14 @@
 using System;
+using Identity.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Identity.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(IdentityDbContext))]
     [Migration("20260718010000_InitialIdentitySchema")]
     public partial class InitialIdentitySchema : Migration
     {

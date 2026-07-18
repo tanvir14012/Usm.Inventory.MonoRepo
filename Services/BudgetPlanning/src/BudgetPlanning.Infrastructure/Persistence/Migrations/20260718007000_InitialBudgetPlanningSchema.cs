@@ -1,10 +1,14 @@
 using System;
+using BudgetPlanning.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace BudgetPlanning.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(BudgetPlanningDbContext))]
     [Migration("20260718007000_InitialBudgetPlanningSchema")]
     public partial class InitialBudgetPlanningSchema : Migration
     {

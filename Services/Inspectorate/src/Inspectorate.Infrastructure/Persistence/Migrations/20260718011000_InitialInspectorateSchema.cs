@@ -1,10 +1,14 @@
 using System;
+using Inspectorate.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Inspectorate.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(InspectorateDbContext))]
     [Migration("20260718011000_InitialInspectorateSchema")]
     public partial class InitialInspectorateSchema : Migration
     {

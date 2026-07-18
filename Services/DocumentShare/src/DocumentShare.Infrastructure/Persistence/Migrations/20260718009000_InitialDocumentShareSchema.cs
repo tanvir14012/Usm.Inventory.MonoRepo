@@ -1,10 +1,14 @@
 using System;
+using DocumentShare.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace DocumentShare.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(DocumentShareDbContext))]
     [Migration("20260718009000_InitialDocumentShareSchema")]
     public partial class InitialDocumentShareSchema : Migration
     {

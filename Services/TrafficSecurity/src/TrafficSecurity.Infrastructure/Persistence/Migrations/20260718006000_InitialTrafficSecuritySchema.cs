@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using TrafficSecurity.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace TrafficSecurity.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(TrafficSecurityDbContext))]
     [Migration("20260718006000_InitialTrafficSecuritySchema")]
     public partial class InitialTrafficSecuritySchema : Migration
     {
