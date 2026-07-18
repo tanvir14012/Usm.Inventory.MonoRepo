@@ -1,4 +1,5 @@
 using Procurement.Domain.Common;
+using Procurement.Domain.Suppliers;
 using Usm.Shared.Data.DbContextExtensions;
 
 namespace Procurement.Domain.PurchaseOrders;
@@ -17,6 +18,8 @@ public sealed class PurchaseOrder : AggregateRoot<Guid>, IAuditable
     public DateTimeOffset? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
     public Guid? UpdatedBy { get; set; }
+
+    public Supplier Supplier { get; private set; } = null!;
 
     private PurchaseOrder() { }
 
@@ -40,4 +43,5 @@ public sealed class PurchaseOrder : AggregateRoot<Guid>, IAuditable
     public void MarkDelivered() => Status = PurchaseOrderStatus.Delivered;
     public void Cancel() => Status = PurchaseOrderStatus.Cancelled;
     public void SetTotalAmount(decimal totalAmount) => TotalAmount = totalAmount < 0 ? 0 : totalAmount;
+    public void SetSupplier(Supplier supplier) => Supplier = supplier;
 }

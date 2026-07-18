@@ -1,4 +1,5 @@
 using Procurement.Domain.Common;
+using Procurement.Domain.PurchaseOrders;
 using Usm.Shared.Contracts.Localization;
 using Usm.Shared.Data.DbContextExtensions;
 
@@ -15,6 +16,7 @@ public sealed class Supplier : AggregateRoot<Guid>, IAuditable
     public DateTimeOffset? UpdatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
     public Guid? UpdatedBy { get; set; }
+    public ICollection<PurchaseOrder> PurchaseOrders { get; private set; } = new List<PurchaseOrder>();
 
     private Supplier() { }
 

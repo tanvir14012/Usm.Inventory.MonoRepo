@@ -1,12 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <ProjectReference Include="..\Procurement.Application\Procurement.Application.csproj" />
     <ProjectReference Include="..\Procurement.Infrastructure\Procurement.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Bootstrap\Usm.Shared.BuildingBlocks.Bootstrap.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Observability\Usm.Shared.BuildingBlocks.Observability.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Validation\Usm.Shared.BuildingBlocks.Validation.csproj" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
   </ItemGroup>
 
   <PropertyGroup>

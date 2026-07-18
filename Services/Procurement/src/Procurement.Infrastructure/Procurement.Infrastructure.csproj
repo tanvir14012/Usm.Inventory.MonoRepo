@@ -9,6 +9,10 @@
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Persistence.Migrations\Usm.Shared.BuildingBlocks.Persistence.Migrations.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

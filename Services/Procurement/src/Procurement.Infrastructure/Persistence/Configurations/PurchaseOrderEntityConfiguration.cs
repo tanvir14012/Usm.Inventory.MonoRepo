@@ -40,5 +40,10 @@ internal sealed class PurchaseOrderEntityConfiguration : IEntityTypeConfiguratio
         builder.HasIndex(x => x.SupplierId);
 
         builder.HasIndex(x => x.Status);
+
+        builder.HasOne(x => x.Supplier)
+            .WithMany(s => s.PurchaseOrders)
+            .HasForeignKey(x => x.SupplierId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
