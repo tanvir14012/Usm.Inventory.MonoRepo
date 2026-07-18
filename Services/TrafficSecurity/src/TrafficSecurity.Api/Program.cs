@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TrafficSecurity.Application;
 using TrafficSecurity.Infrastructure;
 using TrafficSecurity.Infrastructure.Persistence;
@@ -25,6 +26,7 @@ app.MapGet("/", () => Results.Ok(new { Service = "TrafficSecurity.Api", Status =
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<TrafficSecurityDbContext>();
+    await dbContext.Database.MigrateAsync();
     await TrafficSecurityDbSeeder.SeedAsync(dbContext);
 }
 

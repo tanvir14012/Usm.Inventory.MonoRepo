@@ -1,6 +1,7 @@
 ﻿using IssueReceipt.Application;
 using IssueReceipt.Infrastructure;
 using IssueReceipt.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 using Usm.Shared.BuildingBlocks.Observability;
 
@@ -25,6 +26,7 @@ app.MapGet("/", () => Results.Ok(new { Service = "IssueReceipt.Api", Status = "U
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<IssueReceiptDbContext>();
+    await dbContext.Database.MigrateAsync();
     await IssueReceiptDbSeeder.SeedAsync(dbContext);
 }
 

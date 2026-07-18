@@ -1,4 +1,5 @@
-﻿using RepairMaintenance.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using RepairMaintenance.Application;
 using RepairMaintenance.Infrastructure;
 using RepairMaintenance.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;
@@ -25,6 +26,7 @@ app.MapGet("/", () => Results.Ok(new { Service = "RepairMaintenance.Api", Status
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<RepairMaintenanceDbContext>();
+    await dbContext.Database.MigrateAsync();
     await RepairMaintenanceDbSeeder.SeedAsync(dbContext);
 }
 

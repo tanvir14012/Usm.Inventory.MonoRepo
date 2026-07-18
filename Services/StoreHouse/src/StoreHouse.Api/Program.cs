@@ -1,4 +1,5 @@
-﻿using StoreHouse.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreHouse.Application;
 using StoreHouse.Infrastructure;
 using StoreHouse.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;
@@ -25,6 +26,7 @@ app.MapGet("/", () => Results.Ok(new { Service = "StoreHouse.Api", Status = "Up"
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<StoreHouseDbContext>();
+    await dbContext.Database.MigrateAsync();
     await StoreHouseDbSeeder.SeedAsync(dbContext);
 }
 
