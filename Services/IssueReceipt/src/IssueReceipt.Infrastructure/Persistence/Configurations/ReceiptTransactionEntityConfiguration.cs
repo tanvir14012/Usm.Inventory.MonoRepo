@@ -8,7 +8,7 @@ internal sealed class ReceiptTransactionEntityConfiguration : IEntityTypeConfigu
 {
     public void Configure(EntityTypeBuilder<ReceiptTransaction> builder)
     {
-        builder.ToTable("receipt_transactions");
+        builder.ToTable("receipt_transactions", "issuereceipt");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.TransactionNumber)

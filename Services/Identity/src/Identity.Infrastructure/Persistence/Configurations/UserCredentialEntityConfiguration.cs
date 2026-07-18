@@ -8,7 +8,7 @@ internal sealed class UserCredentialEntityConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<UserCredential> builder)
     {
-        builder.ToTable("user_credentials");
+        builder.ToTable("user_credentials", "identity");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Type)

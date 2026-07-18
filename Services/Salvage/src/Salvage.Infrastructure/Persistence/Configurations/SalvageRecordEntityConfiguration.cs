@@ -8,7 +8,7 @@ internal sealed class SalvageRecordEntityConfiguration : IEntityTypeConfiguratio
 {
     public void Configure(EntityTypeBuilder<SalvageRecord> builder)
     {
-        builder.ToTable("salvage_records");
+        builder.ToTable("salvage_records", "salvage");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.RecordNumber)

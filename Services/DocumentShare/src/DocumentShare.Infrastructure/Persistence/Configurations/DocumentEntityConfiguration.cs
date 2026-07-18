@@ -8,7 +8,7 @@ internal sealed class DocumentEntityConfiguration : IEntityTypeConfiguration<Doc
 {
     public void Configure(EntityTypeBuilder<Document> builder)
     {
-        builder.ToTable("documents");
+        builder.ToTable("documents", "documentshare");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.FileName)

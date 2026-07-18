@@ -8,7 +8,7 @@ internal sealed class WarehouseEntityConfiguration : IEntityTypeConfiguration<Wa
 {
     public void Configure(EntityTypeBuilder<Warehouse> builder)
     {
-        builder.ToTable("warehouses");
+        builder.ToTable("warehouses", "storehouse");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Code)

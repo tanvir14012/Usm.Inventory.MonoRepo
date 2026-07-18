@@ -8,7 +8,7 @@ internal sealed class NotificationEntityConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<Notification> builder)
     {
-        builder.ToTable("notifications");
+        builder.ToTable("notifications", "communication");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Subject)

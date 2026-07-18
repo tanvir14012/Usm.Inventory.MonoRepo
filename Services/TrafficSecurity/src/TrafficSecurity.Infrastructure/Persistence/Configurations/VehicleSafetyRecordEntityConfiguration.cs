@@ -8,7 +8,7 @@ internal sealed class VehicleSafetyRecordEntityConfiguration : IEntityTypeConfig
 {
     public void Configure(EntityTypeBuilder<VehicleSafetyRecord> builder)
     {
-        builder.ToTable("vehicle_safety_records");
+        builder.ToTable("vehicle_safety_records", "trafficsecurity");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.VehicleRegistrationNumber)

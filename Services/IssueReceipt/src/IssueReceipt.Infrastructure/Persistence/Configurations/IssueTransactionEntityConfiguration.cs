@@ -8,7 +8,7 @@ internal sealed class IssueTransactionEntityConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<IssueTransaction> builder)
     {
-        builder.ToTable("issue_transactions");
+        builder.ToTable("issue_transactions", "issuereceipt");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.TransactionNumber)

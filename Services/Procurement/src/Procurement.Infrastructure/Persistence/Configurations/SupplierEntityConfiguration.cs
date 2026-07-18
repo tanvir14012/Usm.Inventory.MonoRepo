@@ -9,7 +9,7 @@ internal sealed class SupplierEntityConfiguration : IEntityTypeConfiguration<Sup
 {
     public void Configure(EntityTypeBuilder<Supplier> builder)
     {
-        builder.ToTable("suppliers");
+        builder.ToTable("suppliers", "procurement");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)

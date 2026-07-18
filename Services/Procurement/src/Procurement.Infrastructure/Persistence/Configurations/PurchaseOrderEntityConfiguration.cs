@@ -8,7 +8,7 @@ internal sealed class PurchaseOrderEntityConfiguration : IEntityTypeConfiguratio
 {
     public void Configure(EntityTypeBuilder<PurchaseOrder> builder)
     {
-        builder.ToTable("purchase_orders");
+        builder.ToTable("purchase_orders", "procurement");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.OrderNumber)

@@ -8,7 +8,7 @@ internal sealed class ReportEntityConfiguration : IEntityTypeConfiguration<Repor
 {
     public void Configure(EntityTypeBuilder<Report> builder)
     {
-        builder.ToTable("reports");
+        builder.ToTable("reports", "reporting");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.ReportType)

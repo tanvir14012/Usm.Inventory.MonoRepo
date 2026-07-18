@@ -8,7 +8,7 @@ internal sealed class RepairOrderEntityConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<RepairOrder> builder)
     {
-        builder.ToTable("repair_orders");
+        builder.ToTable("repair_orders", "repairmaintenance");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.OrderNumber)

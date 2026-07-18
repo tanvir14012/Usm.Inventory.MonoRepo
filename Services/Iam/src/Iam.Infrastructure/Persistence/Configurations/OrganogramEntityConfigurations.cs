@@ -11,7 +11,7 @@ internal sealed class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
-        builder.ToTable("roles");
+        builder.ToTable("roles", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(512);
@@ -22,7 +22,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
 {
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
-        builder.ToTable("permissions");
+        builder.ToTable("permissions", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(128).IsRequired();
         builder.Property(x => x.Resource).HasMaxLength(256).IsRequired();
@@ -33,7 +33,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
     {
         public void Configure(EntityTypeBuilder<ModuleNavigation> builder)
         {
-            builder.ToTable("module_navigations");
+            builder.ToTable("module_navigations", "iam");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.BuildingBlockType).HasConversion<int>().IsRequired();
             builder.Property(x => x.SystemName).HasMaxLength(120).IsRequired();
@@ -51,7 +51,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
     {
         public void Configure(EntityTypeBuilder<SidebarMenuItem> builder)
         {
-            builder.ToTable("sidebar_menu_items");
+            builder.ToTable("sidebar_menu_items", "iam");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.SystemName).HasMaxLength(120).IsRequired();
             builder.Property(x => x.MenuId).HasMaxLength(120).IsRequired();
@@ -69,7 +69,7 @@ internal sealed class OrganogramTemplateConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<OrganogramTemplate> builder)
     {
-        builder.ToTable("organogram_templates");
+        builder.ToTable("organogram_templates", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
         builder.Property(x => x.Version).HasMaxLength(80).IsRequired();
@@ -91,7 +91,7 @@ internal sealed class TemplateDepartmentConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<TemplateDepartment> builder)
     {
-        builder.ToTable("template_departments");
+        builder.ToTable("template_departments", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.DepartmentCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -104,7 +104,7 @@ internal sealed class TemplateBuildingBlockConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<TemplateBuildingBlock> builder)
     {
-        builder.ToTable("template_building_blocks");
+        builder.ToTable("template_building_blocks", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BuildingBlockCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -118,7 +118,7 @@ internal sealed class TemplateRoleDefinitionConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<TemplateRoleDefinition> builder)
     {
-        builder.ToTable("template_roles");
+        builder.ToTable("template_roles", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -133,7 +133,7 @@ internal sealed class TemplatePermissionDefinitionConfiguration : IEntityTypeCon
 {
     public void Configure(EntityTypeBuilder<TemplatePermissionDefinition> builder)
     {
-        builder.ToTable("template_permissions");
+        builder.ToTable("template_permissions", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.PermissionCode).HasMaxLength(120).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -148,7 +148,7 @@ internal sealed class TemplateRolePermissionConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<TemplateRolePermission> builder)
     {
-        builder.ToTable("template_role_permissions");
+        builder.ToTable("template_role_permissions", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.PermissionCode).HasMaxLength(120).IsRequired();
@@ -160,7 +160,7 @@ internal sealed class TemplateRoleHierarchyConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<TemplateRoleHierarchy> builder)
     {
-        builder.ToTable("template_role_hierarchies");
+        builder.ToTable("template_role_hierarchies", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ParentRoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.ChildRoleCode).HasMaxLength(80).IsRequired();
@@ -173,7 +173,7 @@ internal sealed class TemplatePositionAllocationConfiguration : IEntityTypeConfi
 {
     public void Configure(EntityTypeBuilder<TemplatePositionAllocation> builder)
     {
-        builder.ToTable("template_position_allocations");
+        builder.ToTable("template_position_allocations", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BuildingBlockCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
@@ -187,7 +187,7 @@ internal sealed class TemplateApprovalPathConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<TemplateApprovalPath> builder)
     {
-        builder.ToTable("template_approval_paths");
+        builder.ToTable("template_approval_paths", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.WorkflowCode).HasMaxLength(120).IsRequired();
         builder.Property(x => x.FromDepartmentCode).HasMaxLength(80).IsRequired();
@@ -204,7 +204,7 @@ internal sealed class OrganogramInstanceConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<OrganogramInstance> builder)
     {
-        builder.ToTable("organogram_instances");
+        builder.ToTable("organogram_instances", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
         builder.Property(x => x.InstanceCode).HasMaxLength(120).IsRequired();
@@ -217,7 +217,7 @@ internal sealed class OrganizationalUnitConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<OrganizationalUnit> builder)
     {
-        builder.ToTable("organizational_units");
+        builder.ToTable("organizational_units", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.UnitKey).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -232,7 +232,7 @@ internal sealed class InstanceBuildingBlockConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<InstanceBuildingBlock> builder)
     {
-        builder.ToTable("instance_building_blocks");
+        builder.ToTable("instance_building_blocks", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BuildingBlockCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -246,7 +246,7 @@ internal sealed class InstanceRoleDefinitionConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<InstanceRoleDefinition> builder)
     {
-        builder.ToTable("instance_roles");
+        builder.ToTable("instance_roles", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -261,7 +261,7 @@ internal sealed class InstancePermissionDefinitionConfiguration : IEntityTypeCon
 {
     public void Configure(EntityTypeBuilder<InstancePermissionDefinition> builder)
     {
-        builder.ToTable("instance_permissions");
+        builder.ToTable("instance_permissions", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.PermissionCode).HasMaxLength(120).IsRequired();
         builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
@@ -276,7 +276,7 @@ internal sealed class InstanceRolePermissionConfiguration : IEntityTypeConfigura
 {
     public void Configure(EntityTypeBuilder<InstanceRolePermission> builder)
     {
-        builder.ToTable("instance_role_permissions");
+        builder.ToTable("instance_role_permissions", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.PermissionCode).HasMaxLength(120).IsRequired();
@@ -288,7 +288,7 @@ internal sealed class InstanceRoleHierarchyConfiguration : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<InstanceRoleHierarchy> builder)
     {
-        builder.ToTable("instance_role_hierarchies");
+        builder.ToTable("instance_role_hierarchies", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ParentRoleCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.ChildRoleCode).HasMaxLength(80).IsRequired();
@@ -301,7 +301,7 @@ internal sealed class InstancePositionAllocationConfiguration : IEntityTypeConfi
 {
     public void Configure(EntityTypeBuilder<InstancePositionAllocation> builder)
     {
-        builder.ToTable("instance_position_allocations");
+        builder.ToTable("instance_position_allocations", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BuildingBlockCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
@@ -315,7 +315,7 @@ internal sealed class InstanceApprovalPathConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<InstanceApprovalPath> builder)
     {
-        builder.ToTable("instance_approval_paths");
+        builder.ToTable("instance_approval_paths", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.WorkflowCode).HasMaxLength(120).IsRequired();
         builder.Property(x => x.FromDepartmentCode).HasMaxLength(80).IsRequired();
@@ -332,7 +332,7 @@ internal sealed class UserOrganogramAssignmentConfiguration : IEntityTypeConfigu
 {
     public void Configure(EntityTypeBuilder<UserOrganogramAssignment> builder)
     {
-        builder.ToTable("user_organogram_assignments");
+        builder.ToTable("user_organogram_assignments", "iam");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BuildingBlockCode).HasMaxLength(80).IsRequired();
         builder.Property(x => x.RoleCode).HasMaxLength(80).IsRequired();
@@ -345,7 +345,7 @@ internal sealed class SuperAdminAssignmentConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<SuperAdminAssignment> builder)
     {
-        builder.ToTable("super_admin_assignments");
+        builder.ToTable("super_admin_assignments", "iam");
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.UserId).IsUnique();
     }

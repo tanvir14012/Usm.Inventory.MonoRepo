@@ -8,7 +8,7 @@ internal sealed class InspectionEntityConfiguration : IEntityTypeConfiguration<I
 {
     public void Configure(EntityTypeBuilder<Inspection> builder)
     {
-        builder.ToTable("inspections");
+        builder.ToTable("inspections", "inspectorate");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.InspectionNumber)

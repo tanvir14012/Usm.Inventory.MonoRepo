@@ -8,7 +8,7 @@ internal sealed class BudgetEntityConfiguration : IEntityTypeConfiguration<Budge
 {
     public void Configure(EntityTypeBuilder<Budget> builder)
     {
-        builder.ToTable("budgets");
+        builder.ToTable("budgets", "budgetplanning");
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Status)
