@@ -17,6 +17,6 @@ export const environment = {
     requireHttps: false,
   },
   defaultLanguage: 'en',
-  supportedLanguages: ['en', 'ar'],
+  supportedLanguages: ['en', 'zh', 'hi', 'es', 'fr', 'ar', 'bn', 'pt', 'ru'],
   cacheTtlMs: 5 * 60 * 1000,
 };
