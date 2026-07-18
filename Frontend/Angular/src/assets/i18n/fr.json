@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
+    "en": "Anglais",
+    "zh": "Chinois",
     "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
+    "es": "Espagnol",
+    "fr": "Francais",
+    "ar": "Arabe",
     "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "pt": "Portugais",
+    "ru": "Russe"
+  },
+  "public": {
+    "nav": {
+      "mission": "Mission",
+      "capabilities": "Capacites",
+      "gallery": "Galerie",
+      "security": "Securite"
+    },
+    "hero": {
+      "badge": "Gestion de la chaine logistique militaire americaine",
+      "subtitle": "Systeme de Ressources Operationnelles et d'Approvisionnement de Defense",
+      "description": "Gestion des stocks securisee et prete pour la mission. Concu selon les normes du DoD et deployee a grande echelle.",
+      "accessSystem": "Acceder au systeme",
+      "learnMore": "En savoir plus ↓"
+    },
+    "cta": {
+      "signInNow": "Se connecter maintenant"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "Accedez au systeme de chaine logistique ORDISS",
+    "backPublicSite": "Voir le site public",
+    "cacCard": "Carte CAC",
+    "fido2Key": "Cle FIDO2",
+    "usernameRequired": "Le nom d'utilisateur est requis",
+    "passwordRequired": "Le mot de passe est requis",
+    "usernamePlaceholder": "Entrez le nom d'utilisateur",
+    "passwordPlaceholder": "Entrez le mot de passe",
+    "signInWithPassword": "Se connecter avec mot de passe",
+    "authenticateWithCac": "Authentifier avec CAC",
+    "authenticateWithSecurityKey": "Authentifier avec cle de securite",
+    "signingIn": "Connexion en cours...",
+    "authenticating": "Authentification en cours...",
+    "waitingForKey": "En attente de la cle...",
+    "invalidCredentials": "Identifiants invalides. Verifiez votre nom d'utilisateur et mot de passe.",
+    "cacFailed": "Echec de l'authentification CAC. Verifiez la carte et le certificat.",
+    "fido2Failed": "Echec FIDO2. Verifiez votre cle de securite puis reessayez.",
+    "webauthnUnavailable": "WebAuthn n'est pas disponible dans ce navigateur."
   },
   "validation": {
     "required": "{{field}} is required",

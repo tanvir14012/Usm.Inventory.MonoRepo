@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
-    "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "en": "Английский",
+    "zh": "Китайский",
+    "hi": "Хинди",
+    "es": "Испанский",
+    "fr": "Французский",
+    "ar": "Арабский",
+    "bn": "Бенгальский",
+    "pt": "Португальский",
+    "ru": "Русский"
+  },
+  "public": {
+    "nav": {
+      "mission": "Миссия",
+      "capabilities": "Возможности",
+      "gallery": "Галерея",
+      "security": "Безопасность"
+    },
+    "hero": {
+      "badge": "Управление военной цепочкой поставок США",
+      "subtitle": "Система оперативных ресурсов и оборонного снабжения запасами",
+      "description": "Безопасное управление запасами, готовое к выполнению миссий. Построено по стандартам DoD и развертывается в масштабе.",
+      "accessSystem": "Войти в систему",
+      "learnMore": "Узнать больше ↓"
+    },
+    "cta": {
+      "signInNow": "Войти сейчас"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "Доступ к системе цепочки поставок ORDISS",
+    "backPublicSite": "Открыть публичный сайт",
+    "cacCard": "Карта CAC",
+    "fido2Key": "Ключ FIDO2",
+    "usernameRequired": "Требуется имя пользователя",
+    "passwordRequired": "Требуется пароль",
+    "usernamePlaceholder": "Введите имя пользователя",
+    "passwordPlaceholder": "Введите пароль",
+    "signInWithPassword": "Войти по паролю",
+    "authenticateWithCac": "Аутентификация через CAC",
+    "authenticateWithSecurityKey": "Аутентификация ключом безопасности",
+    "signingIn": "Вход...",
+    "authenticating": "Аутентификация...",
+    "waitingForKey": "Ожидание ключа...",
+    "invalidCredentials": "Неверные учетные данные. Проверьте имя пользователя и пароль.",
+    "cacFailed": "Сбой аутентификации CAC. Проверьте карту и сертификат.",
+    "fido2Failed": "Сбой FIDO2. Проверьте ключ безопасности и попробуйте снова.",
+    "webauthnUnavailable": "WebAuthn недоступен в этом браузере."
   },
   "validation": {
     "required": "{{field}} is required",

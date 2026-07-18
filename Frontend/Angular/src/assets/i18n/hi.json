@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
-    "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "en": "अंग्रेज़ी",
+    "zh": "चीनी",
+    "hi": "हिंदी",
+    "es": "स्पेनिश",
+    "fr": "फ़्रेंच",
+    "ar": "अरबी",
+    "bn": "बंगाली",
+    "pt": "पुर्तगाली",
+    "ru": "रूसी"
+  },
+  "public": {
+    "nav": {
+      "mission": "मिशन",
+      "capabilities": "क्षमताएं",
+      "gallery": "गैलरी",
+      "security": "सुरक्षा"
+    },
+    "hero": {
+      "badge": "अमेरिकी सैन्य आपूर्ति श्रृंखला प्रबंधन",
+      "subtitle": "ऑपरेशनल रिसोर्स और डिफेंस इन्वेंटरी सप्लाई सिस्टम",
+      "description": "आधुनिक सैनिक के लिए सुरक्षित और मिशन-तैयार इन्वेंटरी प्रबंधन। DoD मानकों पर निर्मित और बड़े पैमाने पर तैनात।",
+      "accessSystem": "सिस्टम एक्सेस करें",
+      "learnMore": "और जानें ↓"
+    },
+    "cta": {
+      "signInNow": "अभी साइन इन करें"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "ORDISS सप्लाई चेन सिस्टम एक्सेस करें",
+    "backPublicSite": "पब्लिक साइट देखें",
+    "cacCard": "CAC कार्ड",
+    "fido2Key": "FIDO2 कुंजी",
+    "usernameRequired": "यूज़रनेम आवश्यक है",
+    "passwordRequired": "पासवर्ड आवश्यक है",
+    "usernamePlaceholder": "यूज़रनेम दर्ज करें",
+    "passwordPlaceholder": "पासवर्ड दर्ज करें",
+    "signInWithPassword": "पासवर्ड से साइन इन करें",
+    "authenticateWithCac": "CAC से प्रमाणित करें",
+    "authenticateWithSecurityKey": "सिक्योरिटी की से प्रमाणित करें",
+    "signingIn": "साइन इन हो रहा है...",
+    "authenticating": "प्रमाणित किया जा रहा है...",
+    "waitingForKey": "कुंजी की प्रतीक्षा हो रही है...",
+    "invalidCredentials": "अमान्य क्रेडेंशियल्स। कृपया यूज़रनेम और पासवर्ड जांचें।",
+    "cacFailed": "CAC प्रमाणीकरण विफल। कार्ड और प्रमाणपत्र की जाँच करें।",
+    "fido2Failed": "FIDO2 विफल। अपनी सिक्योरिटी की जांचकर फिर प्रयास करें।",
+    "webauthnUnavailable": "इस ब्राउज़र में WebAuthn उपलब्ध नहीं है।"
   },
   "validation": {
     "required": "{{field}} is required",

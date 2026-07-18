@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
+    "en": "Ingles",
+    "zh": "Chines",
     "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
+    "es": "Espanhol",
+    "fr": "Frances",
+    "ar": "Arabe",
     "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "pt": "Portugues",
+    "ru": "Russo"
+  },
+  "public": {
+    "nav": {
+      "mission": "Missao",
+      "capabilities": "Capacidades",
+      "gallery": "Galeria",
+      "security": "Seguranca"
+    },
+    "hero": {
+      "badge": "Gestao da cadeia de suprimentos militar dos EUA",
+      "subtitle": "Sistema de Recursos Operacionais e Suprimento de Inventario de Defesa",
+      "description": "Gestao de inventario segura e pronta para missao. Construido com padroes do DoD e implantado em escala.",
+      "accessSystem": "Acessar sistema",
+      "learnMore": "Saiba mais ↓"
+    },
+    "cta": {
+      "signInNow": "Entrar agora"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "Acesse o sistema de cadeia de suprimentos ORDISS",
+    "backPublicSite": "Ver site publico",
+    "cacCard": "Cartao CAC",
+    "fido2Key": "Chave FIDO2",
+    "usernameRequired": "Nome de usuario obrigatorio",
+    "passwordRequired": "Senha obrigatoria",
+    "usernamePlaceholder": "Digite o nome de usuario",
+    "passwordPlaceholder": "Digite a senha",
+    "signInWithPassword": "Entrar com senha",
+    "authenticateWithCac": "Autenticar com CAC",
+    "authenticateWithSecurityKey": "Autenticar com chave de seguranca",
+    "signingIn": "Entrando...",
+    "authenticating": "Autenticando...",
+    "waitingForKey": "Aguardando chave...",
+    "invalidCredentials": "Credenciais invalidas. Verifique usuario e senha.",
+    "cacFailed": "Falha na autenticacao CAC. Verifique cartao e certificado.",
+    "fido2Failed": "Falha no FIDO2. Verifique sua chave de seguranca e tente novamente.",
+    "webauthnUnavailable": "WebAuthn nao esta disponivel neste navegador."
   },
   "validation": {
     "required": "{{field}} is required",
