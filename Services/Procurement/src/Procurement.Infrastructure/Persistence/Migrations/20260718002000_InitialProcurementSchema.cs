@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Procurement.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718002000_InitialProcurementSchema")]
     public partial class InitialProcurementSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

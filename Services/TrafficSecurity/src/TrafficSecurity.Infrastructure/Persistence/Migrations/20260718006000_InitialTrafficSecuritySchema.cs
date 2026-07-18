@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrafficSecurity.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718006000_InitialTrafficSecuritySchema")]
     public partial class InitialTrafficSecuritySchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
