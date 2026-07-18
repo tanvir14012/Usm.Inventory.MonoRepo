@@ -11,12 +11,24 @@ var envVars = File.Exists(envFile)
 
 int Port(string key, int fallback) =>
     envVars.TryGetValue(key, out var v) && int.TryParse(v, out var p) ? p : fallback;
+string Env(string key, string fallback) =>
+    envVars.TryGetValue(key, out var v) && !string.IsNullOrWhiteSpace(v) ? v : fallback;
+
+var postgresUser = Env("POSTGRES_USER", "usm_admin");
+var postgresPassword = Env("POSTGRES_PASSWORD", "usm_admin_dev");
+var postgresDatabase = Env("POSTGRES_DB", "usm_inventory");
+var postgresUserParameter = builder.AddParameter("postgres-user", postgresUser);
+var postgresPasswordParameter = builder.AddParameter("postgres-password", postgresPassword, secret: true);
 
 // Infrastructure
-var postgres = builder.AddPostgres("postgres", port: Port("POSTGRES_PORT", 5432))
+var postgres = builder.AddPostgres(
+    "postgres",
+    userName: postgresUserParameter,
+    password: postgresPasswordParameter,
+    port: Port("POSTGRES_PORT", 5432))
     .WithPgAdmin();
 
-var appDb = postgres.AddDatabase("usmdb");
+var appDb = postgres.AddDatabase("usmdb", postgresDatabase);
 
 var rabbitMq = builder.AddRabbitMQ("rabbitmq", port: Port("RABBITMQ_PORT", 5672))
     .WithManagementPlugin(port: Port("RABBITMQ_MANAGEMENT_PORT", 15672));
