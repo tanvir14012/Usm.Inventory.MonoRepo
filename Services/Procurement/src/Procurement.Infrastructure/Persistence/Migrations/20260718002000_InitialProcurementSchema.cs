@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Procurement.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace Procurement.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(ProcurementDbContext))]
     [Migration("20260718002000_InitialProcurementSchema")]
     public partial class InitialProcurementSchema : Migration
     {

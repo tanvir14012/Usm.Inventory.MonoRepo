@@ -1,10 +1,14 @@
 using System;
+using IssueReceipt.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace IssueReceipt.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(IssueReceiptDbContext))]
     [Migration("20260718004000_InitialIssueReceiptSchema")]
     public partial class InitialIssueReceiptSchema : Migration
     {

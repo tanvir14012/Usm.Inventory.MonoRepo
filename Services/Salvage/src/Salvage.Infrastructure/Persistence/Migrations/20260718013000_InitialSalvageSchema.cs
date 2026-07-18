@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Salvage.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace Salvage.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(SalvageDbContext))]
     [Migration("20260718013000_InitialSalvageSchema")]
     public partial class InitialSalvageSchema : Migration
     {

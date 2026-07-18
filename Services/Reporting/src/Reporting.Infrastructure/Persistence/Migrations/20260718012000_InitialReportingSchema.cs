@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Reporting.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace Reporting.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(ReportingDbContext))]
     [Migration("20260718012000_InitialReportingSchema")]
     public partial class InitialReportingSchema : Migration
     {

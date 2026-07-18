@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using RepairMaintenance.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace RepairMaintenance.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(RepairMaintenanceDbContext))]
     [Migration("20260718005000_InitialRepairMaintenanceSchema")]
     public partial class InitialRepairMaintenanceSchema : Migration
     {

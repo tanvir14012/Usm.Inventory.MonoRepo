@@ -1,10 +1,14 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using StoreHouse.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace StoreHouse.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(StoreHouseDbContext))]
     [Migration("20260718003000_InitialStoreHouseSchema")]
     public partial class InitialStoreHouseSchema : Migration
     {
