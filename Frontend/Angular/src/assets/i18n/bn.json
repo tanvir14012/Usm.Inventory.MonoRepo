@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
-    "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "en": "ইংরেজি",
+    "zh": "চীনা",
+    "hi": "হিন্দি",
+    "es": "স্প্যানিশ",
+    "fr": "ফরাসি",
+    "ar": "আরবি",
+    "bn": "বাংলা",
+    "pt": "পর্তুগিজ",
+    "ru": "রুশ"
+  },
+  "public": {
+    "nav": {
+      "mission": "মিশন",
+      "capabilities": "সামর্থ্য",
+      "gallery": "গ্যালারি",
+      "security": "নিরাপত্তা"
+    },
+    "hero": {
+      "badge": "যুক্তরাষ্ট্র সামরিক সরবরাহ শৃঙ্খল ব্যবস্থাপনা",
+      "subtitle": "অপারেশনাল রিসোর্স এবং ডিফেন্স ইনভেন্টরি সাপ্লাই সিস্টেম",
+      "description": "আধুনিক যোদ্ধার জন্য নিরাপদ ও মিশন-প্রস্তুত ইনভেন্টরি ব্যবস্থাপনা। DoD মান অনুযায়ী নির্মিত এবং বৃহৎ পরিসরে স্থাপনযোগ্য।",
+      "accessSystem": "সিস্টেমে প্রবেশ করুন",
+      "learnMore": "আরও জানুন ↓"
+    },
+    "cta": {
+      "signInNow": "এখনই সাইন ইন করুন"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "ORDISS সাপ্লাই চেইন সিস্টেমে প্রবেশ করুন",
+    "backPublicSite": "পাবলিক সাইট দেখুন",
+    "cacCard": "CAC কার্ড",
+    "fido2Key": "FIDO2 কী",
+    "usernameRequired": "ইউজারনেম আবশ্যক",
+    "passwordRequired": "পাসওয়ার্ড আবশ্যক",
+    "usernamePlaceholder": "ইউজারনেম লিখুন",
+    "passwordPlaceholder": "পাসওয়ার্ড লিখুন",
+    "signInWithPassword": "পাসওয়ার্ড দিয়ে সাইন ইন",
+    "authenticateWithCac": "CAC দিয়ে প্রমাণীকরণ",
+    "authenticateWithSecurityKey": "সিকিউরিটি কী দিয়ে প্রমাণীকরণ",
+    "signingIn": "সাইন ইন হচ্ছে...",
+    "authenticating": "প্রমাণীকরণ হচ্ছে...",
+    "waitingForKey": "কী-এর জন্য অপেক্ষা করা হচ্ছে...",
+    "invalidCredentials": "ভুল তথ্য। অনুগ্রহ করে ইউজারনেম ও পাসওয়ার্ড যাচাই করুন।",
+    "cacFailed": "CAC প্রমাণীকরণ ব্যর্থ। কার্ড ও সার্টিফিকেট যাচাই করুন।",
+    "fido2Failed": "FIDO2 ব্যর্থ। সিকিউরিটি কী যাচাই করে আবার চেষ্টা করুন।",
+    "webauthnUnavailable": "এই ব্রাউজারে WebAuthn উপলব্ধ নয়।"
   },
   "validation": {
     "required": "{{field}} is required",

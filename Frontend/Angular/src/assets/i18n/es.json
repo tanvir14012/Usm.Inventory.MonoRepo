@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
+    "en": "Ingles",
+    "zh": "Chino",
     "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
+    "es": "Espanol",
+    "fr": "Frances",
+    "ar": "Arabe",
     "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "pt": "Portugues",
+    "ru": "Ruso"
+  },
+  "public": {
+    "nav": {
+      "mission": "Mision",
+      "capabilities": "Capacidades",
+      "gallery": "Galeria",
+      "security": "Seguridad"
+    },
+    "hero": {
+      "badge": "Gestion de cadena de suministro militar de EE. UU.",
+      "subtitle": "Sistema de Recursos Operacionales y Suministro de Inventario de Defensa",
+      "description": "Gestion de inventario segura y lista para la mision. Construido con estandares del DoD y desplegado a escala.",
+      "accessSystem": "Acceder al sistema",
+      "learnMore": "Saber mas ↓"
+    },
+    "cta": {
+      "signInNow": "Iniciar sesion ahora"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "Acceda al sistema de cadena de suministro ORDISS",
+    "backPublicSite": "Ver sitio publico",
+    "cacCard": "Tarjeta CAC",
+    "fido2Key": "Clave FIDO2",
+    "usernameRequired": "El nombre de usuario es obligatorio",
+    "passwordRequired": "La contrasena es obligatoria",
+    "usernamePlaceholder": "Ingrese nombre de usuario",
+    "passwordPlaceholder": "Ingrese contrasena",
+    "signInWithPassword": "Iniciar sesion con contrasena",
+    "authenticateWithCac": "Autenticar con CAC",
+    "authenticateWithSecurityKey": "Autenticar con clave de seguridad",
+    "signingIn": "Iniciando sesion...",
+    "authenticating": "Autenticando...",
+    "waitingForKey": "Esperando la clave...",
+    "invalidCredentials": "Credenciales invalidas. Verifique su usuario y contrasena.",
+    "cacFailed": "La autenticacion CAC fallo. Verifique la tarjeta y el certificado.",
+    "fido2Failed": "Fallo FIDO2. Verifique su clave de seguridad e intente de nuevo.",
+    "webauthnUnavailable": "WebAuthn no esta disponible en este navegador."
   },
   "validation": {
     "required": "{{field}} is required",

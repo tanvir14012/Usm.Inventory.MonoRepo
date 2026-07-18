@@ -73,6 +73,44 @@
     "pt": "البرتغالية",
     "ru": "الروسية"
   },
+  "public": {
+    "nav": {
+      "mission": "المهمة",
+      "capabilities": "القدرات",
+      "gallery": "المعرض",
+      "security": "الأمان"
+    },
+    "hero": {
+      "badge": "إدارة سلسلة الإمداد العسكرية الأمريكية",
+      "subtitle": "نظام موارد التشغيل والدفاع لإمداد المخزون",
+      "description": "إدارة مخزون آمنة وجاهزة للمهمة للمقاتل الحديث. مبنية وفق معايير وزارة الدفاع وقابلة للنشر على نطاق واسع.",
+      "accessSystem": "الدخول إلى النظام",
+      "learnMore": "اعرف المزيد ↓"
+    },
+    "cta": {
+      "signInNow": "سجل الدخول الآن"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "الوصول إلى نظام الإمداد ORDISS",
+    "backPublicSite": "عرض الموقع العام",
+    "cacCard": "بطاقة CAC",
+    "fido2Key": "مفتاح FIDO2",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "usernamePlaceholder": "أدخل اسم المستخدم",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "signInWithPassword": "تسجيل الدخول بكلمة المرور",
+    "authenticateWithCac": "المصادقة عبر CAC",
+    "authenticateWithSecurityKey": "المصادقة بمفتاح الأمان",
+    "signingIn": "جار تسجيل الدخول...",
+    "authenticating": "جار المصادقة...",
+    "waitingForKey": "بانتظار المفتاح...",
+    "invalidCredentials": "بيانات اعتماد غير صحيحة. يرجى التحقق من اسم المستخدم وكلمة المرور.",
+    "cacFailed": "فشلت مصادقة CAC. تأكد من إدخال البطاقة وأن الشهادة موثوقة.",
+    "fido2Failed": "فشلت مصادقة FIDO2. تحقق من مفتاح الأمان وحاول مرة أخرى.",
+    "webauthnUnavailable": "WebAuthn غير متاح في هذا المتصفح."
+  },
   "validation": {
     "required": "{{field}} مطلوب",
     "minLength": "يجب أن يكون {{field}} {{min}} أحرف على الأقل",

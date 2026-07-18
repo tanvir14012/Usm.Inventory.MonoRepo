@@ -73,6 +73,44 @@
     "pt": "Portuguese",
     "ru": "Russian"
   },
+  "public": {
+    "nav": {
+      "mission": "Mission",
+      "capabilities": "Capabilities",
+      "gallery": "Gallery",
+      "security": "Security"
+    },
+    "hero": {
+      "badge": "U.S. Military Supply Chain Management",
+      "subtitle": "Operational Resource & Defense Inventory Supply System",
+      "description": "Secure, mission-ready inventory management for the modern warfighter. Built to DoD standards. Deployed at scale.",
+      "accessSystem": "Access System",
+      "learnMore": "Learn More ↓"
+    },
+    "cta": {
+      "signInNow": "Sign In Now"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "Access the ORDISS supply chain system",
+    "backPublicSite": "View Public Site",
+    "cacCard": "CAC Card",
+    "fido2Key": "FIDO2 Key",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password",
+    "signInWithPassword": "Sign In with Password",
+    "authenticateWithCac": "Authenticate with CAC",
+    "authenticateWithSecurityKey": "Authenticate with Security Key",
+    "signingIn": "Signing in...",
+    "authenticating": "Authenticating...",
+    "waitingForKey": "Waiting for key...",
+    "invalidCredentials": "Invalid credentials. Please verify your username and password.",
+    "cacFailed": "CAC authentication failed. Verify your card is inserted and the certificate is trusted.",
+    "fido2Failed": "FIDO2 failed. Verify your security key and try again.",
+    "webauthnUnavailable": "WebAuthn is not available in this browser."
+  },
   "validation": {
     "required": "{{field}} is required",
     "minLength": "{{field}} must be at least {{min}} characters",

@@ -6,6 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 interface Capability {
@@ -25,7 +26,7 @@ interface GalleryImage {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, LanguageSelectorComponent],
+  imports: [RouterModule, LanguageSelectorComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- NAVBAR -->
@@ -41,12 +42,12 @@ interface GalleryImage {
           <span></span><span></span><span></span>
         </button>
         <div class="nav-links" [class.open]="menuOpen()">
-          <a href="#mission" (click)="closeMenu()">Mission</a>
-          <a href="#capabilities" (click)="closeMenu()">Capabilities</a>
-          <a href="#gallery" (click)="closeMenu()">Gallery</a>
-          <a href="#security" (click)="closeMenu()">Security</a>
+          <a href="#mission" (click)="closeMenu()">{{ 'public.nav.mission' | translate }}</a>
+          <a href="#capabilities" (click)="closeMenu()">{{ 'public.nav.capabilities' | translate }}</a>
+          <a href="#gallery" (click)="closeMenu()">{{ 'public.nav.gallery' | translate }}</a>
+          <a href="#security" (click)="closeMenu()">{{ 'public.nav.security' | translate }}</a>
           <app-language-selector variant="dark"></app-language-selector>
-          <button class="nav-cta" (click)="goToLogin()">Sign In</button>
+          <button class="nav-cta" (click)="goToLogin()">{{ 'auth.signIn' | translate }}</button>
         </div>
       </div>
     </nav>
@@ -54,13 +55,13 @@ interface GalleryImage {
     <!-- HERO -->
     <section id="home" class="hero-section">
       <div class="hero-content">
-        <div class="hero-badge">U.S. Military Supply Chain Management</div>
+        <div class="hero-badge">{{ 'public.hero.badge' | translate }}</div>
         <h1 class="hero-title">ORDISS</h1>
-        <p class="hero-subtitle">Operational Resource &amp; Defense<br/>Inventory Supply System</p>
-        <p class="hero-desc">Secure, mission-ready inventory management for the modern warfighter.<br/>Built to DoD standards. Deployed at scale.</p>
+        <p class="hero-subtitle">{{ 'public.hero.subtitle' | translate }}</p>
+        <p class="hero-desc">{{ 'public.hero.description' | translate }}</p>
         <div class="hero-actions">
-          <button class="btn-primary" (click)="goToLogin()">Access System</button>
-          <a href="#mission" class="btn-ghost">Learn More ↓</a>
+          <button class="btn-primary" (click)="goToLogin()">{{ 'public.hero.accessSystem' | translate }}</button>
+          <a href="#mission" class="btn-ghost">{{ 'public.hero.learnMore' | translate }}</a>
         </div>
       </div>
       <div class="hero-scroll-hint">
@@ -275,7 +276,7 @@ interface GalleryImage {
         <h2>Ready to Get Started?</h2>
         <p>Authorized U.S. military personnel can access the system using their credentials, CAC card, or FIDO2 security key.</p>
         <div class="cta-actions">
-          <button class="btn-primary" (click)="goToLogin()">Sign In Now</button>
+          <button class="btn-primary" (click)="goToLogin()">{{ 'public.cta.signInNow' | translate }}</button>
           <a routerLink="/coming-soon" class="btn-ghost-dark">Coming Features</a>
         </div>
       </div>

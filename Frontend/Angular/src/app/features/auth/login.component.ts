@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
@@ -23,7 +24,7 @@ type Tab = 'password' | 'cac' | 'fido2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, LanguageSelectorComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LanguageSelectorComponent, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="login-page">
@@ -64,7 +65,7 @@ type Tab = 'password' | 'cac' | 'fido2';
             </div>
           </div>
 
-          <a routerLink="/home" class="back-link">← View Public Site</a>
+          <a routerLink="/home" class="back-link">← {{ 'loginPage.backPublicSite' | translate }}</a>
         </div>
 
         <!-- Decorative shield SVG -->
@@ -89,8 +90,8 @@ type Tab = 'password' | 'cac' | 'fido2';
             <app-language-selector variant="light"></app-language-selector>
           </div>
           <div class="form-header">
-            <h2>Sign In</h2>
-            <p>Access the ORDISS supply chain system</p>
+            <h2>{{ 'auth.signIn' | translate }}</h2>
+            <p>{{ 'loginPage.accessSystem' | translate }}</p>
           </div>
 
           <!-- Auth method tabs -->
@@ -101,7 +102,7 @@ type Tab = 'password' | 'cac' | 'fido2';
                 <path d="M5 8V5.5a4 4 0 018 0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 <circle cx="9" cy="13" r="1.5" fill="currentColor"/>
               </svg>
-              Password
+              {{ 'auth.passwordLogin' | translate }}
             </button>
             <button class="tab-btn" [class.active]="activeTab() === 'cac'" (click)="setTab('cac')">
               <svg viewBox="0 0 18 18" fill="none" width="16" height="16">
@@ -109,7 +110,7 @@ type Tab = 'password' | 'cac' | 'fido2';
                 <line x1="1" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="1.5"/>
                 <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
               </svg>
-              CAC Card
+              {{ 'loginPage.cacCard' | translate }}
             </button>
             <button class="tab-btn" [class.active]="activeTab() === 'fido2'" (click)="setTab('fido2')">
               <svg viewBox="0 0 18 18" fill="none" width="16" height="16">
@@ -117,7 +118,7 @@ type Tab = 'password' | 'cac' | 'fido2';
                       stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                 <path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              FIDO2 Key
+              {{ 'loginPage.fido2Key' | translate }}
             </button>
           </div>
 
@@ -125,18 +126,18 @@ type Tab = 'password' | 'cac' | 'fido2';
           @if (activeTab() === 'password') {
             <form [formGroup]="form" (ngSubmit)="onPasswordSignIn()" class="auth-form">
               <div class="field">
-                <label for="username">Username</label>
-                <input id="username" formControlName="username" placeholder="Enter username" autocomplete="username"
+                <label for="username">{{ 'auth.username' | translate }}</label>
+                <input id="username" formControlName="username" [placeholder]="'loginPage.usernamePlaceholder' | translate" autocomplete="username"
                        [class.invalid]="form.get('username')?.invalid && form.get('username')?.touched"/>
                 @if (form.get('username')?.invalid && form.get('username')?.touched) {
-                  <span class="field-error">Username is required</span>
+                  <span class="field-error">{{ 'loginPage.usernameRequired' | translate }}</span>
                 }
               </div>
               <div class="field">
-                <label for="password">Password</label>
+                <label for="password">{{ 'auth.password' | translate }}</label>
                 <div class="pw-wrap">
                   <input id="password" formControlName="password" [type]="showPassword() ? 'text' : 'password'"
-                         placeholder="Enter password" autocomplete="current-password"
+                         [placeholder]="'loginPage.passwordPlaceholder' | translate" autocomplete="current-password"
                          [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched"/>
                   <button type="button" class="pw-toggle" (click)="showPassword.update(v => !v)">
                     @if (showPassword()) {
@@ -154,14 +155,14 @@ type Tab = 'password' | 'cac' | 'fido2';
                   </button>
                 </div>
                 @if (form.get('password')?.invalid && form.get('password')?.touched) {
-                  <span class="field-error">Password is required</span>
+                  <span class="field-error">{{ 'loginPage.passwordRequired' | translate }}</span>
                 }
               </div>
               <button type="submit" class="btn-submit" [disabled]="isBusy()">
                 @if (isBusy()) {
-                  <span class="spinner"></span> Signing in…
+                  <span class="spinner"></span> {{ 'loginPage.signingIn' | translate }}
                 } @else {
-                  Sign In with Password
+                  {{ 'loginPage.signInWithPassword' | translate }}
                 }
               </button>
             </form>
@@ -187,9 +188,9 @@ type Tab = 'password' | 'cac' | 'fido2';
               </div>
               <button type="button" class="btn-submit" (click)="onCacSignIn()" [disabled]="isBusy()">
                 @if (isBusy()) {
-                  <span class="spinner"></span> Authenticating…
+                  <span class="spinner"></span> {{ 'loginPage.authenticating' | translate }}
                 } @else {
-                  Authenticate with CAC
+                  {{ 'loginPage.authenticateWithCac' | translate }}
                 }
               </button>
             </div>
@@ -213,9 +214,9 @@ type Tab = 'password' | 'cac' | 'fido2';
               </div>
               <button type="button" class="btn-submit fido2-btn" (click)="onFido2SignIn()" [disabled]="isBusy()">
                 @if (isBusy()) {
-                  <span class="spinner"></span> Waiting for key…
+                  <span class="spinner"></span> {{ 'loginPage.waitingForKey' | translate }}
                 } @else {
-                  Authenticate with Security Key
+                  {{ 'loginPage.authenticateWithSecurityKey' | translate }}
                 }
               </button>
             </div>
@@ -227,7 +228,7 @@ type Tab = 'password' | 'cac' | 'fido2';
               <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
               </svg>
-              {{ error() }}
+              {{ (error() ?? '') | translate }}
             </div>
           }
 
@@ -430,7 +431,7 @@ export class LoginComponent {
       await this.auth.loginWithPassword(username, password);
       await this.router.navigateByUrl('/');
     } catch {
-      this.error.set('Invalid credentials. Please verify your username and password.');
+      this.error.set('loginPage.invalidCredentials');
     } finally {
       this.isBusy.set(false);
     }
@@ -446,7 +447,7 @@ export class LoginComponent {
       await this.auth.loginWithCac();
       await this.router.navigateByUrl('/');
     } catch {
-      this.error.set('CAC authentication failed. Verify your card is inserted and the certificate is trusted.');
+      this.error.set('loginPage.cacFailed');
     } finally {
       this.isBusy.set(false);
     }
@@ -478,7 +479,7 @@ export class LoginComponent {
       await this.router.navigateByUrl('/');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'FIDO2 authentication failed.';
-      this.error.set(msg.includes('not available') ? msg : 'FIDO2 failed. Verify your security key and try again.');
+      this.error.set(msg.includes('not available') ? 'loginPage.webauthnUnavailable' : 'loginPage.fido2Failed');
     } finally {
       this.isBusy.set(false);
     }

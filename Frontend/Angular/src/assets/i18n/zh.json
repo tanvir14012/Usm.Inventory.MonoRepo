@@ -63,15 +63,53 @@
     "colorPalette": "Color Palette"
   },
   "languages": {
-    "en": "English",
-    "zh": "Chinese",
-    "hi": "Hindi",
-    "es": "Spanish",
-    "fr": "French",
-    "ar": "Arabic",
-    "bn": "Bengali",
-    "pt": "Portuguese",
-    "ru": "Russian"
+    "en": "英语",
+    "zh": "中文",
+    "hi": "印地语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "ar": "阿拉伯语",
+    "bn": "孟加拉语",
+    "pt": "葡萄牙语",
+    "ru": "俄语"
+  },
+  "public": {
+    "nav": {
+      "mission": "使命",
+      "capabilities": "能力",
+      "gallery": "图库",
+      "security": "安全"
+    },
+    "hero": {
+      "badge": "美国军方供应链管理",
+      "subtitle": "运营资源与国防库存供应系统",
+      "description": "为现代作战人员提供安全、任务就绪的库存管理。遵循国防部标准并可大规模部署。",
+      "accessSystem": "进入系统",
+      "learnMore": "了解更多 ↓"
+    },
+    "cta": {
+      "signInNow": "立即登录"
+    }
+  },
+  "loginPage": {
+    "accessSystem": "访问 ORDISS 供应链系统",
+    "backPublicSite": "查看公开主页",
+    "cacCard": "CAC 卡",
+    "fido2Key": "FIDO2 密钥",
+    "usernameRequired": "用户名为必填项",
+    "passwordRequired": "密码为必填项",
+    "usernamePlaceholder": "输入用户名",
+    "passwordPlaceholder": "输入密码",
+    "signInWithPassword": "使用密码登录",
+    "authenticateWithCac": "使用 CAC 认证",
+    "authenticateWithSecurityKey": "使用安全密钥认证",
+    "signingIn": "正在登录...",
+    "authenticating": "正在认证...",
+    "waitingForKey": "等待密钥...",
+    "invalidCredentials": "凭据无效。请检查用户名和密码。",
+    "cacFailed": "CAC 认证失败。请确认卡已插入且证书受信任。",
+    "fido2Failed": "FIDO2 认证失败。请检查安全密钥后重试。",
+    "webauthnUnavailable": "当前浏览器不支持 WebAuthn。"
   },
   "validation": {
     "required": "{{field}} is required",
