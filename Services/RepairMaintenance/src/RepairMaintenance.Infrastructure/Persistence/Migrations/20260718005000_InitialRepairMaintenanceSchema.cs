@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RepairMaintenance.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718005000_InitialRepairMaintenanceSchema")]
     public partial class InitialRepairMaintenanceSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StoreHouse.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718003000_InitialStoreHouseSchema")]
     public partial class InitialStoreHouseSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

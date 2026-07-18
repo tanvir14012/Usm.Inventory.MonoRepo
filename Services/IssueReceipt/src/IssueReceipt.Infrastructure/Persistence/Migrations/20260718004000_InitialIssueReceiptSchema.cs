@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IssueReceipt.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718004000_InitialIssueReceiptSchema")]
     public partial class InitialIssueReceiptSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

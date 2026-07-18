@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Administration.Infrastructure.Persistence.Migrations
 {
+    [Migration("20260718001000_InitialAdministrationSchema")]
     public partial class InitialAdministrationSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
