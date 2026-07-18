@@ -14,6 +14,9 @@ namespace Inspectorate.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "inspectorate");
+
             migrationBuilder.CreateTable(
                 name: "inspections",
                 schema: "inspectorate",

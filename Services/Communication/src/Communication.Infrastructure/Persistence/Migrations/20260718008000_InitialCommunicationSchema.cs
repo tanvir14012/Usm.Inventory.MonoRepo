@@ -14,6 +14,9 @@ namespace Communication.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "communication");
+
             migrationBuilder.CreateTable(
                 name: "notifications",
                 schema: "communication",

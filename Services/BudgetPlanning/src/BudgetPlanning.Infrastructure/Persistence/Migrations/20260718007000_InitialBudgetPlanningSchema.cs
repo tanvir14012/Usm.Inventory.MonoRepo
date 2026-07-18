@@ -14,6 +14,9 @@ namespace BudgetPlanning.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "budgetplanning");
+
             migrationBuilder.CreateTable(
                 name: "budgets",
                 schema: "budgetplanning",

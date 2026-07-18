@@ -14,6 +14,9 @@ namespace RepairMaintenance.Infrastructure.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "repairmaintenance");
+
             migrationBuilder.CreateTable(
                 name: "repair_orders",
                 schema: "repairmaintenance",
