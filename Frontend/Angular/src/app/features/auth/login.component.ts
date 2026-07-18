@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 interface PublicKeyCredentialRequestOptionsJson {
   challenge: string;
@@ -22,7 +23,7 @@ type Tab = 'password' | 'cac' | 'fido2';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LanguageSelectorComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="login-page">
@@ -84,6 +85,9 @@ type Tab = 'password' | 'cac' | 'fido2';
       <!-- Right login form -->
       <div class="form-panel">
         <div class="form-content">
+          <div class="form-topbar">
+            <app-language-selector variant="light"></app-language-selector>
+          </div>
           <div class="form-header">
             <h2>Sign In</h2>
             <p>Access the ORDISS supply chain system</p>
@@ -285,6 +289,7 @@ type Tab = 'password' | 'cac' | 'fido2';
       .form-panel { background: linear-gradient(160deg, #0D2B1D, #1a4731); }
     }
     .form-content { width: 100%; max-width: 420px; }
+    .form-topbar { display: flex; justify-content: flex-end; margin-bottom: 0.75rem; }
     .form-header { margin-bottom: 2rem; }
     .form-header h2 {
       font-size: 2rem; font-weight: 700; color: #0D2B1D; margin: 0 0 0.4rem;
@@ -526,4 +531,3 @@ export class LoginComponent {
     return window.btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 }
-

@@ -6,6 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 interface Capability {
   icon: string;
@@ -24,7 +25,7 @@ interface GalleryImage {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, LanguageSelectorComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- NAVBAR -->
@@ -44,6 +45,7 @@ interface GalleryImage {
           <a href="#capabilities" (click)="closeMenu()">Capabilities</a>
           <a href="#gallery" (click)="closeMenu()">Gallery</a>
           <a href="#security" (click)="closeMenu()">Security</a>
+          <app-language-selector variant="dark"></app-language-selector>
           <button class="nav-cta" (click)="goToLogin()">Sign In</button>
         </div>
       </div>
