@@ -3,10 +3,27 @@ import { authGuard } from './core/auth/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
+  // Public pages
+  {
+    path: 'home',
+    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+  },
   {
     path: 'login',
     loadComponent: () => import('./features/auth/login.component').then(m => m.LoginComponent),
   },
+  {
+    path: 'coming-soon',
+    loadComponent: () => import('./features/coming-soon/coming-soon.component').then(m => m.ComingSoonComponent),
+  },
+  {
+    path: 'not-found',
+    loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
+  },
+  // Auth callback (handled by angular-oauth2-oidc)
+  { path: 'callback', redirectTo: '/' },
+  { path: 'logout', redirectTo: '/home' },
+  // Protected app shell
   {
     path: '',
     component: MainLayoutComponent,
@@ -35,12 +52,13 @@ export const routes: Routes = [
       },
     ],
   },
-  // Auth callback (handled by angular-oauth2-oidc)
-  { path: 'callback', redirectTo: '/' },
-  { path: 'logout', redirectTo: '/' },
   {
     path: 'forbidden',
     loadComponent: () => import('./shared/components/empty-state/empty-state.component').then(m => m.EmptyStateComponent),
   },
-  { path: '**', redirectTo: '/' },
+  // 404 — must be last
+  {
+    path: '**',
+    loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
+  },
 ];
