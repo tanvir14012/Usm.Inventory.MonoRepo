@@ -1,6 +1,7 @@
-# Usm.Inventory.MonoRepo
+# Operational Resource & Defense Inventory Supply System (ORDISS) 
+Usm.Inventory.MonoRepo
 
-Usm.Inventory.MonoRepo is a .NET-based US military inventory management platform. It is organized as a monorepo of domain-focused services that handle identity, administration, warehousing, issue and receipt flows, procurement, maintenance, reporting, and related support capabilities.
+A secure, mission-ready supply chain management platform for authorized U.S. military personnels. It is organized as a monorepo of domain-focused services that handle identity, administration, warehousing, issue and receipt flows, procurement, maintenance, reporting, and related support capabilities.
 
 ## Project structure
 
