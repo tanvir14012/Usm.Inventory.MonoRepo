@@ -11,6 +11,9 @@ internal sealed class UserCredentialEntityConfiguration : IEntityTypeConfigurati
         builder.ToTable("user_credentials", "identity");
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.UserId)
+            .IsRequired();
+
         builder.Property(x => x.Type)
             .HasConversion<int>()
             .IsRequired();

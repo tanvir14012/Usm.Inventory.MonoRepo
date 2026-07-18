@@ -31,6 +31,8 @@ namespace Identity.Domain.Users
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
 
+        public User User { get; set; } = null!;
+
         public static UserCredential Create(
             Guid userId,
             CredentialType type,

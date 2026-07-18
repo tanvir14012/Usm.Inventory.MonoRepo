@@ -32,7 +32,7 @@ public sealed class User : AggregateRoot<Guid>, IAuditable
         _credentials.Add(credential);
     }
 
-    public static User Create(string username, string email, string passwordHash)
+    public static User Create(string username, string email)
     {
         var user = new User
         {

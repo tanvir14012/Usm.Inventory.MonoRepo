@@ -1,5 +1,7 @@
 using Identity.Application;
 using Identity.Infrastructure;
+using Identity.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 using Usm.Shared.BuildingBlocks.Observability;
 using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
@@ -33,6 +35,12 @@ app.MapGet("/", () => Results.Ok(new
     Status = "Up",
     Utc = DateTimeOffset.UtcNow
 }));
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
 
 app.Run();
 

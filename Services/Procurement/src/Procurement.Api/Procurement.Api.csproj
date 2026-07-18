@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
@@ -11,7 +11,6 @@
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Observability\Usm.Shared.BuildingBlocks.Observability.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Validation\Usm.Shared.BuildingBlocks.Validation.csproj" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -28,9 +28,15 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(x => x.Credentials)
             .WithOne()
             .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(x => x.Username).IsUnique();
+
         builder.HasIndex(x => x.Email).IsUnique();
+
+        builder.HasMany(x => x.Credentials)
+            .WithOne(x => x.User)
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

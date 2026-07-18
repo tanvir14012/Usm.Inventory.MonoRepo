@@ -25,5 +25,9 @@
     <PackageReference Include="Fido2.AspNet" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
 
 </Project>
