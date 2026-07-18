@@ -1,5 +1,7 @@
 ﻿using DocumentShare.Application;
 using DocumentShare.Infrastructure;
+using DocumentShare.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 using Usm.Shared.BuildingBlocks.Observability;
 
@@ -19,7 +21,12 @@ var app = builder.Build()
 app.MapHealthChecks("/health");
 app.MapGet("/", () => Results.Ok(new { Service = "DocumentShare.Api", Status = "Up", Utc = DateTimeOffset.UtcNow }));
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DocumentShareDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
+
 app.Run();
 
 public partial class Program;
-

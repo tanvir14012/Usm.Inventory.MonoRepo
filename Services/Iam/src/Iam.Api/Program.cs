@@ -1,5 +1,7 @@
 ﻿using Iam.Application;
 using Iam.Infrastructure;
+using Iam.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 using Usm.Shared.BuildingBlocks.Observability;
 using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
@@ -30,6 +32,12 @@ app.MapGet("/", () => Results.Ok(new
     Status = "Up",
     Utc = DateTimeOffset.UtcNow
 }));
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<IamDbContext>();
+    await dbContext.Database.MigrateAsync();
+}
 
 app.Run();
 
