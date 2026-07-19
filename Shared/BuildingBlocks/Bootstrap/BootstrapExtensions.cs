@@ -50,6 +50,7 @@ public static class BootstrapExtensions
 
         builder.Services.AddOpenApi();
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<RequestTracingMiddleware>();
         builder.Services.AddTransient<AuditLoggingMiddleware>();
         builder.Services.AddRedisCaching(builder.Configuration);
         builder.Services.AddHttpResponseCaching(builder.Configuration);
@@ -105,6 +106,8 @@ public static class BootstrapExtensions
             app.MapOpenApi();
         }
 
+        app.UseMiddleware<RequestTracingMiddleware>();
+
         app.UseExceptionHandler(errorApp =>
         {
             errorApp.Run(async context =>
@@ -118,7 +121,8 @@ public static class BootstrapExtensions
                     type   = "https://tools.ietf.org/html/rfc7807",
                     title  = "An unexpected error occurred.",
                     status = 500,
-                    detail = app.Environment.IsDevelopment() ? ex?.Message : "Internal server error."
+                    detail = app.Environment.IsDevelopment() ? ex?.Message : "Internal server error.",
+                    traceId = context.Response.Headers[RequestTracingMiddleware.TraceIdHeaderName].ToString()
                 };
                 var json = System.Text.Json.JsonSerializer.Serialize(
                     problem,
