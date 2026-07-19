@@ -1,6 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
-import { Observable, of, timer } from 'rxjs';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 /** Ensure two controls in a group match (e.g. password confirmation). */
 export function mustMatch(controlName: string, matchingControlName: string): ValidatorFn {
@@ -10,11 +8,19 @@ export function mustMatch(controlName: string, matchingControlName: string): Val
     if (!control || !matching) return null;
     if (matching.errors && !matching.errors['mustMatch']) return null;
     if (control.value !== matching.value) {
-      matching.setErrors({ mustMatch: true });
+      matching.setErrors({ ...matching.errors, mustMatch: true });
     } else {
-      matching.setErrors(null);
+      removeValidationError(matching, 'mustMatch');
     }
     return null;
+  };
+}
+
+/** Required input that ignores leading and trailing whitespace. */
+export function requiredTrimmed(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (typeof control.value !== 'string') return control.value ? null : { required: true };
+    return control.value.trim().length ? null : { required: true };
   };
 }
 
@@ -25,6 +31,24 @@ export function positiveInteger(): ValidatorFn {
     const v = Number(control.value);
     if (!Number.isInteger(v) || v <= 0) return { positiveInteger: true };
     return null;
+  };
+}
+
+/** Validates that a numeric value is greater than or equal to min. */
+export function minNumber(min: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value === null || control.value === undefined || control.value === '') return null;
+    const value = Number(control.value);
+    return Number.isFinite(value) && value >= min ? null : { minNumber: { min, actual: control.value } };
+  };
+}
+
+/** Validates that a numeric value is less than or equal to max. */
+export function maxNumber(max: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value === null || control.value === undefined || control.value === '') return null;
+    const value = Number(control.value);
+    return Number.isFinite(value) && value <= max ? null : { maxNumber: { max, actual: control.value } };
   };
 }
 
@@ -62,4 +86,21 @@ export function maxFileSize(maxBytes: number): ValidatorFn {
     if (!file || !(file instanceof File)) return null;
     return file.size > maxBytes ? { maxFileSize: { max: maxBytes, actual: file.size } } : null;
   };
+}
+
+/** Date must be today or in the future. */
+export function futureDate(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+    const value = new Date(control.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return Number.isNaN(value.getTime()) || value < today ? { futureDate: true } : null;
+  };
+}
+
+function removeValidationError(control: AbstractControl, errorKey: string): void {
+  if (!control.errors?.[errorKey]) return;
+  const { [errorKey]: _removed, ...remainingErrors } = control.errors;
+  control.setErrors(Object.keys(remainingErrors).length ? remainingErrors : null);
 }

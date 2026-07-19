@@ -14,13 +14,14 @@ export const cacheInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   const cache = inject(HttpCacheService);
-  const cached = cache.get(req.url);
+  const cacheKey = req.urlWithParams;
+  const cached = cache.get(cacheKey);
   if (cached) return of(cached);
 
   return next(req).pipe(
     tap(event => {
       if (event instanceof HttpResponse && event.status === 200) {
-        cache.set(req.url, event);
+        cache.set(cacheKey, event);
       }
     }),
   );
