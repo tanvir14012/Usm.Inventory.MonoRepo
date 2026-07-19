@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy, inject, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -17,7 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   standalone: true,
   imports: [
     CommonModule, RouterModule,
-    MatSidenavModule, MatToolbarModule, MatProgressBarModule,
+    MatSidenavModule, MatProgressBarModule,
     NavbarComponent, SidebarComponent, BreadcrumbComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,18 +24,24 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     @if (loading.isLoading()) {
       <mat-progress-bar mode="indeterminate" class="global-progress" />
     }
-    <mat-sidenav-container class="app-sidenav-container h-screen">
+    <mat-sidenav-container autosize class="app-shell">
       <mat-sidenav
-        #sidenav
         [mode]="isMobile() ? 'over' : 'side'"
-        [opened]="!isMobile() && sidenavOpen()"
-        class="app-sidenav w-64">
-        <app-sidebar (linkClicked)="isMobile() && sidenav.close()" />
+        [opened]="isMobile() ? mobileSidenavOpen() : true"
+        (openedChange)="onSidenavOpenedChange($event)"
+        [class.app-sidenav-collapsed]="!isMobile() && sidebarCollapsed()"
+        class="app-sidenav">
+        <app-sidebar
+          [collapsed]="!isMobile() && sidebarCollapsed()"
+          (collapseToggle)="toggleNavigation()"
+          (linkClicked)="handleLinkClick()" />
       </mat-sidenav>
 
-      <mat-sidenav-content class="flex flex-col">
-        <app-navbar (menuToggle)="toggleSidenav(sidenav)" />
-        <main class="flex-1 overflow-auto p-4 md:p-6">
+      <mat-sidenav-content class="app-content">
+        <app-navbar
+          [sidebarCollapsed]="!isMobile() && sidebarCollapsed()"
+          (menuToggle)="toggleNavigation()" />
+        <main class="app-main">
           <app-breadcrumb />
           <router-outlet />
         </main>
@@ -45,8 +50,41 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   `,
   styles: [`
     .global-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; }
-    .app-sidenav-container { height: 100vh; }
-    .app-sidenav { border-inline-end: 1px solid var(--mat-sidenav-container-divider-color); }
+    .app-shell {
+      height: 100vh;
+      background: #f5f8fa;
+    }
+    .app-sidenav {
+      width: 280px;
+      border-inline-end: 0;
+      background: #00533f;
+      color: #fff;
+      transition: width 180ms ease;
+    }
+    .app-sidenav-collapsed {
+      width: 76px;
+    }
+    .app-content {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #f7fafb;
+    }
+    .app-main {
+      flex: 1;
+      overflow: auto;
+      padding: 12px 16px 20px;
+    }
+    @media (min-width: 768px) {
+      .app-main {
+        padding: 14px 22px 22px;
+      }
+    }
+    @media (max-width: 599px) {
+      .app-sidenav {
+        width: min(86vw, 280px);
+      }
+    }
   `],
 })
 export class MainLayoutComponent {
@@ -60,13 +98,26 @@ export class MainLayoutComponent {
     { initialValue: false },
   );
 
-  readonly sidenavOpen = signal(true);
+  readonly sidebarCollapsed = signal(false);
+  readonly mobileSidenavOpen = signal(false);
 
-  toggleSidenav(sidenav: { toggle: () => void }): void {
+  toggleNavigation(): void {
     if (this.isMobile()) {
-      sidenav.toggle();
+      this.mobileSidenavOpen.update(open => !open);
     } else {
-      this.sidenavOpen.update(v => !v);
+      this.sidebarCollapsed.update(collapsed => !collapsed);
+    }
+  }
+
+  handleLinkClick(): void {
+    if (this.isMobile()) {
+      this.mobileSidenavOpen.set(false);
+    }
+  }
+
+  onSidenavOpenedChange(opened: boolean): void {
+    if (this.isMobile()) {
+      this.mobileSidenavOpen.set(opened);
     }
   }
 }

@@ -301,9 +301,24 @@ export class OperationsWorkspaceComponent {
 
   private resolveTitles(modules: ModuleNavigationDto[], moduleSlug: string, viewSlug: string | null): void {
     const module = modules.find(item => item.menuId === moduleSlug || item.systemName === moduleSlug);
-    const child = module?.sidebarItems.find(item => item.menuId === viewSlug || item.systemName === viewSlug) ?? null;
+    const child = module && viewSlug ? this.findSidebarItem(module.sidebarItems, viewSlug) : null;
     this.pageTitle.set(module?.localizedName ?? this.titleize(moduleSlug));
     this.pageSubtitle.set(child?.localizedName ?? null);
+  }
+
+  private findSidebarItem(items: ModuleNavigationDto['sidebarItems'], viewSlug: string): ModuleNavigationDto['sidebarItems'][number] | null {
+    for (const item of items) {
+      if (item.menuId === viewSlug || item.systemName === viewSlug) {
+        return item;
+      }
+
+      const child = this.findSidebarItem(item.children, viewSlug);
+      if (child) {
+        return child;
+      }
+    }
+
+    return null;
   }
 
   private rebuildPage(): void {
