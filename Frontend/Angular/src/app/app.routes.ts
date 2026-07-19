@@ -43,12 +43,11 @@ export const routes: Routes = [
       {
         path: 'iam',
         loadChildren: () => import('./features/iam/iam.routes').then(m => m.iamRoutes),
-        data: { breadcrumb: 'navigation.iam' },
+        data: { breadcrumb: 'navigation.administration' },
       },
       {
         path: 'operations',
         loadChildren: () => import('./features/operations/operations.routes').then(m => m.operationsRoutes),
-        data: { breadcrumb: 'navigation.operations' },
       },
     ],
   },

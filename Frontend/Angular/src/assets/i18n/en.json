@@ -142,6 +142,10 @@
     "administration": "Administration",
     "departments": "Departments",
     "iam": "Identity & Access",
+    "menu": "Menu",
+    "others": "Others",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
     "roles": "Roles",
     "users": "Users",
     "identity": "Identity",
@@ -200,6 +204,7 @@
     }
   },
   "operations": {
+    "workspace": "Workspace",
     "headers": {
       "orderNumber": "Order Number",
       "supplier": "Supplier",
