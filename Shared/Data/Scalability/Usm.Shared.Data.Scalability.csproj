@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Caching\Usm.Shared.Caching.csproj" />
+    <ProjectReference Include="..\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
+  </ItemGroup>
+
+</Project>
