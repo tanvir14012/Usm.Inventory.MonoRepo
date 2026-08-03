@@ -27,6 +27,10 @@ A secure, mission-ready supply chain management platform for authorized U.S. mil
 
 The repository combines service autonomy with shared platform components so teams can build inventory capabilities consistently while reusing common infrastructure and operational patterns.
 
+## Dependency security baseline
+
+- Central package versions now pin `SixLabors.ImageSharp` to `3.1.12` and `System.Security.Cryptography.Xml` to `10.0.10` to remove currently reported solution-wide NuGet vulnerability findings.
+
 ## Developer documentation
 
 - [Development Wiki](docs/development-wiki.md) - detailed developer and maintenance reference
