@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+using Inspectorate.Infrastructure.Persistence;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
 using Usm.Shared.Data.Scalability.Extensions;
-using Inspectorate.Infrastructure.Persistence;
 
 namespace Inspectorate.Infrastructure;
 

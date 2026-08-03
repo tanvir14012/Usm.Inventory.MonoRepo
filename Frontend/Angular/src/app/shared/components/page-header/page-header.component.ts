@@ -18,8 +18,12 @@ export interface PageAction {
   selector: 'app-page-header',
   standalone: true,
   imports: [
-    MatButtonModule, MatIconModule, MatTooltipModule,
-    TranslateModule, RouterModule, HasPermissionDirective,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    TranslateModule,
+    RouterModule,
+    HasPermissionDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -36,7 +40,9 @@ export interface PageAction {
         @for (action of actions(); track action.labelKey) {
           @if (!action.permission) {
             <button mat-flat-button [color]="action.color || 'primary'" (click)="action.action()">
-              @if (action.icon) { <mat-icon>{{ action.icon }}</mat-icon> }
+              @if (action.icon) {
+                <mat-icon>{{ action.icon }}</mat-icon>
+              }
               {{ action.labelKey | translate }}
             </button>
           } @else {
@@ -44,8 +50,11 @@ export interface PageAction {
               mat-flat-button
               [color]="action.color || 'primary'"
               (click)="action.action()"
-              *hasPermission="action.permission">
-              @if (action.icon) { <mat-icon>{{ action.icon }}</mat-icon> }
+              *hasPermission="action.permission"
+            >
+              @if (action.icon) {
+                <mat-icon>{{ action.icon }}</mat-icon>
+              }
               {{ action.labelKey | translate }}
             </button>
           }

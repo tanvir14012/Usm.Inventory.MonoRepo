@@ -1,4 +1,4 @@
-﻿using System.Formats.Asn1;
+using System.Formats.Asn1;
 using System.Security.Cryptography.X509Certificates;
 using Identity.Application.Auth.Dtos;
 using Identity.Application.Auth.Utils;

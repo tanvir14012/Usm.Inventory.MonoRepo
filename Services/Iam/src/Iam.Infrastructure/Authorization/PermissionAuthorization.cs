@@ -1,9 +1,9 @@
+using System.Security.Claims;
 using Iam.Application.Authorization;
 using Iam.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.Security.Claims;
 using Usm.Shared.Caching.Abstractions;
 using Usm.Shared.Caching.Models;
 

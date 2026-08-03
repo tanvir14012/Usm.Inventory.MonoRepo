@@ -10,12 +10,12 @@ export class PdfExportService {
       import('jspdf-autotable'),
     ]);
 
-    const exportableColumns = template.columns.filter(col => !col.excludeFromPdf);
-    const headers = exportableColumns.map(col =>
+    const exportableColumns = template.columns.filter((col) => !col.excludeFromPdf);
+    const headers = exportableColumns.map((col) =>
       template.resolveHeader ? template.resolveHeader(col.headerKey) : col.headerKey,
     );
-    const body = template.rows.map(row =>
-      exportableColumns.map(col => {
+    const body = template.rows.map((row) =>
+      exportableColumns.map((col) => {
         const value: TableExportValue = col.pdfRender
           ? col.pdfRender(row)
           : (row as Record<string, TableExportValue>)[col.key as string];

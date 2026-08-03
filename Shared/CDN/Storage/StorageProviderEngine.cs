@@ -182,7 +182,8 @@ internal sealed class StorageProviderEngine : IStorageProviderEngine
                 listed = true;
                 yield return key;
             }
-            if (listed) yield break; // Only list from the primary healthy provider
+            if (listed)
+                yield break; // Only list from the primary healthy provider
         }
     }
 
@@ -196,7 +197,8 @@ internal sealed class StorageProviderEngine : IStorageProviderEngine
             {
                 var url = await p.GetPreSignedUrlAsync(bucket, key, expiry, ct).ConfigureAwait(false);
                 cb.OnSuccess();
-                if (url is not null) return url;
+                if (url is not null)
+                    return url;
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {

@@ -1,5 +1,5 @@
-using MediatR;
 using Communication.Domain.Notifications;
+using MediatR;
 
 namespace Communication.Application.Notifications.Queries;
 

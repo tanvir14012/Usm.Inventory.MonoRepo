@@ -1,4 +1,4 @@
-﻿using Procurement.Application;
+using Procurement.Application;
 using Procurement.Infrastructure;
 using Procurement.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

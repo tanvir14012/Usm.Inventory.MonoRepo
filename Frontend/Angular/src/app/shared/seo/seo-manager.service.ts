@@ -6,12 +6,7 @@ import { PlatformContextService } from '../ssr/platform-context.service';
 
 export type TwitterCardType = 'summary' | 'summary_large_image' | 'app' | 'player';
 export type OpenGraphType =
-  | 'website'
-  | 'article'
-  | 'book'
-  | 'profile'
-  | 'music.song'
-  | 'video.movie';
+  'website' | 'article' | 'book' | 'profile' | 'music.song' | 'video.movie';
 
 export interface SeoConfig {
   title: string;
@@ -39,10 +34,7 @@ export class SeoManagerService {
     const canonicalUrl = config.canonicalUrl ?? config.url;
 
     this.title.setTitle(config.title);
-    this.upsertMetaTag(
-      { name: 'description', content: config.description },
-      'name="description"',
-    );
+    this.upsertMetaTag({ name: 'description', content: config.description }, 'name="description"');
 
     if (config.keywords?.length) {
       this.upsertMetaTag(
@@ -62,10 +54,7 @@ export class SeoManagerService {
   }
 
   private upsertOpenGraph(config: SeoConfig, canonicalUrl?: string): void {
-    this.upsertMetaTag(
-      { property: 'og:title', content: config.title },
-      'property="og:title"',
-    );
+    this.upsertMetaTag({ property: 'og:title', content: config.title }, 'property="og:title"');
     this.upsertMetaTag(
       { property: 'og:description', content: config.description },
       'property="og:description"',
@@ -76,19 +65,13 @@ export class SeoManagerService {
     );
 
     if (canonicalUrl) {
-      this.upsertMetaTag(
-        { property: 'og:url', content: canonicalUrl },
-        'property="og:url"',
-      );
+      this.upsertMetaTag({ property: 'og:url', content: canonicalUrl }, 'property="og:url"');
     } else {
       this.meta.removeTag('property="og:url"');
     }
 
     if (config.image) {
-      this.upsertMetaTag(
-        { property: 'og:image', content: config.image },
-        'property="og:image"',
-      );
+      this.upsertMetaTag({ property: 'og:image', content: config.image }, 'property="og:image"');
     } else {
       this.meta.removeTag('property="og:image"');
     }
@@ -99,29 +82,20 @@ export class SeoManagerService {
       { name: 'twitter:card', content: config.twitterCard ?? 'summary_large_image' },
       'name="twitter:card"',
     );
-    this.upsertMetaTag(
-      { name: 'twitter:title', content: config.title },
-      'name="twitter:title"',
-    );
+    this.upsertMetaTag({ name: 'twitter:title', content: config.title }, 'name="twitter:title"');
     this.upsertMetaTag(
       { name: 'twitter:description', content: config.description },
       'name="twitter:description"',
     );
 
     if (config.image) {
-      this.upsertMetaTag(
-        { name: 'twitter:image', content: config.image },
-        'name="twitter:image"',
-      );
+      this.upsertMetaTag({ name: 'twitter:image', content: config.image }, 'name="twitter:image"');
     } else {
       this.meta.removeTag('name="twitter:image"');
     }
 
     if (canonicalUrl) {
-      this.upsertMetaTag(
-        { name: 'twitter:url', content: canonicalUrl },
-        'name="twitter:url"',
-      );
+      this.upsertMetaTag({ name: 'twitter:url', content: canonicalUrl }, 'name="twitter:url"');
     } else {
       this.meta.removeTag('name="twitter:url"');
     }
@@ -133,9 +107,8 @@ export class SeoManagerService {
       return;
     }
 
-    const existingCanonical = safeDocument.head.querySelector<HTMLLinkElement>(
-      'link[rel="canonical"]',
-    );
+    const existingCanonical =
+      safeDocument.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
 
     if (!canonicalUrl) {
       if (existingCanonical) {
@@ -145,8 +118,7 @@ export class SeoManagerService {
     }
 
     const canonicalLink =
-      existingCanonical ??
-      (this.renderer.createElement('link') as HTMLLinkElement);
+      existingCanonical ?? (this.renderer.createElement('link') as HTMLLinkElement);
 
     this.renderer.setAttribute(canonicalLink, 'rel', 'canonical');
     this.renderer.setAttribute(canonicalLink, 'href', canonicalUrl);

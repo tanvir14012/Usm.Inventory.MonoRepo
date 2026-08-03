@@ -37,20 +37,25 @@ export class NavigationShellService {
   );
 
   readonly modules = toSignal(
-    this.navigationService.loadMilitaryModules(1).pipe(
-      map(modules => modules
-        .filter(module => module.isActive)
-        .sort((left, right) => left.displayOrder - right.displayOrder)),
-    ),
+    this.navigationService
+      .loadMilitaryModules(1)
+      .pipe(
+        map((modules) =>
+          modules
+            .filter((module) => module.isActive)
+            .sort((left, right) => left.displayOrder - right.displayOrder),
+        ),
+      ),
     { initialValue: [] as ModuleNavigationDto[] },
   );
 
   readonly activeModule = computed(() => this.resolveModule(this.urlSegments(), this.modules()));
 
-  readonly sidebarItems = computed(() =>
-    this.activeModule()?.sidebarItems
-      .filter(item => item.isActive)
-      .sort((left, right) => left.displayOrder - right.displayOrder) ?? [],
+  readonly sidebarItems = computed(
+    () =>
+      this.activeModule()
+        ?.sidebarItems.filter((item) => item.isActive)
+        .sort((left, right) => left.displayOrder - right.displayOrder) ?? [],
   );
 
   readonly activeTrail = computed<NavigationTrail>(() => {
@@ -97,7 +102,10 @@ export class NavigationShellService {
     return `/operations/${moduleKey}`;
   }
 
-  sidebarItemRoute(module: ModuleNavigationDto | null | undefined, item: SidebarMenuItemDto): string {
+  sidebarItemRoute(
+    module: ModuleNavigationDto | null | undefined,
+    item: SidebarMenuItemDto,
+  ): string {
     if (!module) {
       return '/dashboard';
     }
@@ -131,8 +139,9 @@ export class NavigationShellService {
 
   isSidebarItemActive(item: SidebarMenuItemDto): boolean {
     const trail = this.activeTrail();
-    return [trail.rootSidebar, trail.nestedSidebar, trail.currentSidebar]
-      .some(active => !!active && this.sidebarKey(active) === this.sidebarKey(item));
+    return [trail.rootSidebar, trail.nestedSidebar, trail.currentSidebar].some(
+      (active) => !!active && this.sidebarKey(active) === this.sidebarKey(item),
+    );
   }
 
   trackModule(module: ModuleNavigationDto): string {
@@ -145,30 +154,38 @@ export class NavigationShellService {
 
   private firstSidebarRoute(module: ModuleNavigationDto): string | null {
     const firstItem = module.sidebarItems
-      .filter(item => item.isActive)
+      .filter((item) => item.isActive)
       .sort((left, right) => left.displayOrder - right.displayOrder)[0];
 
     return firstItem ? this.sidebarItemRoute(module, firstItem) : null;
   }
 
   private firstActiveChild(item: SidebarMenuItemDto): SidebarMenuItemDto | null {
-    return item.children
-      .filter(child => child.isActive)
-      .sort((left, right) => left.displayOrder - right.displayOrder)[0] ?? null;
+    return (
+      item.children
+        .filter((child) => child.isActive)
+        .sort((left, right) => left.displayOrder - right.displayOrder)[0] ?? null
+    );
   }
 
-  private resolveModule(segments: string[], modules: ModuleNavigationDto[]): ModuleNavigationDto | null {
+  private resolveModule(
+    segments: string[],
+    modules: ModuleNavigationDto[],
+  ): ModuleNavigationDto | null {
     const primarySegment = segments[0] ?? 'dashboard';
-    const moduleKey = primarySegment === 'operations'
-      ? segments[1] ?? 'dashboard'
-      : primarySegment === 'administration' || primarySegment === 'iam'
-        ? 'administration'
-        : primarySegment;
+    const moduleKey =
+      primarySegment === 'operations'
+        ? (segments[1] ?? 'dashboard')
+        : primarySegment === 'administration' || primarySegment === 'iam'
+          ? 'administration'
+          : primarySegment;
 
-    return this.findModule(modules, moduleKey)
-      ?? this.findModule(modules, 'dashboard')
-      ?? modules[0]
-      ?? null;
+    return (
+      this.findModule(modules, moduleKey) ??
+      this.findModule(modules, 'dashboard') ??
+      modules[0] ??
+      null
+    );
   }
 
   private resolveCurrentViewKey(segments: string[]): string | null {
@@ -189,14 +206,14 @@ export class NavigationShellService {
   }
 
   private findModule(modules: ModuleNavigationDto[], key: string): ModuleNavigationDto | undefined {
-    return modules.find(module =>
-      this.moduleKey(module) === key ||
-      module.systemName.toLowerCase() === key.toLowerCase(),
+    return modules.find(
+      (module) =>
+        this.moduleKey(module) === key || module.systemName.toLowerCase() === key.toLowerCase(),
     );
   }
 
   private findSidebarPath(items: SidebarMenuItemDto[], key: string): SidebarMenuItemDto[] {
-    for (const item of items.filter(sidebarItem => sidebarItem.isActive)) {
+    for (const item of items.filter((sidebarItem) => sidebarItem.isActive)) {
       if (this.sidebarKey(item) === key || item.systemName.toLowerCase() === key.toLowerCase()) {
         return [item];
       }
@@ -223,7 +240,7 @@ export class NavigationShellService {
       .split(/[?#]/, 1)[0]
       .split('/')
       .filter(Boolean)
-      .map(segment => decodeURIComponent(segment).toLowerCase());
+      .map((segment) => decodeURIComponent(segment).toLowerCase());
   }
 
   private normalizeRouteKey(value: string): string {

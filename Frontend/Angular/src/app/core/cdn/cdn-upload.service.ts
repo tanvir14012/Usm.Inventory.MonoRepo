@@ -1,9 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Observable, Subject, concat, from, of, throwError } from 'rxjs';
-import {
-  catchError, concatMap, filter, map, switchMap, takeUntil, tap
-} from 'rxjs/operators';
+import { catchError, concatMap, filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import {
   InitiateUploadRequest,
@@ -52,15 +50,15 @@ export class CdnUploadService {
       totalSize: file.size,
       targetKey: options.targetKey,
     }).pipe(
-      switchMap(session =>
+      switchMap((session) =>
         this.uploadChunks$(file, session, chunkSize, cancel$).pipe(
-          switchMap(progress => {
+          switchMap((progress) => {
             if (progress.status !== 'InProgress') return of(progress);
 
             // All chunks done — finalize
             return this.finalize(session.uploadId).pipe(
-              switchMap(finalSession => this.pollUntilDone$(finalSession.uploadId)),
-              map(doneSession => toProgress(doneSession, file.size)),
+              switchMap((finalSession) => this.pollUntilDone$(finalSession.uploadId)),
+              map((doneSession) => toProgress(doneSession, file.size)),
             );
           }),
         ),
@@ -74,11 +72,7 @@ export class CdnUploadService {
     return this.http.post<UploadSession>(`${this.base}/initiate`, request);
   }
 
-  uploadChunk(
-    uploadId: string,
-    chunkIndex: number,
-    chunk: Blob,
-  ): Observable<UploadChunkResult> {
+  uploadChunk(uploadId: string, chunkIndex: number, chunk: Blob): Observable<UploadChunkResult> {
     const formData = new FormData();
     formData.append('chunk', chunk, `chunk-${chunkIndex}`);
     return this.http.put<UploadChunkResult>(
@@ -115,8 +109,10 @@ export class CdnUploadService {
       const chunk = file.slice(start, start + chunkSize);
 
       return this.chunkWithProgress$(session.uploadId, i, chunk, file.size).pipe(
-        tap(progress => { bytesUploaded = progress.bytesUploaded; }),
-        map(progress => ({ ...progress, uploadId: session.uploadId } as CdnUploadProgress)),
+        tap((progress) => {
+          bytesUploaded = progress.bytesUploaded;
+        }),
+        map((progress) => ({ ...progress, uploadId: session.uploadId }) as CdnUploadProgress),
       );
     });
 
@@ -125,7 +121,7 @@ export class CdnUploadService {
       stream = stream.pipe(
         takeUntil(cancel$),
         // Abort on cancel
-        catchError(err => {
+        catchError((err) => {
           this.abort(session.uploadId).subscribe();
           return throwError(() => err);
         }),
@@ -151,11 +147,11 @@ export class CdnUploadService {
     let chunkBase = chunkIndex * chunk.size;
 
     return this.http.request<UploadChunkResult>(req).pipe(
-      filter(event =>
-        event.type === HttpEventType.UploadProgress ||
-        event.type === HttpEventType.Response,
+      filter(
+        (event) =>
+          event.type === HttpEventType.UploadProgress || event.type === HttpEventType.Response,
       ),
-      map(event => {
+      map((event) => {
         if (event.type === HttpEventType.UploadProgress) {
           const loaded = chunkBase + (event.loaded ?? 0);
           return buildProgress(uploadId, 'InProgress', loaded, totalBytes);
@@ -174,12 +170,12 @@ export class CdnUploadService {
     let polls = 0;
 
     const poll$: Observable<UploadSession> = this.pollStatus(uploadId).pipe(
-      switchMap(session => {
+      switchMap((session) => {
         const terminal: UploadStatus[] = ['Completed', 'Failed', 'Aborted'];
         if (terminal.includes(session.status) || ++polls >= maxPolls) {
           return of(session);
         }
-        return from(new Promise<void>(resolve => setTimeout(resolve, intervalMs))).pipe(
+        return from(new Promise<void>((resolve) => setTimeout(resolve, intervalMs))).pipe(
           switchMap(() => poll$),
         );
       }),

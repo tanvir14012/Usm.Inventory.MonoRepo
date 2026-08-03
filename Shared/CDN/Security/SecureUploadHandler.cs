@@ -174,7 +174,8 @@ internal sealed class SecureUploadHandler(
     {
         var session = await cache.GetAsync<UploadSession>($"{CachePrefix}{uploadId}", ct)
             .ConfigureAwait(false);
-        if (session is null) return;
+        if (session is null)
+            return;
 
         var bucket = DefaultBucket();
         foreach (var chunkIndex in session.CompletedChunks)

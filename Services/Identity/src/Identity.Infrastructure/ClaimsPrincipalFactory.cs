@@ -1,7 +1,7 @@
-﻿using Identity.Application.Users.Dtos;
+using System.Security.Claims;
+using Identity.Application.Users.Dtos;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
-using System.Security.Claims;
 using Usm.Shared.Reflection.AssemblyScanning.ServiceLifetimeMarkers;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Usm.Shared.BuildingBlocks.Validation;
 using TrafficSecurity.Application.VehicleSafetyRecords.Queries;
+using Usm.Shared.BuildingBlocks.Validation;
 
 namespace TrafficSecurity.Application;
 

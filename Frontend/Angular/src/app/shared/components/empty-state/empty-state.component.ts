@@ -8,7 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [MatIconModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="empty-state flex flex-col items-center justify-center py-16 text-center text-gray-400">
+    <div
+      class="empty-state flex flex-col items-center justify-center py-16 text-center text-gray-400"
+    >
       <mat-icon class="!text-6xl !w-16 !h-16 mb-4">{{ icon() }}</mat-icon>
       <p class="text-lg font-medium">{{ messageKey() | translate }}</p>
       @if (subMessageKey()) {

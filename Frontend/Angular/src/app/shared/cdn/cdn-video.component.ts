@@ -1,6 +1,15 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy,
-  OnInit, OnDestroy, ElementRef, ViewChild, inject, AfterViewInit,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  ViewChild,
+  inject,
+  AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdnUrlPipe } from './cdn-url.pipe';
@@ -147,7 +156,10 @@ export class CdnVideoComponent implements AfterViewInit, OnDestroy {
   }
 
   private destroyHls(): void {
-    if (this.hlsInstance && typeof (this.hlsInstance as { destroy?: () => void }).destroy === 'function') {
+    if (
+      this.hlsInstance &&
+      typeof (this.hlsInstance as { destroy?: () => void }).destroy === 'function'
+    ) {
       (this.hlsInstance as { destroy: () => void }).destroy();
       this.hlsInstance = null;
     }

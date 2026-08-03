@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { inject, Injectable, Pipe, PipeTransform, Renderer2, RendererFactory2 } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  Pipe,
+  PipeTransform,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
 
 import { PlatformContextService } from '../ssr/platform-context.service';
 

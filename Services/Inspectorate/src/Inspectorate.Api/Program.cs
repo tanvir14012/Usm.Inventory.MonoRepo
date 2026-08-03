@@ -1,4 +1,4 @@
-﻿using Inspectorate.Application;
+using Inspectorate.Application;
 using Inspectorate.Infrastructure;
 using Inspectorate.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

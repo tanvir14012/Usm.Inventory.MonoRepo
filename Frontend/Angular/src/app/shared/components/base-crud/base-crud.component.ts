@@ -1,6 +1,13 @@
 import {
-  Component, OnDestroy, OnInit, inject, signal, computed,
-  ChangeDetectionStrategy, input, output
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+  signal,
+  computed,
+  ChangeDetectionStrategy,
+  input,
+  output,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
@@ -10,7 +17,10 @@ import { PagedResult, emptyPagedResult } from '../../models/paged-result.model';
 import { QueryParams } from '../../models/query-params.model';
 import { NotificationService } from '../../../core/services/notification.service';
 import { PermissionService } from '../../services/permission.service';
-import { ConfirmDialogComponent, ConfirmDialogData } from '../confirm-dialog/confirm-dialog.component';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogData,
+} from '../confirm-dialog/confirm-dialog.component';
 import { Observable } from 'rxjs';
 
 /**
@@ -66,13 +76,13 @@ export abstract class BaseCrudComponent<T extends { id: string }> implements OnI
 
   /** Handles sort/page/search events from DataTableComponent. */
   onQueryChange(params: Partial<QueryParams>): void {
-    this.queryParams.update(current => ({ ...current, ...params }));
+    this.queryParams.update((current) => ({ ...current, ...params }));
     this.loadData();
   }
 
   /** Confirms and deletes an item. */
   onDelete(item: T, nameKey?: string): void {
-    const name = nameKey ? (item as Record<string, unknown>)[nameKey] as string : '';
+    const name = nameKey ? ((item as Record<string, unknown>)[nameKey] as string) : '';
     const data: ConfirmDialogData = {
       titleKey: 'common.delete',
       messageKey: 'common.deleteConfirm',
@@ -85,7 +95,7 @@ export abstract class BaseCrudComponent<T extends { id: string }> implements OnI
       .open(ConfirmDialogComponent, { data, width: '400px' })
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(confirmed => {
+      .subscribe((confirmed) => {
         if (confirmed) {
           this.isLoading.set(true);
           this.deleteItem(item)
@@ -103,7 +113,10 @@ export abstract class BaseCrudComponent<T extends { id: string }> implements OnI
   }
 
   /** Apply server validation errors to a form group. */
-  protected applyServerErrors(form: FormGroup, errors: Array<{ propertyName: string; errorMessage: string }>): void {
+  protected applyServerErrors(
+    form: FormGroup,
+    errors: Array<{ propertyName: string; errorMessage: string }>,
+  ): void {
     errors.forEach(({ propertyName, errorMessage }) => {
       const key = propertyName.charAt(0).toLowerCase() + propertyName.slice(1);
       const ctrl = form.get(key);

@@ -1,4 +1,4 @@
-﻿using StoreHouse.Application;
+using StoreHouse.Application;
 using StoreHouse.Infrastructure;
 using StoreHouse.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

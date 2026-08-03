@@ -1,6 +1,4 @@
-import {
-  Component, ChangeDetectionStrategy, OnDestroy, inject, signal
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, inject, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
@@ -55,7 +53,7 @@ export abstract class BaseFormComponent<TDto = unknown> implements OnDestroy {
       .subscribe({
         next: (result) => {
           this.isSubmitting.set(false);
-          this.cacheInvalidationKeys.forEach(k => this.cacheService.invalidate(k));
+          this.cacheInvalidationKeys.forEach((k) => this.cacheService.invalidate(k));
           this.onSuccess(result);
         },
         error: (err: HttpErrorResponse) => {

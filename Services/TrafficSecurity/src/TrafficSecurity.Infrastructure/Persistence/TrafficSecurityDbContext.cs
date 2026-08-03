@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TrafficSecurity.Application.Abstractions;
-using Usm.Shared.Data.DbContextExtensions;
 using TrafficSecurity.Domain.VehicleSafetyRecords;
+using Usm.Shared.Data.DbContextExtensions;
 
 namespace TrafficSecurity.Infrastructure.Persistence;
 

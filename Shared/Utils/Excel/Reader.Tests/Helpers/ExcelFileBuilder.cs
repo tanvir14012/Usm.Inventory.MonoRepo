@@ -20,11 +20,11 @@ public static class ExcelFileBuilder
 
         using (var doc = SpreadsheetDocument.Create(ms, SpreadsheetDocumentType.Workbook))
         {
-            var workbookPart  = doc.AddWorkbookPart();
+            var workbookPart = doc.AddWorkbookPart();
             workbookPart.Workbook = new Workbook();
 
             var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-            var sheetData     = new SheetData();
+            var sheetData = new SheetData();
 
             uint rowIdx = 1;
             foreach (var rowValues in rows)
@@ -54,9 +54,9 @@ public static class ExcelFileBuilder
             var sheets = workbookPart.Workbook.AppendChild(new Sheets());
             sheets.AppendChild(new Sheet
             {
-                Id      = workbookPart.GetIdOfPart(worksheetPart),
+                Id = workbookPart.GetIdOfPart(worksheetPart),
                 SheetId = 1,
-                Name    = "Sheet1"
+                Name = "Sheet1"
             });
 
             workbookPart.Workbook.Save();

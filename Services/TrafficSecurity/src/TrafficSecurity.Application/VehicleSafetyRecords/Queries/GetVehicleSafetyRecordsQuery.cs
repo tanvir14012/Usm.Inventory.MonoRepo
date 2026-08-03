@@ -1,6 +1,6 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using TrafficSecurity.Application.Abstractions;
-using MediatR;
 using TrafficSecurity.Domain.VehicleSafetyRecords;
 
 namespace TrafficSecurity.Application.VehicleSafetyRecords.Queries;

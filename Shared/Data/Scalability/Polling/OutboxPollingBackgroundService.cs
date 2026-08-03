@@ -119,7 +119,8 @@ public abstract class OutboxPollingBackgroundService<TMessage>(
 
     private static async ValueTask DelayAsync(TimeSpan delay, CancellationToken ct)
     {
-        try { await Task.Delay(delay, ct).ConfigureAwait(false); }
+        try
+        { await Task.Delay(delay, ct).ConfigureAwait(false); }
         catch (OperationCanceledException) { /* expected on shutdown */ }
     }
 

@@ -99,11 +99,11 @@ export class ModuleNavigationService {
 
   loadMilitaryModules(buildingBlockType = 1): Observable<ModuleNavigationDto[]> {
     return this.get(buildingBlockType).pipe(
-      switchMap(modules =>
+      switchMap((modules) =>
         modules.length > 0
           ? of(modules)
           : this.getReferenceTemplate().pipe(
-              map(reference => this.mapReferenceToModules(buildingBlockType, reference)),
+              map((reference) => this.mapReferenceToModules(buildingBlockType, reference)),
             ),
       ),
     );
@@ -113,7 +113,10 @@ export class ModuleNavigationService {
     return this.api.post<ModuleNavigationDto[]>(`${this.path}/import`, payload);
   }
 
-  create(buildingBlockType: number, module: ModuleNavigationInput): Observable<ModuleNavigationDto> {
+  create(
+    buildingBlockType: number,
+    module: ModuleNavigationInput,
+  ): Observable<ModuleNavigationDto> {
     return this.api.post<ModuleNavigationDto>(this.path, { buildingBlockType, module });
   }
 
@@ -122,7 +125,9 @@ export class ModuleNavigationService {
   }
 
   export(buildingBlockType: number): Observable<ModuleNavigationDto[]> {
-    return this.api.get<ModuleNavigationDto[]>(`${this.path}/export`, { buildingBlockType: `${buildingBlockType}` });
+    return this.api.get<ModuleNavigationDto[]>(`${this.path}/export`, {
+      buildingBlockType: `${buildingBlockType}`,
+    });
   }
 
   private mapReferenceToModules(
@@ -130,7 +135,7 @@ export class ModuleNavigationService {
     reference: MilitaryNavigationReferenceDto,
   ): ModuleNavigationDto[] {
     return reference.modules
-      .map(module => ({
+      .map((module) => ({
         id: `ref-${module.MenuId}`,
         buildingBlockType,
         systemName: module.SystemName,
@@ -150,12 +155,14 @@ export class ModuleNavigationService {
     parentMenuId: string | null,
   ): SidebarMenuItemDto[] {
     return items
-      .filter(item =>
-        item.ModuleMenuId === moduleMenuId &&
-        ((parentMenuId === null && !item.ParentMenuId) || item.ParentMenuId === (parentMenuId ?? '')),
+      .filter(
+        (item) =>
+          item.ModuleMenuId === moduleMenuId &&
+          ((parentMenuId === null && !item.ParentMenuId) ||
+            item.ParentMenuId === (parentMenuId ?? '')),
       )
       .sort((left, right) => left.DisplayOrder - right.DisplayOrder)
-      .map(item => ({
+      .map((item) => ({
         id: `ref-${moduleMenuId}-${item.MenuId}`,
         parentSidebarMenuItemId: parentMenuId ? `ref-${moduleMenuId}-${parentMenuId}` : null,
         systemName: item.SystemName,

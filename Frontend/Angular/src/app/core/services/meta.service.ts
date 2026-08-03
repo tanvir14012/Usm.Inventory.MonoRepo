@@ -23,15 +23,13 @@ export class MetaService {
   private readonly appName = 'USM Inventory';
 
   setMeta(config: MetaConfig): void {
-    const translated = config.title
-      ?? (config.titleKey
-      ? this.translate.instant(config.titleKey)
-      : this.appName);
-    const description = config.description
-      ?? (config.descriptionKey ? this.translate.instant(config.descriptionKey) : undefined);
-    const fullTitle = translated !== this.appName
-      ? `${translated} | ${this.appName}`
-      : this.appName;
+    const translated =
+      config.title ?? (config.titleKey ? this.translate.instant(config.titleKey) : this.appName);
+    const description =
+      config.description ??
+      (config.descriptionKey ? this.translate.instant(config.descriptionKey) : undefined);
+    const fullTitle =
+      translated !== this.appName ? `${translated} | ${this.appName}` : this.appName;
 
     this.title.setTitle(fullTitle);
     this.meta.updateTag({ property: 'og:title', content: fullTitle });
@@ -47,7 +45,10 @@ export class MetaService {
     }
     this.meta.updateTag({ name: 'robots', content: config.robots ?? 'noindex,nofollow' });
     this.meta.updateTag({ property: 'og:type', content: config.ogType ?? 'website' });
-    this.meta.updateTag({ name: 'twitter:card', content: config.ogImage ? 'summary_large_image' : 'summary' });
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: config.ogImage ? 'summary_large_image' : 'summary',
+    });
     if (config.locale) {
       this.meta.updateTag({ property: 'og:locale', content: config.locale });
     }

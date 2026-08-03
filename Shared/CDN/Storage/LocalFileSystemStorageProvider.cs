@@ -32,7 +32,8 @@ internal sealed class LocalFileSystemStorageProvider(
     public ValueTask<Stream?> GetObjectStreamAsync(string bucket, string key, CancellationToken ct = default)
     {
         var path = ObjectPath(bucket, key);
-        if (!File.Exists(path)) return ValueTask.FromResult<Stream?>(null);
+        if (!File.Exists(path))
+            return ValueTask.FromResult<Stream?>(null);
 
         Stream stream = new FileStream(
             path, FileMode.Open, FileAccess.Read, FileShare.Read,
@@ -43,7 +44,8 @@ internal sealed class LocalFileSystemStorageProvider(
     public ValueTask<AssetMetadata?> GetMetadataAsync(string bucket, string key, CancellationToken ct = default)
     {
         var path = ObjectPath(bucket, key);
-        if (!File.Exists(path)) return ValueTask.FromResult<AssetMetadata?>(null);
+        if (!File.Exists(path))
+            return ValueTask.FromResult<AssetMetadata?>(null);
 
         var info = new FileInfo(path);
         var userMeta = ReadSidecarMeta(path);
@@ -89,9 +91,11 @@ internal sealed class LocalFileSystemStorageProvider(
     public ValueTask DeleteObjectAsync(string bucket, string key, CancellationToken ct = default)
     {
         var path = ObjectPath(bucket, key);
-        if (File.Exists(path)) File.Delete(path);
+        if (File.Exists(path))
+            File.Delete(path);
         var meta = path + ".meta";
-        if (File.Exists(meta)) File.Delete(meta);
+        if (File.Exists(meta))
+            File.Delete(meta);
         return ValueTask.CompletedTask;
     }
 
@@ -111,12 +115,14 @@ internal sealed class LocalFileSystemStorageProvider(
         string bucket, string prefix, [EnumeratorCancellation] CancellationToken ct = default)
     {
         var bucketDir = Path.Combine(_basePath, bucket);
-        if (!Directory.Exists(bucketDir)) yield break;
+        if (!Directory.Exists(bucketDir))
+            yield break;
 
         foreach (var file in Directory.EnumerateFiles(bucketDir, "*", SearchOption.AllDirectories))
         {
             ct.ThrowIfCancellationRequested();
-            if (file.EndsWith(".meta", StringComparison.OrdinalIgnoreCase)) continue;
+            if (file.EndsWith(".meta", StringComparison.OrdinalIgnoreCase))
+                continue;
 
             var relative = Path.GetRelativePath(bucketDir, file)
                 .Replace(Path.DirectorySeparatorChar, '/');
@@ -151,7 +157,8 @@ internal sealed class LocalFileSystemStorageProvider(
     private static Dictionary<string, string> ReadSidecarMeta(string objectPath)
     {
         var metaPath = objectPath + ".meta";
-        if (!File.Exists(metaPath)) return [];
+        if (!File.Exists(metaPath))
+            return [];
 
         return File.ReadAllLines(metaPath)
             .Select(l => l.Split('=', 2))

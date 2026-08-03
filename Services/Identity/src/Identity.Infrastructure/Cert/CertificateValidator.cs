@@ -1,7 +1,7 @@
-﻿using Identity.Application.Auth.Dtos;
-using Identity.Application.Auth.Utils;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using Identity.Application.Auth.Dtos;
+using Identity.Application.Auth.Utils;
 using Usm.Shared.Reflection.AssemblyScanning.ServiceLifetimeMarkers;
 
 namespace Identity.Infrastructure.Cert;

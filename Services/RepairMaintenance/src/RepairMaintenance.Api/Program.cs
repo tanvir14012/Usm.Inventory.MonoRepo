@@ -1,4 +1,4 @@
-﻿using RepairMaintenance.Application;
+using RepairMaintenance.Application;
 using RepairMaintenance.Infrastructure;
 using RepairMaintenance.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

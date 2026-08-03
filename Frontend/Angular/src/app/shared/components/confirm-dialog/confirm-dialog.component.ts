@@ -19,16 +19,16 @@ export interface ConfirmDialogData {
   imports: [CommonModule, MatDialogModule, MatButtonModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2 mat-dialog-title>{{ (data.titleKey || 'common.confirm') | translate }}</h2>
+    <h2 mat-dialog-title>{{ data.titleKey || 'common.confirm' | translate }}</h2>
     <mat-dialog-content>
-      <p>{{ (data.messageKey || 'common.confirm') | translate: (data.messageParams || {}) }}</p>
+      <p>{{ data.messageKey || 'common.confirm' | translate: data.messageParams || {} }}</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>
-        {{ (data.cancelKey || 'common.cancel') | translate }}
+        {{ data.cancelKey || 'common.cancel' | translate }}
       </button>
       <button mat-flat-button [color]="data.confirmColor || 'primary'" [mat-dialog-close]="true">
-        {{ (data.confirmKey || 'common.confirm') | translate }}
+        {{ data.confirmKey || 'common.confirm' | translate }}
       </button>
     </mat-dialog-actions>
   `,

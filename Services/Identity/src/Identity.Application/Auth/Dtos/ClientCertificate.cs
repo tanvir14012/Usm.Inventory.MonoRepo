@@ -1,4 +1,4 @@
-﻿namespace Identity.Application.Auth.Dtos;
+namespace Identity.Application.Auth.Dtos;
 
 public sealed record ClientCertificate(
     string Subject,

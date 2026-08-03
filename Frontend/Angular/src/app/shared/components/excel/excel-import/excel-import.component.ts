@@ -1,6 +1,4 @@
-import {
-  Component, ChangeDetectionStrategy, inject, signal, output, input
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, output, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,9 +22,15 @@ export interface ImportConfig<T> {
   selector: 'app-excel-import',
   standalone: true,
   imports: [
-    CommonModule, FormsModule,
-    MatButtonModule, MatIconModule, MatDialogModule,
-    MatSelectModule, MatTableModule, MatProgressBarModule, MatChipsModule,
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatTableModule,
+    MatProgressBarModule,
+    MatChipsModule,
     TranslateModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,24 +38,36 @@ export interface ImportConfig<T> {
     <div class="excel-import">
       <!-- Drop zone -->
       @if (!selectedFile()) {
-        <div class="drop-zone border-2 border-dashed border-gray-300 dark:border-gray-600
+        <div
+          class="drop-zone border-2 border-dashed border-gray-300 dark:border-gray-600
                     rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
-             (click)="fileInput.click()"
-             (dragover)="$event.preventDefault()"
-             (drop)="onDrop($event)">
+          (click)="fileInput.click()"
+          (dragover)="$event.preventDefault()"
+          (drop)="onDrop($event)"
+        >
           <mat-icon class="!text-4xl text-gray-400 mb-2">cloud_upload</mat-icon>
           <p class="text-gray-500">{{ 'common.dragDropHint' | translate }}</p>
           <p class="text-xs text-gray-400 mt-1">.xlsx, .xls, .csv</p>
         </div>
-        <input #fileInput type="file" accept=".xlsx,.xls,.csv" class="hidden"
-               (change)="onFileSelect($event)" />
+        <input
+          #fileInput
+          type="file"
+          accept=".xlsx,.xls,.csv"
+          class="hidden"
+          (change)="onFileSelect($event)"
+        />
       } @else {
         <!-- Preview / mapping -->
-        <div class="file-info flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4">
+        <div
+          class="file-info flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4"
+        >
           <mat-icon class="text-green-500">insert_drive_file</mat-icon>
           <div class="flex-1">
             <p class="font-medium text-sm">{{ selectedFile()!.name }}</p>
-            <p class="text-xs text-gray-500">{{ previewRows().length }} {{ 'common.rowsToImport' | translate: { count: previewRows().length } }}</p>
+            <p class="text-xs text-gray-500">
+              {{ previewRows().length }}
+              {{ 'common.rowsToImport' | translate: { count: previewRows().length } }}
+            </p>
           </div>
           <button mat-icon-button color="warn" (click)="reset()">
             <mat-icon>close</mat-icon>

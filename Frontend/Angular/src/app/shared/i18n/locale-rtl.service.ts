@@ -1,5 +1,13 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, effect, inject, Injectable, Renderer2, RendererFactory2, signal } from '@angular/core';
+import {
+  computed,
+  effect,
+  inject,
+  Injectable,
+  Renderer2,
+  RendererFactory2,
+  signal,
+} from '@angular/core';
 
 import { PlatformContextService } from '../ssr/platform-context.service';
 

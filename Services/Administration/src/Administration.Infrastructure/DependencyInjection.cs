@@ -1,4 +1,4 @@
-﻿using Administration.Application.Abstractions;
+using Administration.Application.Abstractions;
 using Administration.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

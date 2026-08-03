@@ -183,7 +183,8 @@ internal sealed class EdgeAssetInitializerService(
 
         // Idempotency: skip objects that already exist
         bool exists;
-        try { exists = await provider.ObjectExistsAsync(bucket, entry.Key, ct).ConfigureAwait(false); }
+        try
+        { exists = await provider.ObjectExistsAsync(bucket, entry.Key, ct).ConfigureAwait(false); }
         catch { exists = false; }
 
         if (exists)
@@ -212,22 +213,22 @@ internal sealed class EdgeAssetInitializerService(
         Path.GetExtension(path).ToLowerInvariant() switch
         {
             ".jpg" or ".jpeg" => "image/jpeg",
-            ".png"  => "image/png",
-            ".gif"  => "image/gif",
+            ".png" => "image/png",
+            ".gif" => "image/gif",
             ".webp" => "image/webp",
             ".avif" => "image/avif",
-            ".svg"  => "image/svg+xml",
-            ".mp4"  => "video/mp4",
+            ".svg" => "image/svg+xml",
+            ".mp4" => "video/mp4",
             ".webm" => "video/webm",
             ".m3u8" => "application/x-mpegURL",
-            ".ts"   => "video/mp2t",
-            ".css"  => "text/css",
-            ".js"   => "application/javascript",
+            ".ts" => "video/mp2t",
+            ".css" => "text/css",
+            ".js" => "application/javascript",
             ".html" => "text/html",
             ".json" => "application/json",
-            ".pdf"  => "application/pdf",
-            ".woff2"=> "font/woff2",
+            ".pdf" => "application/pdf",
+            ".woff2" => "font/woff2",
             ".woff" => "font/woff",
-            _       => "application/octet-stream"
+            _ => "application/octet-stream"
         };
 }

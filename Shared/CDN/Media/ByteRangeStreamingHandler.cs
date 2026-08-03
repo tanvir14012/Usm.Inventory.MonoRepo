@@ -110,13 +110,15 @@ public sealed class ByteRangeStreamingHandler(ILogger<ByteRangeStreamingHandler>
                 var mem = writer.GetMemory(bufLen);
 
                 var read = await source.ReadAsync(mem[..bufLen], ct).ConfigureAwait(false);
-                if (read == 0) break;
+                if (read == 0)
+                    break;
 
                 writer.Advance(read);
                 remaining -= read;
 
                 var flush = await writer.FlushAsync(ct).ConfigureAwait(false);
-                if (flush.IsCompleted || flush.IsCanceled) break;
+                if (flush.IsCompleted || flush.IsCanceled)
+                    break;
             }
         }
         finally
@@ -138,7 +140,8 @@ public sealed class ByteRangeStreamingHandler(ILogger<ByteRangeStreamingHandler>
                 ct.ThrowIfCancellationRequested();
                 var toRead = (int)Math.Min(buf.Length, remaining);
                 var read = await source.ReadAsync(buf.AsMemory(0, toRead), ct).ConfigureAwait(false);
-                if (read == 0) break;
+                if (read == 0)
+                    break;
                 await dest.WriteAsync(buf.AsMemory(0, read), ct).ConfigureAwait(false);
                 remaining -= read;
             }
@@ -215,7 +218,8 @@ public sealed class ByteRangeStreamingHandler(ILogger<ByteRangeStreamingHandler>
 
         var range = header.AsSpan(6);
         var dash = range.IndexOf('-');
-        if (dash < 0) return false;
+        if (dash < 0)
+            return false;
 
         var startSpan = range[..dash];
         var endSpan = range[(dash + 1)..];
@@ -230,7 +234,8 @@ public sealed class ByteRangeStreamingHandler(ILogger<ByteRangeStreamingHandler>
         }
         else
         {
-            if (!long.TryParse(startSpan, out start)) return false;
+            if (!long.TryParse(startSpan, out start))
+                return false;
             end = endSpan.IsEmpty
                 ? contentLength - 1
                 : long.TryParse(endSpan, out var parsed) ? parsed : contentLength - 1;

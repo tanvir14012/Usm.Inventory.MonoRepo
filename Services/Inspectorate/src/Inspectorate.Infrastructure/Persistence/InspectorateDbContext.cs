@@ -1,6 +1,6 @@
+using Inspectorate.Domain.Inspections;
 using Microsoft.EntityFrameworkCore;
 using Usm.Shared.Data.DbContextExtensions;
-using Inspectorate.Domain.Inspections;
 
 namespace Inspectorate.Infrastructure.Persistence;
 

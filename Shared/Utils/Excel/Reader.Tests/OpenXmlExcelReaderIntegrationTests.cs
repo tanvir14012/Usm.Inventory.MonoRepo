@@ -17,17 +17,17 @@ public sealed class OpenXmlExcelReaderIntegrationTests
 {
     private sealed class PersonDto
     {
-        public string Name       { get; set; } = string.Empty;
-        public int    Age        { get; set; }
-        public decimal Salary    { get; set; }
-        public bool   IsActive   { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Age { get; set; }
+        public decimal Salary { get; set; }
+        public bool IsActive { get; set; }
     }
 
     private sealed class NullableDto
     {
-        public int?      NullableInt     { get; set; }
-        public decimal?  NullableDecimal { get; set; }
-        public DateTime? NullableDate    { get; set; }
+        public int? NullableInt { get; set; }
+        public decimal? NullableDecimal { get; set; }
+        public DateTime? NullableDate { get; set; }
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -61,7 +61,7 @@ public sealed class OpenXmlExcelReaderIntegrationTests
 
         var alice = result.Records[0];
         Assert.Equal("Alice", alice.Name);
-        Assert.Equal(30,      alice.Age);
+        Assert.Equal(30, alice.Age);
         Assert.Equal(5000.50m, alice.Salary);
         Assert.True(alice.IsActive);
     }
@@ -82,9 +82,9 @@ public sealed class OpenXmlExcelReaderIntegrationTests
         // Age conversion of "" yields default(int) = 0; no error expected
         Assert.False(result.HasErrors, string.Join(", ", result.Errors.Select(e => e.Message)));
         var carol = result.Records[0];
-        Assert.Equal("Carol",   carol.Name);
-        Assert.Equal(0,         carol.Age);
-        Assert.Equal(9000.00m,  carol.Salary);
+        Assert.Equal("Carol", carol.Name);
+        Assert.Equal(0, carol.Age);
+        Assert.Equal(9000.00m, carol.Salary);
         Assert.True(carol.IsActive);
     }
 
@@ -130,8 +130,8 @@ public sealed class OpenXmlExcelReaderIntegrationTests
         Assert.Null(result.Records[0].NullableDecimal);
         Assert.Null(result.Records[0].NullableDate);
 
-        Assert.Equal(42,     result.Records[1].NullableInt);
-        Assert.Equal(3.14m,  result.Records[1].NullableDecimal);
+        Assert.Equal(42, result.Records[1].NullableInt);
+        Assert.Equal(3.14m, result.Records[1].NullableDecimal);
         Assert.Equal(new DateTime(2024, 1, 15), result.Records[1].NullableDate);
     }
 
@@ -147,7 +147,7 @@ public sealed class OpenXmlExcelReaderIntegrationTests
         ]);
 
         var reader = BuildReader();
-        var opts   = new ExcelReaderOptions { FailFast = true };
+        var opts = new ExcelReaderOptions { FailFast = true };
         var result = await reader.ReadAsync<PersonDto>(stream, opts);
 
         Assert.Single(result.Errors);
@@ -164,7 +164,7 @@ public sealed class OpenXmlExcelReaderIntegrationTests
         var opts = new ExcelReaderOptions
         {
             BatchSize = 50,
-            Progress  = new Progress<ExcelReadProgress>(_ => progressCallCount++)
+            Progress = new Progress<ExcelReadProgress>(_ => progressCallCount++)
         };
 
         var reader = BuildReader();

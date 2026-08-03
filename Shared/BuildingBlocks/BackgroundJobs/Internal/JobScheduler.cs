@@ -34,17 +34,17 @@ internal sealed class JobScheduler(
         int priority;
         using (var scope = serviceProvider.CreateScope())
         {
-            var job  = scope.ServiceProvider.GetRequiredService<TJob>();
+            var job = scope.ServiceProvider.GetRequiredService<TJob>();
             priority = job.Priority;
         }
 
         var record = new JobRecord
         {
-            JobType           = typeof(TJob).AssemblyQualifiedName!,
+            JobType = typeof(TJob).AssemblyQualifiedName!,
             SerializedPayload = payload is not null
                 ? JsonSerializer.Serialize(payload, JsonOpts)
                 : null,
-            Priority       = priority,
+            Priority = priority,
             IdempotencyKey = idempotencyKey
         };
 

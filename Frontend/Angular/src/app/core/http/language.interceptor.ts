@@ -5,7 +5,5 @@ export const languageInterceptor: HttpInterceptorFn = (req, next) => {
   const htmlLang = document?.documentElement?.lang;
   const lang = storedLang || htmlLang || 'en';
 
-  return next(
-    req.clone({ setHeaders: { 'Accept-Language': lang } }),
-  );
+  return next(req.clone({ setHeaders: { 'Accept-Language': lang } }));
 };

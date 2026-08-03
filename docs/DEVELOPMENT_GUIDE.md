@@ -1,5 +1,18 @@
 # Development Guide
 
+## Code formatting baseline (Visual Studio 2026 + VS Code)
+
+- Backend/.NET conventions are centralized in the repository-root `.editorconfig`, aligned with Microsoft/.NET Core coding-style guidance.
+- Frontend/Angular conventions are enforced by `Frontend/Angular/.editorconfig`, `Frontend/Angular/.prettierrc`, and `Frontend/Angular/.vscode/settings.json`.
+
+Use these commands before pushing:
+
+```bash
+dotnet format Usm.Inventory.MonoRepo.slnx
+cd Frontend/Angular
+npm run format
+```
+
 ## Local stack bootstrap
 
 1. Copy environment file:
@@ -84,4 +97,3 @@ kubectl apply -f Platform/Kubernetes/07-observability.yaml
 4. **Telemetry missing**
    - Confirm OTLP endpoint env and `otel-collector` service reachability.
    - Validate Prometheus targets in `/targets`.
-

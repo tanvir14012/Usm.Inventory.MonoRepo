@@ -6,12 +6,11 @@ using Microsoft.Extensions.Logging;
 using Usm.Shared.Infrastructure.CDN.Abstractions;
 using Usm.Shared.Infrastructure.CDN.Models;
 using Usm.Shared.Infrastructure.CDN.Options;
-
+using CdnCorsConfig = Usm.Shared.Infrastructure.CDN.Models.CorsConfiguration;
+using CdnLifecycleConfig = Usm.Shared.Infrastructure.CDN.Models.LifecycleConfiguration;
+using S3CorsConfig = Amazon.S3.Model.CORSConfiguration;
 // Alias both types to resolve the LifecycleConfiguration name collision
 using S3LifecycleConfig = Amazon.S3.Model.LifecycleConfiguration;
-using S3CorsConfig = Amazon.S3.Model.CORSConfiguration;
-using CdnLifecycleConfig = Usm.Shared.Infrastructure.CDN.Models.LifecycleConfiguration;
-using CdnCorsConfig = Usm.Shared.Infrastructure.CDN.Models.CorsConfiguration;
 
 namespace Usm.Shared.Infrastructure.CDN.Storage;
 
@@ -262,7 +261,8 @@ internal sealed class S3CompatibleStorageProvider : IStorageProvider, IAsyncDisp
                 ]
             });
 
-        if (rules.Count == 0) return;
+        if (rules.Count == 0)
+            return;
 
         await _client.PutLifecycleConfigurationAsync(
             new PutLifecycleConfigurationRequest

@@ -22,9 +22,9 @@ public sealed class InMemoryJobRepository : IJobRepository
         int maxCount = 50, CancellationToken cancellationToken = default)
     {
         var jobs = _store.Values
-            .Where(j  => j.Status == JobStatus.Pending)
+            .Where(j => j.Status == JobStatus.Pending)
             .OrderBy(j => j.Priority)
-            .ThenBy(j  => j.CreatedAt)
+            .ThenBy(j => j.CreatedAt)
             .Take(maxCount)
             .ToList();
 
@@ -56,7 +56,7 @@ public sealed class InMemoryJobRepository : IJobRepository
     {
         foreach (var record in _store.Values.Where(j => j.Status == JobStatus.Running))
         {
-            record.Status    = JobStatus.Pending;
+            record.Status = JobStatus.Pending;
             record.StartedAt = null;
         }
         return Task.CompletedTask;

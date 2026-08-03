@@ -8,10 +8,10 @@ namespace Usm.Shared.Data.Scalability.Partitioning;
 /// <summary>Well-known EF Core annotation keys written by the partition fluent API.</summary>
 public static class PartitionAnnotations
 {
-    public const string PartitionType    = "Scalability:PartitionType";
+    public const string PartitionType = "Scalability:PartitionType";
     public const string PartitionColumns = "Scalability:PartitionColumns";
-    public const string HashModulus      = "Scalability:HashModulus";
-    public const string RangeInterval    = "Scalability:RangeInterval";
+    public const string HashModulus = "Scalability:HashModulus";
+    public const string RangeInterval = "Scalability:RangeInterval";
 }
 
 /// <summary>
@@ -86,7 +86,7 @@ public static class PartitionModelBuilderExtensions
             ?? throw new InvalidOperationException(
                 $"Entity '{typeof(TEntity).Name}' is not registered in the model.");
 
-        var table   = entityType.GetTableName() ?? typeof(TEntity).Name.ToLowerInvariant();
+        var table = entityType.GetTableName() ?? typeof(TEntity).Name.ToLowerInvariant();
         var typeStr = entityType.FindAnnotation(PartitionAnnotations.PartitionType)?.Value?.ToString()
             ?? throw new InvalidOperationException($"No partition type annotation on '{typeof(TEntity).Name}'.");
         var columns = entityType.FindAnnotation(PartitionAnnotations.PartitionColumns)?.Value?.ToString()

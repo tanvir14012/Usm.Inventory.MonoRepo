@@ -1,4 +1,4 @@
-﻿using Communication.Application;
+using Communication.Application;
 using Communication.Infrastructure;
 using Communication.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

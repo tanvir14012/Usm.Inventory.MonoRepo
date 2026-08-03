@@ -1,4 +1,4 @@
-﻿namespace Usm.Shared.Contracts.Events;
+namespace Usm.Shared.Contracts.Events;
 
 public interface IIntegrationEvent
 {

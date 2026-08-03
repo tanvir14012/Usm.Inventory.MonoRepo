@@ -27,11 +27,11 @@ export class CdnUrlPipe implements PipeTransform {
     const url = new URL(`${this.base}/${key}`);
 
     if (options) {
-      if (options.width != null)   url.searchParams.set('w', String(options.width));
-      if (options.height != null)  url.searchParams.set('h', String(options.height));
-      if (options.format)          url.searchParams.set('fmt', options.format);
+      if (options.width != null) url.searchParams.set('w', String(options.width));
+      if (options.height != null) url.searchParams.set('h', String(options.height));
+      if (options.format) url.searchParams.set('fmt', options.format);
       if (options.quality != null) url.searchParams.set('q', String(options.quality));
-      if (options.mode)            url.searchParams.set('mode', options.mode);
+      if (options.mode) url.searchParams.set('mode', options.mode);
     }
 
     return url.toString();

@@ -37,12 +37,7 @@ export interface SignedUrlRequest {
 // ─── Upload Models ─────────────────────────────────────────────────────────────
 
 export type UploadStatus =
-  | 'Pending'
-  | 'InProgress'
-  | 'Scanning'
-  | 'Completed'
-  | 'Failed'
-  | 'Aborted';
+  'Pending' | 'InProgress' | 'Scanning' | 'Completed' | 'Failed' | 'Aborted';
 
 export interface UploadSession {
   uploadId: string;

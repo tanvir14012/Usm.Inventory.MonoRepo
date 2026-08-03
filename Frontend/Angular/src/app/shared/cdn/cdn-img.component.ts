@@ -1,6 +1,13 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy,
-  OnChanges, inject, computed, signal,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnChanges,
+  inject,
+  computed,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdnUrlPipe } from './cdn-url.pipe';

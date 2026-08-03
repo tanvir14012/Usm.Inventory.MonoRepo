@@ -17,24 +17,27 @@ export interface NavigationBreadcrumbContext {
   featureLabelKey?: string;
 }
 
-export const navigationBreadcrumbResolver: ResolveFn<NavigationBreadcrumbContext> = route => {
+export const navigationBreadcrumbResolver: ResolveFn<NavigationBreadcrumbContext> = (route) => {
   const navigationService = inject(ModuleNavigationService);
   const moduleKey = route.paramMap.get('module') ?? 'dashboard';
   const sidebarKey = route.paramMap.get('view');
   const featureLabelKey = route.data['breadcrumbFeature'];
 
   return navigationService.loadMilitaryModules(1).pipe(
-    map(modules => {
+    map((modules) => {
       const module = findModule(modules, moduleKey);
-      const sidebarPath = module && sidebarKey ? findSidebarPath(module.sidebarItems, sidebarKey) : [];
+      const sidebarPath =
+        module && sidebarKey ? findSidebarPath(module.sidebarItems, sidebarKey) : [];
 
       return {
         navId: module?.id,
         navName: module?.localizedName,
         rootSidebarId: sidebarPath[0]?.id,
         rootSidebarName: sidebarPath[0]?.localizedName,
-        nestedSidebarId: sidebarPath.length > 1 ? sidebarPath[sidebarPath.length - 1]?.id : undefined,
-        nestedSidebarName: sidebarPath.length > 1 ? sidebarPath[sidebarPath.length - 1]?.localizedName : undefined,
+        nestedSidebarId:
+          sidebarPath.length > 1 ? sidebarPath[sidebarPath.length - 1]?.id : undefined,
+        nestedSidebarName:
+          sidebarPath.length > 1 ? sidebarPath[sidebarPath.length - 1]?.localizedName : undefined,
         featureLabelKey: typeof featureLabelKey === 'string' ? featureLabelKey : undefined,
       };
     }),
@@ -43,15 +46,15 @@ export const navigationBreadcrumbResolver: ResolveFn<NavigationBreadcrumbContext
 
 function findModule(modules: ModuleNavigationDto[], key: string): ModuleNavigationDto | undefined {
   const normalized = normalize(key);
-  return modules.find(module =>
-    normalize(module.menuId) === normalized ||
-    normalize(module.systemName) === normalized,
+  return modules.find(
+    (module) =>
+      normalize(module.menuId) === normalized || normalize(module.systemName) === normalized,
   );
 }
 
 function findSidebarPath(items: SidebarMenuItemDto[], key: string): SidebarMenuItemDto[] {
   const normalized = normalize(key);
-  for (const item of items.filter(sidebarItem => sidebarItem.isActive)) {
+  for (const item of items.filter((sidebarItem) => sidebarItem.isActive)) {
     if (normalize(item.menuId) === normalized || normalize(item.systemName) === normalized) {
       return [item];
     }

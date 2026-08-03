@@ -1,4 +1,4 @@
-﻿using BudgetPlanning.Application;
+using BudgetPlanning.Application;
 using BudgetPlanning.Infrastructure;
 using BudgetPlanning.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

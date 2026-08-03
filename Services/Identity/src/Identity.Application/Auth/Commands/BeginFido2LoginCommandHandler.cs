@@ -1,9 +1,9 @@
+using System.Buffers.Text;
 using Fido2NetLib;
 using Fido2NetLib.Objects;
 using Identity.Domain.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Buffers.Text;
 
 namespace Identity.Application.Auth.Commands;
 

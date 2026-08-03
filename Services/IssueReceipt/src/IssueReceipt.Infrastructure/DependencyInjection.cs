@@ -1,4 +1,4 @@
-﻿using IssueReceipt.Application.Abstractions;
+using IssueReceipt.Application.Abstractions;
 using IssueReceipt.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

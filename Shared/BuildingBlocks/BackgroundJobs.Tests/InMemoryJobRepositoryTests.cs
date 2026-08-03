@@ -14,7 +14,7 @@ public sealed class InMemoryJobRepositoryTests
     [Fact]
     public async Task SaveAndGetById_RoundTrips()
     {
-        var repo   = Repo();
+        var repo = Repo();
         var record = new JobRecord { JobType = "MyJob", Priority = 1 };
 
         await repo.SaveAsync(record);
@@ -58,7 +58,7 @@ public sealed class InMemoryJobRepositoryTests
     [Fact]
     public async Task ExistsAsync_ReturnsTrueForNonTerminalJob()
     {
-        var repo   = Repo();
+        var repo = Repo();
         var record = new JobRecord { IdempotencyKey = "k1", Status = JobStatus.Pending };
         await repo.SaveAsync(record);
 
@@ -68,7 +68,7 @@ public sealed class InMemoryJobRepositoryTests
     [Fact]
     public async Task ExistsAsync_ReturnsFalseForFailedJob()
     {
-        var repo   = Repo();
+        var repo = Repo();
         var record = new JobRecord { IdempotencyKey = "k2", Status = JobStatus.Failed };
         await repo.SaveAsync(record);
 
@@ -78,7 +78,7 @@ public sealed class InMemoryJobRepositoryTests
     [Fact]
     public async Task RecoverInterruptedJobs_ResetsRunningToPending()
     {
-        var repo   = Repo();
+        var repo = Repo();
         var record = new JobRecord { Status = JobStatus.Running };
         await repo.SaveAsync(record);
 

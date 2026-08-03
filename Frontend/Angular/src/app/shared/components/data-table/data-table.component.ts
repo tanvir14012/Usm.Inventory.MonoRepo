@@ -1,6 +1,12 @@
 import {
-  Component, ChangeDetectionStrategy, input, output, computed,
-  signal, OnChanges, SimpleChanges
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+  computed,
+  signal,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -29,13 +35,24 @@ import { TableColumn, TableAction } from './data-table.model';
   selector: 'app-data-table',
   standalone: true,
   imports: [
-    CommonModule, FormsModule,
-    MatTableModule, MatSortModule, MatPaginatorModule,
-    MatButtonModule, MatIconModule, MatTooltipModule,
-    MatCheckboxModule, MatProgressBarModule, MatMenuModule,
-    MatFormFieldModule, MatInputModule,
-    TranslateModule, HasPermissionDirective,
-    TranslateLookupPipe, LocalDatePipe, FileSizePipe,
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TranslateModule,
+    HasPermissionDirective,
+    TranslateLookupPipe,
+    LocalDatePipe,
+    FileSizePipe,
     EmptyStateComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,10 +79,17 @@ import { TableColumn, TableAction } from './data-table.model';
     }
 
     <!-- Table -->
-    <div class="table-container overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-      <table mat-table [dataSource]="data().items" matSort (matSortChange)="onSort($event)"
-             class="w-full" [attr.aria-label]="titleKey() | translate">
-
+    <div
+      class="table-container overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700"
+    >
+      <table
+        mat-table
+        [dataSource]="data().items"
+        matSort
+        (matSortChange)="onSort($event)"
+        class="w-full"
+        [attr.aria-label]="titleKey() | translate"
+      >
         <!-- Selection column -->
         @if (selectable()) {
           <ng-container matColumnDef="__select">
@@ -73,21 +97,29 @@ import { TableColumn, TableAction } from './data-table.model';
               <mat-checkbox
                 (change)="toggleAll($event.checked)"
                 [checked]="allSelected()"
-                [indeterminate]="someSelected()" />
+                [indeterminate]="someSelected()"
+              />
             </th>
             <td mat-cell *matCellDef="let row" class="w-10">
-              <mat-checkbox
-                [checked]="isSelected(row)"
-                (change)="toggleRow(row, $event.checked)" />
+              <mat-checkbox [checked]="isSelected(row)" (change)="toggleRow(row, $event.checked)" />
             </td>
           </ng-container>
         }
 
         <!-- Dynamic columns -->
         @for (col of columns(); track col.key) {
-          <ng-container [matColumnDef]="col.key.toString()" [sticky]="col.sticky === 'start'" [stickyEnd]="col.sticky === 'end'">
-            <th mat-header-cell *matHeaderCellDef [mat-sort-header]="col.sortable ? col.key.toString() : ''"
-                [disabled]="!col.sortable" [style.width]="col.width">
+          <ng-container
+            [matColumnDef]="col.key.toString()"
+            [sticky]="col.sticky === 'start'"
+            [stickyEnd]="col.sticky === 'end'"
+          >
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              [mat-sort-header]="col.sortable ? col.key.toString() : ''"
+              [disabled]="!col.sortable"
+              [style.width]="col.width"
+            >
               {{ col.headerKey | translate }}
             </th>
             <td mat-cell *matCellDef="let row">
@@ -118,13 +150,22 @@ import { TableColumn, TableAction } from './data-table.model';
               @for (action of actions(); track action.icon) {
                 @if (!action.visible || action.visible(row)) {
                   @if (!action.permission) {
-                    <button mat-icon-button [color]="action.color" [matTooltip]="action.tooltipKey | translate"
-                            (click)="action.action(row)">
+                    <button
+                      mat-icon-button
+                      [color]="action.color"
+                      [matTooltip]="action.tooltipKey | translate"
+                      (click)="action.action(row)"
+                    >
                       <mat-icon>{{ action.icon }}</mat-icon>
                     </button>
                   } @else {
-                    <button mat-icon-button [color]="action.color" [matTooltip]="action.tooltipKey | translate"
-                            (click)="action.action(row)" *hasPermission="action.permission">
+                    <button
+                      mat-icon-button
+                      [color]="action.color"
+                      [matTooltip]="action.tooltipKey | translate"
+                      (click)="action.action(row)"
+                      *hasPermission="action.permission"
+                    >
                       <mat-icon>{{ action.icon }}</mat-icon>
                     </button>
                   }
@@ -135,9 +176,12 @@ import { TableColumn, TableAction } from './data-table.model';
         }
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns();"
-            [class.selected-row]="isSelected(row)"
-            (click)="onRowClick(row)"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns()"
+          [class.selected-row]="isSelected(row)"
+          (click)="onRowClick(row)"
+        ></tr>
 
         <!-- No data row -->
         <tr class="mat-row" *matNoDataRow>
@@ -157,12 +201,21 @@ import { TableColumn, TableAction } from './data-table.model';
       [pageIndex]="data().page - 1"
       [pageSizeOptions]="pageSizeOptions()"
       (page)="onPage($event)"
-      showFirstLastButtons />
+      showFirstLastButtons
+    />
   `,
-  styles: [`
-    .selected-row { background: var(--mat-table-row-item-selected-background-color, rgba(0,0,0,.04)); }
-    .table-container mat-progress-bar { position: sticky; top: 0; z-index: 2; }
-  `],
+  styles: [
+    `
+      .selected-row {
+        background: var(--mat-table-row-item-selected-background-color, rgba(0, 0, 0, 0.04));
+      }
+      .table-container mat-progress-bar {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+    `,
+  ],
 })
 export class DataTableComponent<T extends { id: string }> implements OnChanges {
   readonly titleKey = input<string>('');
@@ -184,17 +237,17 @@ export class DataTableComponent<T extends { id: string }> implements OnChanges {
   readonly displayedColumns = computed(() => {
     const cols: string[] = [];
     if (this.selectable()) cols.push('__select');
-    cols.push(...this.columns().map(c => c.key.toString()));
+    cols.push(...this.columns().map((c) => c.key.toString()));
     if (this.actions().length) cols.push('__actions');
     return cols;
   });
 
   readonly allSelected = computed(
-    () => this.data().items.length > 0 &&
-      this.data().items.every(r => this._selected().has(r.id)),
+    () =>
+      this.data().items.length > 0 && this.data().items.every((r) => this._selected().has(r.id)),
   );
   readonly someSelected = computed(
-    () => this.data().items.some(r => this._selected().has(r.id)) && !this.allSelected(),
+    () => this.data().items.some((r) => this._selected().has(r.id)) && !this.allSelected(),
   );
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -240,11 +293,11 @@ export class DataTableComponent<T extends { id: string }> implements OnChanges {
     const set = new Set(this._selected());
     checked ? set.add(row.id) : set.delete(row.id);
     this._selected.set(set);
-    this.selectionChange.emit(this.data().items.filter(r => set.has(r.id)));
+    this.selectionChange.emit(this.data().items.filter((r) => set.has(r.id)));
   }
 
   toggleAll(checked: boolean): void {
-    const set = checked ? new Set(this.data().items.map(r => r.id)) : new Set<string>();
+    const set = checked ? new Set(this.data().items.map((r) => r.id)) : new Set<string>();
     this._selected.set(set);
     this.selectionChange.emit(checked ? [...this.data().items] : []);
   }

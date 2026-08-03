@@ -41,7 +41,8 @@ public static class JsonbSerializer
     /// </summary>
     public static string SerializeList<T>(IReadOnlyList<T> items)
     {
-        if (items.Count == 0) return "[]";
+        if (items.Count == 0)
+            return "[]";
         return JsonSerializer.Serialize(items, DefaultOptions);
     }
 
@@ -51,7 +52,8 @@ public static class JsonbSerializer
     /// </summary>
     public static string SerializeArray<T>(ReadOnlySpan<T> items)
     {
-        if (items.IsEmpty) return "[]";
+        if (items.IsEmpty)
+            return "[]";
 
         // Initial capacity heuristic: 64 bytes per item.
         var bufferWriter = new ArrayBufferWriter<byte>(Math.Max(256, items.Length * 64));
@@ -71,7 +73,8 @@ public static class JsonbSerializer
     /// <summary>Deserializes a JSONB string (or null) into <typeparamref name="T"/>.</summary>
     public static T? Deserialize<T>(string? json)
     {
-        if (string.IsNullOrEmpty(json)) return default;
+        if (string.IsNullOrEmpty(json))
+            return default;
         return JsonSerializer.Deserialize<T>(json, DefaultOptions);
     }
 
@@ -85,14 +88,16 @@ public static class JsonbSerializer
     /// </summary>
     public static IReadOnlyList<T> DeserializeList<T>(string? json)
     {
-        if (string.IsNullOrEmpty(json)) return [];
+        if (string.IsNullOrEmpty(json))
+            return [];
         return JsonSerializer.Deserialize<List<T>>(json, DefaultOptions) ?? [];
     }
 
     /// <summary>Deserializes from a pooled UTF-8 byte array returned by <see cref="SerializeToUtf8Bytes{T}"/>.</summary>
     public static T? DeserializeFromUtf8Bytes<T>(byte[]? utf8Bytes)
     {
-        if (utf8Bytes is null || utf8Bytes.Length == 0) return default;
+        if (utf8Bytes is null || utf8Bytes.Length == 0)
+            return default;
         return JsonSerializer.Deserialize<T>(utf8Bytes.AsSpan(), DefaultOptions);
     }
 }

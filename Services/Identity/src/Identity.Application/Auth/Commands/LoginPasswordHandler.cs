@@ -1,4 +1,4 @@
-﻿using Identity.Application.Users.Dtos;
+using Identity.Application.Users.Dtos;
 using Identity.Domain.Users;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

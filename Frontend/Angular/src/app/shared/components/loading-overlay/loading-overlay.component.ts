@@ -14,21 +14,23 @@ import { CommonModule } from '@angular/common';
       </div>
     }
   `,
-  styles: [`
-    .loading-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.6);
-      z-index: 100;
-      backdrop-filter: blur(2px);
-    }
-    :host-context(.dark) .loading-overlay {
-      background: rgba(0,0,0,0.5);
-    }
-  `],
+  styles: [
+    `
+      .loading-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.6);
+        z-index: 100;
+        backdrop-filter: blur(2px);
+      }
+      :host-context(.dark) .loading-overlay {
+        background: rgba(0, 0, 0, 0.5);
+      }
+    `,
+  ],
 })
 export class LoadingOverlayComponent {
   readonly isLoading = input<boolean>(false);

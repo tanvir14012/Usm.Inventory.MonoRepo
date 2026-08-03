@@ -1,4 +1,4 @@
-﻿namespace Usm.Shared.Reflection.AssemblyScanning.ServiceLifetimeMarkers
+namespace Usm.Shared.Reflection.AssemblyScanning.ServiceLifetimeMarkers
 {
     public interface IScopedService { }
 

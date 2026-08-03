@@ -39,7 +39,7 @@ export class RateLimitService {
     const pattern = this.toPattern(url);
     const expiresAt = Date.now() + retryAfterMs;
 
-    this._limits.update(map => {
+    this._limits.update((map) => {
       const next = new Map(map);
       next.set(pattern, expiresAt);
       return next;
@@ -70,7 +70,7 @@ export class RateLimitService {
 
   clearLimit(url: string): void {
     const pattern = this.toPattern(url);
-    this._limits.update(map => {
+    this._limits.update((map) => {
       const next = new Map(map);
       next.delete(pattern);
       return next;

@@ -8,10 +8,10 @@ namespace Usm.Shared.BuildingBlocks.BackgroundJobs.Abstractions;
 /// </summary>
 public interface ICurrentJobContext
 {
-    Guid    JobId             { get; }
-    string  JobType           { get; }
+    Guid JobId { get; }
+    string JobType { get; }
     string? SerializedPayload { get; }
-    int     RetryCount        { get; }
+    int RetryCount { get; }
 
     /// <summary>
     /// Deserializes the JSON payload to <typeparamref name="T"/>.

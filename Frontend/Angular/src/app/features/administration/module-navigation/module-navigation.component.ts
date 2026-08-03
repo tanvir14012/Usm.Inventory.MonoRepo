@@ -11,7 +11,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '../../../core/services/notification.service';
-import { PageHeaderComponent, PageAction } from '../../../shared/components/page-header/page-header.component';
+import {
+  PageHeaderComponent,
+  PageAction,
+} from '../../../shared/components/page-header/page-header.component';
 import { TableColumn } from '../../../shared/components/data-table/data-table.model';
 import { TableExportTemplateDto } from '../../../shared/models/template-dto.model';
 import { PdfExportService } from '../../../shared/services/pdf-export.service';
@@ -53,14 +56,21 @@ interface BuildingBlockOption {
       <mat-card-content class="p-4">
         <div class="flex items-center gap-3 mb-3 flex-wrap">
           <mat-form-field>
-            <mat-label>{{ 'administration.moduleNavigation.fields.buildingBlock' | translate }}</mat-label>
-            <mat-select [value]="selectedBuildingBlock()" (valueChange)="onBuildingBlockChange($event)">
+            <mat-label>{{
+              'administration.moduleNavigation.fields.buildingBlock' | translate
+            }}</mat-label>
+            <mat-select
+              [value]="selectedBuildingBlock()"
+              (valueChange)="onBuildingBlockChange($event)"
+            >
               @for (block of buildingBlocks; track block.value) {
                 <mat-option [value]="block.value">{{ block.label }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
-          <span class="text-sm text-gray-500">{{ 'administration.moduleNavigation.topNavHint' | translate }}</span>
+          <span class="text-sm text-gray-500">{{
+            'administration.moduleNavigation.topNavHint' | translate
+          }}</span>
         </div>
 
         <div class="flex gap-2 flex-wrap">
@@ -68,7 +78,8 @@ interface BuildingBlockOption {
             <button
               mat-stroked-button
               [class.module-selected]="selectedModuleId() === module.id"
-              (click)="selectModule(module)">
+              (click)="selectModule(module)"
+            >
               <mat-icon>{{ module.materialIconName }}</mat-icon>
               {{ module.localizedName }}
             </button>
@@ -80,28 +91,40 @@ interface BuildingBlockOption {
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{ 'administration.moduleNavigation.editorTitle' | translate }}</mat-card-title>
+          <mat-card-title>{{
+            'administration.moduleNavigation.editorTitle' | translate
+          }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="pt-4">
           <form [formGroup]="form" class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <mat-form-field>
-              <mat-label>{{ 'administration.moduleNavigation.fields.systemName' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.systemName' | translate
+              }}</mat-label>
               <input matInput formControlName="systemName" />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>{{ 'administration.moduleNavigation.fields.menuId' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.menuId' | translate
+              }}</mat-label>
               <input matInput formControlName="menuId" />
             </mat-form-field>
             <mat-form-field class="md:col-span-2">
-              <mat-label>{{ 'administration.moduleNavigation.fields.localizedName' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.localizedName' | translate
+              }}</mat-label>
               <input matInput formControlName="localizedName" />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>{{ 'administration.moduleNavigation.fields.displayOrder' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.displayOrder' | translate
+              }}</mat-label>
               <input matInput type="number" formControlName="displayOrder" />
             </mat-form-field>
             <mat-form-field>
-              <mat-label>{{ 'administration.moduleNavigation.fields.materialIconName' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.materialIconName' | translate
+              }}</mat-label>
               <input matInput formControlName="materialIconName" />
             </mat-form-field>
             <div class="md:col-span-2 flex items-center">
@@ -110,7 +133,9 @@ interface BuildingBlockOption {
               </mat-slide-toggle>
             </div>
             <mat-form-field class="md:col-span-2">
-              <mat-label>{{ 'administration.moduleNavigation.fields.sidebarItemsJson' | translate }}</mat-label>
+              <mat-label>{{
+                'administration.moduleNavigation.fields.sidebarItemsJson' | translate
+              }}</mat-label>
               <textarea matInput rows="12" formControlName="sidebarJson"></textarea>
             </mat-form-field>
           </form>
@@ -125,7 +150,9 @@ interface BuildingBlockOption {
 
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{ 'administration.moduleNavigation.sidebarPreviewTitle' | translate }}</mat-card-title>
+          <mat-card-title>{{
+            'administration.moduleNavigation.sidebarPreviewTitle' | translate
+          }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="pt-4">
           @if (selectedModule(); as activeModule) {
@@ -151,21 +178,43 @@ interface BuildingBlockOption {
       </mat-card>
     </div>
   `,
-  styles: [`
-    .top-nav-card { background: linear-gradient(135deg, #f8fafc, #eef2ff); }
-    .module-selected { border-color: #0f766e !important; color: #0f766e !important; }
-    .sidebar-preview { background: #0b5b4b; color: #ecfeff; }
-    .sidebar-item, .sidebar-sub-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
-    .sidebar-item:hover, .sidebar-sub-item:hover { background: rgba(255, 255, 255, 0.12); }
-    .sidebar-sub-item { margin-left: 26px; opacity: 0.92; }
-    .sidebar-item mat-icon, .sidebar-sub-item mat-icon { font-size: 18px; width: 18px; height: 18px; }
-  `],
+  styles: [
+    `
+      .top-nav-card {
+        background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      }
+      .module-selected {
+        border-color: #0f766e !important;
+        color: #0f766e !important;
+      }
+      .sidebar-preview {
+        background: #0b5b4b;
+        color: #ecfeff;
+      }
+      .sidebar-item,
+      .sidebar-sub-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+      .sidebar-item:hover,
+      .sidebar-sub-item:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .sidebar-sub-item {
+        margin-left: 26px;
+        opacity: 0.92;
+      }
+      .sidebar-item mat-icon,
+      .sidebar-sub-item mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    `,
+  ],
 })
 export class ModuleNavigationComponent {
   private readonly service = inject(ModuleNavigationService);
@@ -178,8 +227,8 @@ export class ModuleNavigationComponent {
   readonly modules = signal<ModuleNavigationDto[]>([]);
   readonly selectedModuleId = signal<string | null>(null);
 
-  readonly selectedModule = computed(() =>
-    this.modules().find(x => x.id === this.selectedModuleId()) ?? null,
+  readonly selectedModule = computed(
+    () => this.modules().find((x) => x.id === this.selectedModuleId()) ?? null,
   );
 
   readonly pdfColumns: TableColumn<ModuleNavigationDto>[] = [
@@ -190,12 +239,13 @@ export class ModuleNavigationComponent {
     {
       key: 'isActive',
       headerKey: 'common.status',
-      pdfRender: row => this.translate.instant(row.isActive ? 'common.active' : 'common.inactive'),
+      pdfRender: (row) =>
+        this.translate.instant(row.isActive ? 'common.active' : 'common.inactive'),
     },
     {
       key: 'sidebarItems',
       headerKey: 'administration.moduleNavigation.sidebarPreviewTitle',
-      pdfRender: row => this.countSidebarItems(row.sidebarItems),
+      pdfRender: (row) => this.countSidebarItems(row.sidebarItems),
     },
   ];
 
@@ -351,18 +401,114 @@ export class ModuleNavigationComponent {
       buildingBlockType: this.selectedBuildingBlock(),
       useDerivedSidebarWhenEmpty: true,
       modules: [
-        { systemName: 'dashboard', menuId: 'dashboard', localizedName: 'Dashboard', displayOrder: 10, materialIconName: 'dashboard', isActive: true, sidebarItems: [] },
-        { systemName: 'procurement', menuId: 'procurement', localizedName: 'Procurement', displayOrder: 20, materialIconName: 'shopping_cart', isActive: true, sidebarItems: [] },
-        { systemName: 'issue-receipt', menuId: 'issue-receipt', localizedName: 'Issue & Receipt', displayOrder: 30, materialIconName: 'inventory_2', isActive: true, sidebarItems: [] },
-        { systemName: 'traffic-security', menuId: 'traffic-security', localizedName: 'Traffic & Security', displayOrder: 40, materialIconName: 'shield', isActive: true, sidebarItems: [] },
-        { systemName: 'store-management', menuId: 'store-management', localizedName: 'Store Management', displayOrder: 50, materialIconName: 'inventory_2', isActive: true, sidebarItems: [] },
-        { systemName: 'repair-maintenance', menuId: 'repair-maintenance', localizedName: 'Repair & Maintenance', displayOrder: 60, materialIconName: 'build', isActive: true, sidebarItems: [] },
-        { systemName: 'salvage', menuId: 'salvage', localizedName: 'Salvage', displayOrder: 70, materialIconName: 'recycling', isActive: true, sidebarItems: [] },
-        { systemName: 'budget-planning', menuId: 'budget-planning', localizedName: 'Budget & Planning', displayOrder: 80, materialIconName: 'account_balance_wallet', isActive: true, sidebarItems: [] },
-        { systemName: 'inspectorate', menuId: 'inspectorate', localizedName: 'Inspectorate', displayOrder: 90, materialIconName: 'manage_search', isActive: true, sidebarItems: [] },
-        { systemName: 'administration', menuId: 'administration', localizedName: 'Administration', displayOrder: 100, materialIconName: 'admin_panel_settings', isActive: true, sidebarItems: [] },
-        { systemName: 'communication', menuId: 'communication', localizedName: 'Communication', displayOrder: 110, materialIconName: 'chat', isActive: true, sidebarItems: [] },
-        { systemName: 'dms', menuId: 'dms', localizedName: 'DMS', displayOrder: 120, materialIconName: 'description', isActive: true, sidebarItems: [] },
+        {
+          systemName: 'dashboard',
+          menuId: 'dashboard',
+          localizedName: 'Dashboard',
+          displayOrder: 10,
+          materialIconName: 'dashboard',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'procurement',
+          menuId: 'procurement',
+          localizedName: 'Procurement',
+          displayOrder: 20,
+          materialIconName: 'shopping_cart',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'issue-receipt',
+          menuId: 'issue-receipt',
+          localizedName: 'Issue & Receipt',
+          displayOrder: 30,
+          materialIconName: 'inventory_2',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'traffic-security',
+          menuId: 'traffic-security',
+          localizedName: 'Traffic & Security',
+          displayOrder: 40,
+          materialIconName: 'shield',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'store-management',
+          menuId: 'store-management',
+          localizedName: 'Store Management',
+          displayOrder: 50,
+          materialIconName: 'inventory_2',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'repair-maintenance',
+          menuId: 'repair-maintenance',
+          localizedName: 'Repair & Maintenance',
+          displayOrder: 60,
+          materialIconName: 'build',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'salvage',
+          menuId: 'salvage',
+          localizedName: 'Salvage',
+          displayOrder: 70,
+          materialIconName: 'recycling',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'budget-planning',
+          menuId: 'budget-planning',
+          localizedName: 'Budget & Planning',
+          displayOrder: 80,
+          materialIconName: 'account_balance_wallet',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'inspectorate',
+          menuId: 'inspectorate',
+          localizedName: 'Inspectorate',
+          displayOrder: 90,
+          materialIconName: 'manage_search',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'administration',
+          menuId: 'administration',
+          localizedName: 'Administration',
+          displayOrder: 100,
+          materialIconName: 'admin_panel_settings',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'communication',
+          menuId: 'communication',
+          localizedName: 'Communication',
+          displayOrder: 110,
+          materialIconName: 'chat',
+          isActive: true,
+          sidebarItems: [],
+        },
+        {
+          systemName: 'dms',
+          menuId: 'dms',
+          localizedName: 'DMS',
+          displayOrder: 120,
+          materialIconName: 'description',
+          isActive: true,
+          sidebarItems: [],
+        },
       ],
     };
 
@@ -373,7 +519,7 @@ export class ModuleNavigationComponent {
         const firstId = items[0]?.id ?? null;
         this.selectedModuleId.set(firstId);
         if (firstId) {
-          const module = items.find(x => x.id === firstId);
+          const module = items.find((x) => x.id === firstId);
           if (module) {
             this.selectModule(module);
           }
@@ -399,7 +545,8 @@ export class ModuleNavigationComponent {
 
   private exportCurrentPdf(): void {
     const rows = this.modules();
-    const selectedBlock = this.buildingBlocks.find(x => x.value === this.selectedBuildingBlock())?.label ?? '';
+    const selectedBlock =
+      this.buildingBlocks.find((x) => x.value === this.selectedBuildingBlock())?.label ?? '';
     const template: TableExportTemplateDto<ModuleNavigationDto> = {
       fileName: `module-navigation-${this.selectedBuildingBlock()}`,
       title: this.translate.instant('administration.moduleNavigation.title'),
@@ -417,7 +564,7 @@ export class ModuleNavigationComponent {
   }
 
   private toSidebarInputs(items: SidebarMenuItemDto[]): SidebarMenuItemInput[] {
-    return items.map(item => ({
+    return items.map((item) => ({
       id: item.id,
       parentSidebarMenuItemId: item.parentSidebarMenuItemId,
       systemName: item.systemName,

@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
 
   return from(auth.getValidAccessToken()).pipe(
-    switchMap(token => {
+    switchMap((token) => {
       if (!token) {
         return next(req);
       }

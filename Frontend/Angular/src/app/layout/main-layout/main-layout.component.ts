@@ -15,9 +15,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   selector: 'app-main-layout',
   standalone: true,
   imports: [
-    CommonModule, RouterModule,
-    MatSidenavModule, MatProgressBarModule,
-    NavbarComponent, SidebarComponent, BreadcrumbComponent,
+    CommonModule,
+    RouterModule,
+    MatSidenavModule,
+    MatProgressBarModule,
+    NavbarComponent,
+    SidebarComponent,
+    BreadcrumbComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -30,17 +34,20 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         [opened]="isMobile() ? mobileSidenavOpen() : true"
         (openedChange)="onSidenavOpenedChange($event)"
         [class.app-sidenav-collapsed]="!isMobile() && sidebarCollapsed()"
-        class="app-sidenav">
+        class="app-sidenav"
+      >
         <app-sidebar
           [collapsed]="!isMobile() && sidebarCollapsed()"
           (collapseToggle)="toggleNavigation()"
-          (linkClicked)="handleLinkClick()" />
+          (linkClicked)="handleLinkClick()"
+        />
       </mat-sidenav>
 
       <mat-sidenav-content class="app-content">
         <app-navbar
           [sidebarCollapsed]="!isMobile() && sidebarCollapsed()"
-          (menuToggle)="toggleNavigation()" />
+          (menuToggle)="toggleNavigation()"
+        />
         <main class="app-main">
           <app-breadcrumb />
           <router-outlet />
@@ -48,53 +55,61 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
       </mat-sidenav-content>
     </mat-sidenav-container>
   `,
-  styles: [`
-    .global-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; }
-    .app-shell {
-      height: 100vh;
-      background: #f5f8fa;
-    }
-    .app-sidenav {
-      width: 280px;
-      border-inline-end: 0;
-      background: #00533f;
-      color: #fff;
-      transition: width 180ms ease;
-    }
-    .app-sidenav-collapsed {
-      width: 76px;
-    }
-    .app-content {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: #f7fafb;
-    }
-    .app-main {
-      flex: 1;
-      overflow: auto;
-      padding: 12px 16px 20px;
-    }
-    @media (min-width: 768px) {
-      .app-main {
-        padding: 14px 22px 22px;
+  styles: [
+    `
+      .global-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
       }
-    }
-    @media (max-width: 599px) {
+      .app-shell {
+        height: 100vh;
+        background: #f5f8fa;
+      }
       .app-sidenav {
-        width: min(86vw, 280px);
+        width: 280px;
+        border-inline-end: 0;
+        background: #00533f;
+        color: #fff;
+        transition: width 180ms ease;
       }
-    }
-  `],
+      .app-sidenav-collapsed {
+        width: 76px;
+      }
+      .app-content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #f7fafb;
+      }
+      .app-main {
+        flex: 1;
+        overflow: auto;
+        padding: 12px 16px 20px;
+      }
+      @media (min-width: 768px) {
+        .app-main {
+          padding: 14px 22px 22px;
+        }
+      }
+      @media (max-width: 599px) {
+        .app-sidenav {
+          width: min(86vw, 280px);
+        }
+      }
+    `,
+  ],
 })
 export class MainLayoutComponent {
   readonly loading = inject(LoadingService);
 
   private readonly breakpoints = inject(BreakpointObserver);
   readonly isMobile = toSignal(
-    this.breakpoints.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
-      map(state => state.matches),
-    ),
+    this.breakpoints
+      .observe([Breakpoints.XSmall, Breakpoints.Small])
+      .pipe(map((state) => state.matches)),
     { initialValue: false },
   );
 
@@ -103,9 +118,9 @@ export class MainLayoutComponent {
 
   toggleNavigation(): void {
     if (this.isMobile()) {
-      this.mobileSidenavOpen.update(open => !open);
+      this.mobileSidenavOpen.update((open) => !open);
     } else {
-      this.sidebarCollapsed.update(collapsed => !collapsed);
+      this.sidebarCollapsed.update((collapsed) => !collapsed);
     }
   }
 

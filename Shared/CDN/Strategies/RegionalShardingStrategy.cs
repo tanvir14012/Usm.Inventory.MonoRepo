@@ -61,7 +61,8 @@ internal sealed class RegionalShardingStrategy(
         {
             var geo = _opts.StorageProviders.FirstOrDefault(p =>
                 p.GeoRegions?.Contains(context.ClientRegion, StringComparer.OrdinalIgnoreCase) == true);
-            if (geo is not null) return geo.Name;
+            if (geo is not null)
+                return geo.Name;
         }
 
         // 2. Consistent-hash fallback: deterministic shard assignment per asset key

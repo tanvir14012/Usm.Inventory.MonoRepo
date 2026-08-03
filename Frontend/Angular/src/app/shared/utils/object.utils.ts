@@ -10,9 +10,12 @@ export function coerceArray<T>(value: T | readonly T[] | null | undefined): T[] 
   return [value as T];
 }
 
-export function uniqueBy<T, K extends PropertyKey>(items: readonly T[], keySelector: (item: T) => K): T[] {
+export function uniqueBy<T, K extends PropertyKey>(
+  items: readonly T[],
+  keySelector: (item: T) => K,
+): T[] {
   const seen = new Set<K>();
-  return items.filter(item => {
+  return items.filter((item) => {
     const key = keySelector(item);
     if (seen.has(key)) return false;
     seen.add(key);
@@ -20,20 +23,32 @@ export function uniqueBy<T, K extends PropertyKey>(items: readonly T[], keySelec
   });
 }
 
-export function groupBy<T, K extends PropertyKey>(items: readonly T[], keySelector: (item: T) => K): Record<K, T[]> {
-  return items.reduce<Record<K, T[]>>((groups, item) => {
-    const key = keySelector(item);
-    groups[key] ??= [];
-    groups[key].push(item);
-    return groups;
-  }, {} as Record<K, T[]>);
+export function groupBy<T, K extends PropertyKey>(
+  items: readonly T[],
+  keySelector: (item: T) => K,
+): Record<K, T[]> {
+  return items.reduce<Record<K, T[]>>(
+    (groups, item) => {
+      const key = keySelector(item);
+      groups[key] ??= [];
+      groups[key].push(item);
+      return groups;
+    },
+    {} as Record<K, T[]>,
+  );
 }
 
-export function toLookup<T, K extends PropertyKey>(items: readonly T[], keySelector: (item: T) => K): Record<K, T> {
-  return items.reduce<Record<K, T>>((lookup, item) => {
-    lookup[keySelector(item)] = item;
-    return lookup;
-  }, {} as Record<K, T>);
+export function toLookup<T, K extends PropertyKey>(
+  items: readonly T[],
+  keySelector: (item: T) => K,
+): Record<K, T> {
+  return items.reduce<Record<K, T>>(
+    (lookup, item) => {
+      lookup[keySelector(item)] = item;
+      return lookup;
+    },
+    {} as Record<K, T>,
+  );
 }
 
 export function omitNil<T extends Record<string, unknown>>(value: T): Partial<T> {
@@ -42,9 +57,15 @@ export function omitNil<T extends Record<string, unknown>>(value: T): Partial<T>
   ) as Partial<T>;
 }
 
-export function pick<T extends object, K extends PropertyKeyOf<T>>(value: T, keys: readonly K[]): Pick<T, K> {
-  return keys.reduce<Pick<T, K>>((result, key) => {
-    result[key] = value[key];
-    return result;
-  }, {} as Pick<T, K>);
+export function pick<T extends object, K extends PropertyKeyOf<T>>(
+  value: T,
+  keys: readonly K[],
+): Pick<T, K> {
+  return keys.reduce<Pick<T, K>>(
+    (result, key) => {
+      result[key] = value[key];
+      return result;
+    },
+    {} as Pick<T, K>,
+  );
 }

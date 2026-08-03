@@ -7,11 +7,11 @@ export class LoadingService {
   readonly isLoading = computed(() => this._count() > 0);
 
   show(): void {
-    this._count.update(n => n + 1);
+    this._count.update((n) => n + 1);
   }
 
   hide(): void {
-    this._count.update(n => Math.max(0, n - 1));
+    this._count.update((n) => Math.max(0, n - 1));
   }
 
   reset(): void {

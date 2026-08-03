@@ -39,7 +39,8 @@ public sealed class CdnDistributionOrchestrator(
     {
         foreach (var strategy in _strategies)
         {
-            if (!strategy.CanHandle(context)) continue;
+            if (!strategy.CanHandle(context))
+                continue;
 
             try
             {

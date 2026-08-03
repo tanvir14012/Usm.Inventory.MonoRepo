@@ -17,7 +17,7 @@ export class TranslateLookupPipe implements PipeTransform {
 
     // If a lookup list is provided, resolve by ID
     if (typeof value === 'string' && items) {
-      const found = items.find(i => String(i.id) === value);
+      const found = items.find((i) => String(i.id) === value);
       return found ? this._name(found) : value;
     }
 
