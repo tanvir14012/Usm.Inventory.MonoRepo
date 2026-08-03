@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: usm-runtime-config
+  namespace: usm-platform
+data:
+  ASPNETCORE_ENVIRONMENT: Production
+  ASPNETCORE_URLS: http://+:8080
+  Redis__InstanceName: usm-inventory
+  Redis__ConnectionString: redis-master.usm-platform.svc.cluster.local:6379
+  RabbitMq__Host: rabbitmq.usm-platform.svc.cluster.local
+  RabbitMq__VirtualHost: usm
+  Observability__OtlpEndpoint: http://otel-collector.usm-platform.svc.cluster.local:4317
+  Observability__LokiEndpoint: http://loki.usm-platform.svc.cluster.local:3100
+  ApiEndpoints__GatewayBaseUrl: https://inventory.usm.example.com
+  ApiEndpoints__V1BaseUrl: https://inventory.usm.example.com/api/v1
+  ApiEndpoints__V2BaseUrl: https://inventory.usm.example.com/api/v2
+  Auth__Authority: https://inventory.usm.example.com
+  Auth__Audience: usm-inventory-api
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: usm-frontend-config
+  namespace: usm-platform
+data:
+  NGINX_WORKER_PROCESSES: auto
+  NGINX_KEEPALIVE_TIMEOUT: "65"
+  NGINX_CLIENT_MAX_BODY_SIZE: 20m
+

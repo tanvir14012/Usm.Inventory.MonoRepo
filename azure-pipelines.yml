@@ -11,20 +11,31 @@ pr:
 variables:
   buildConfiguration: Release
   dotnetSdkVersion: 10.0.x
-  imageTag: $(Build.BuildId)
   acrServiceConnection: usm-acr-connection
-  aksServiceConnection: usm-aks-connection
+  azureServiceConnection: usm-azure-workload-identity
+  aksResourceGroup: rg-usm-prod
+  aksClusterName: aks-usm-prod
   acrLoginServer: usmregistry.azurecr.io
   kubernetesNamespace: usm-platform
 
 stages:
-  - stage: BuildAndTest
-    displayName: Build and test
+  - stage: Build
+    displayName: Build
     jobs:
-      - job: DotNet
+      - job: BuildAndPush
+        displayName: Build solution and push images
         pool:
           vmImage: ubuntu-latest
         steps:
+          - checkout: self
+
+          - bash: |
+              set -euo pipefail
+              SHORT_SHA="$(echo "$(Build.SourceVersion)" | cut -c1-12)"
+              echo "##vso[task.setvariable variable=imageTag;isOutput=true]${SHORT_SHA}"
+            name: ComputeTag
+            displayName: Compute image tag from commit SHA
+
           - task: UseDotNet@2
             displayName: Use .NET SDK
             inputs:
@@ -37,26 +48,15 @@ stages:
           - script: dotnet build Usm.Inventory.MonoRepo.slnx --configuration $(buildConfiguration) --no-restore
             displayName: Build solution
 
-          - script: dotnet test Usm.Inventory.MonoRepo.slnx --configuration $(buildConfiguration) --no-build --verbosity minimal
-            displayName: Run tests
-
-  - stage: BuildAndPushImages
-    displayName: Build and push container images
-    dependsOn: BuildAndTest
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    jobs:
-      - job: Containers
-        pool:
-          vmImage: ubuntu-latest
-        steps:
           - task: Docker@2
             displayName: Login to ACR
             inputs:
               command: login
               containerRegistry: $(acrServiceConnection)
 
-          - script: |
+          - bash: |
               set -euo pipefail
+              IMAGE_TAG="$(echo "$(Build.SourceVersion)" | cut -c1-12)"
               declare -a services=(
                 "identity-api|Services/Identity/src/Identity.Api/Dockerfile"
                 "iam-api|Services/Iam/src/Iam.Api/Dockerfile"
@@ -73,23 +73,139 @@ stages:
                 "reporting-api|Services/Reporting/src/Reporting.Api/Dockerfile"
                 "procurement-api|Services/Procurement/src/Procurement.Api/Dockerfile"
                 "api-gateway|Gateway/ApiGateway/Dockerfile"
+                "frontend-nginx|Frontend/Dockerfile"
               )
 
               for svc in "${services[@]}"; do
                 IFS="|" read -r image dockerfile <<< "$svc"
-                full_image="$(acrLoginServer)/${image}:$(imageTag)"
-                echo "Building ${full_image}"
+                full_image="$(acrLoginServer)/${image}:${IMAGE_TAG}"
                 docker build -f "$dockerfile" -t "$full_image" .
                 docker push "$full_image"
               done
             displayName: Build and push images
 
-  - stage: DeployToAks
-    displayName: Deploy to AKS
-    dependsOn: BuildAndPushImages
+  - stage: Test
+    displayName: Test
+    dependsOn: Build
+    jobs:
+      - job: Test
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+          - task: UseDotNet@2
+            inputs:
+              packageType: sdk
+              version: $(dotnetSdkVersion)
+          - script: dotnet test Usm.Inventory.MonoRepo.slnx --configuration $(buildConfiguration) --verbosity minimal
+            displayName: Run tests
+
+  - stage: Security_Scan
+    displayName: Security Scan
+    dependsOn: Test
+    condition: succeeded()
+    jobs:
+      - job: Trivy
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+          - task: Docker@2
+            displayName: Login to ACR
+            inputs:
+              command: login
+              containerRegistry: $(acrServiceConnection)
+          - bash: |
+              set -euo pipefail
+              IMAGE_TAG="$(echo "$(Build.SourceVersion)" | cut -c1-12)"
+              curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+              declare -a images=(
+                "identity-api"
+                "iam-api"
+                "administration-api"
+                "storehouse-api"
+                "documentshare-api"
+                "issuereceipt-api"
+                "trafficsecurity-api"
+                "salvage-api"
+                "repairmaintenance-api"
+                "budgetplanning-api"
+                "communication-api"
+                "inspectorate-api"
+                "reporting-api"
+                "procurement-api"
+                "api-gateway"
+                "frontend-nginx"
+              )
+
+              for image in "${images[@]}"; do
+                trivy image --exit-code 1 --severity CRITICAL,HIGH --no-progress "$(acrLoginServer)/${image}:${IMAGE_TAG}"
+              done
+            displayName: Trivy critical/high scan
+
+  - stage: Deploy_Staging
+    displayName: Deploy Staging
+    dependsOn: Security_Scan
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
-      - deployment: Deploy
+      - deployment: DeployStaging
+        environment: aks-staging
+        pool:
+          vmImage: ubuntu-latest
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - task: AzureCLI@2
+                  displayName: Apply manifests and deploy images (staging)
+                  inputs:
+                    azureSubscription: $(azureServiceConnection)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      set -euo pipefail
+                      IMAGE_TAG="$(echo "$(Build.SourceVersion)" | cut -c1-12)"
+                      az aks get-credentials --resource-group "$(aksResourceGroup)" --name "$(aksClusterName)" --overwrite-existing
+
+                      for manifest in Platform/Kubernetes/00-namespace.yaml Platform/Kubernetes/01-configmap.yaml Platform/Kubernetes/02-secret.yaml Platform/Kubernetes/03-backend-workloads.yaml Platform/Kubernetes/04-frontend-workloads.yaml Platform/Kubernetes/05-hpa.yaml Platform/Kubernetes/06-ingress.yaml Platform/Kubernetes/07-observability.yaml; do
+                        kubectl apply -f "${manifest}"
+                      done
+
+                      declare -a deployments=(
+                        "identity-api:identity-api"
+                        "iam-api:iam-api"
+                        "administration-api:administration-api"
+                        "storehouse-api:storehouse-api"
+                        "documentshare-api:documentshare-api"
+                        "issuereceipt-api:issuereceipt-api"
+                        "trafficsecurity-api:trafficsecurity-api"
+                        "salvage-api:salvage-api"
+                        "repairmaintenance-api:repairmaintenance-api"
+                        "budgetplanning-api:budgetplanning-api"
+                        "communication-api:communication-api"
+                        "inspectorate-api:inspectorate-api"
+                        "reporting-api:reporting-api"
+                        "procurement-api:procurement-api"
+                        "gateway:api-gateway"
+                        "frontend:frontend-nginx"
+                      )
+
+                      for item in "${deployments[@]}"; do
+                        IFS=":" read -r deploy image <<< "${item}"
+                        kubectl -n "$(kubernetesNamespace)" set image deployment/"${deploy}" "${deploy}"="$(acrLoginServer)/${image}:${IMAGE_TAG}" --record=true
+                        if ! kubectl -n "$(kubernetesNamespace)" rollout status deployment/"${deploy}" --timeout=300s; then
+                          kubectl -n "$(kubernetesNamespace)" rollout undo deployment/"${deploy}"
+                          exit 1
+                        fi
+                      done
+
+  - stage: Deploy_Prod
+    displayName: Deploy Prod
+    dependsOn: Deploy_Staging
+    condition: succeeded()
+    jobs:
+      - deployment: DeployProd
         environment: aks-production
         pool:
           vmImage: ubuntu-latest
@@ -98,45 +214,41 @@ stages:
             deploy:
               steps:
                 - checkout: self
-
-                - task: PowerShell@2
-                  displayName: Inject image placeholders
+                - task: AzureCLI@2
+                  displayName: Roll out production with rollback safeguards
                   inputs:
-                    targetType: inline
-                    script: |
-                      $manifests = Get-ChildItem "$(Build.SourcesDirectory)/Platform/Kubernetes" -Filter *.yaml -Recurse
-                      foreach ($manifest in $manifests) {
-                          $content = Get-Content $manifest.FullName -Raw
-                          $content = $content.Replace("__ACR_LOGIN_SERVER__", "$(acrLoginServer)")
-                          $content = $content.Replace("__IMAGE_TAG__", "$(imageTag)")
-                          Set-Content -Path $manifest.FullName -Value $content -NoNewline
-                      }
+                    azureSubscription: $(azureServiceConnection)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      set -euo pipefail
+                      IMAGE_TAG="$(echo "$(Build.SourceVersion)" | cut -c1-12)"
+                      az aks get-credentials --resource-group "$(aksResourceGroup)" --name "$(aksClusterName)" --overwrite-existing
 
-                - task: Kubernetes@1
-                  displayName: Apply namespace
-                  inputs:
-                    connectionType: Kubernetes Service Connection
-                    kubernetesServiceEndpoint: $(aksServiceConnection)
-                    command: apply
-                    useConfigurationFile: true
-                    configuration: Platform/Kubernetes/namespace.yaml
+                      declare -a deployments=(
+                        "identity-api:identity-api"
+                        "iam-api:iam-api"
+                        "administration-api:administration-api"
+                        "storehouse-api:storehouse-api"
+                        "documentshare-api:documentshare-api"
+                        "issuereceipt-api:issuereceipt-api"
+                        "trafficsecurity-api:trafficsecurity-api"
+                        "salvage-api:salvage-api"
+                        "repairmaintenance-api:repairmaintenance-api"
+                        "budgetplanning-api:budgetplanning-api"
+                        "communication-api:communication-api"
+                        "inspectorate-api:inspectorate-api"
+                        "reporting-api:reporting-api"
+                        "procurement-api:procurement-api"
+                        "gateway:api-gateway"
+                        "frontend:frontend-nginx"
+                      )
 
-                - task: Kubernetes@1
-                  displayName: Apply observability stack
-                  inputs:
-                    connectionType: Kubernetes Service Connection
-                    kubernetesServiceEndpoint: $(aksServiceConnection)
-                    command: apply
-                    useConfigurationFile: true
-                    namespace: $(kubernetesNamespace)
-                    configuration: Platform/Kubernetes/observability.yaml
-
-                - task: Kubernetes@1
-                  displayName: Apply workloads
-                  inputs:
-                    connectionType: Kubernetes Service Connection
-                    kubernetesServiceEndpoint: $(aksServiceConnection)
-                    command: apply
-                    useConfigurationFile: true
-                    namespace: $(kubernetesNamespace)
-                    configuration: Platform/Kubernetes/workloads.yaml
+                      for item in "${deployments[@]}"; do
+                        IFS=":" read -r deploy image <<< "${item}"
+                        kubectl -n "$(kubernetesNamespace)" set image deployment/"${deploy}" "${deploy}"="$(acrLoginServer)/${image}:${IMAGE_TAG}" --record=true
+                        if ! kubectl -n "$(kubernetesNamespace)" rollout status deployment/"${deploy}" --timeout=300s; then
+                          kubectl -n "$(kubernetesNamespace)" rollout undo deployment/"${deploy}"
+                          exit 1
+                        fi
+                      done
