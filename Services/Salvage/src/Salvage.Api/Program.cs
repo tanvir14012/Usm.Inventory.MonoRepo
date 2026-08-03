@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Salvage.Application;
+﻿using Salvage.Application;
 using Salvage.Infrastructure;
 using Salvage.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;
@@ -20,12 +19,6 @@ var app = builder.Build()
 
 app.MapHealthChecks("/health");
 app.MapGet("/", () => Results.Ok(new { Service = "Salvage.Api", Status = "Up", Utc = DateTimeOffset.UtcNow }));
-
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<SalvageDbContext>();
-    await dbContext.Database.MigrateAsync();
-}
 
 app.Run();
 

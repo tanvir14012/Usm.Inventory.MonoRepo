@@ -4,7 +4,9 @@ using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using Usm.Shared.Data.Scalability.Extensions;
 using DocumentShare.Infrastructure.Persistence;
+using Usm.Shared.Infrastructure.CDN.Extensions;
 
 namespace DocumentShare.Infrastructure;
 
@@ -20,6 +22,13 @@ public static class DependencyInjection
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<DocumentShareDbContext>();
+
+        // DB-level scaling: read-replica splitting + global scaling options
+        services.AddDatabaseScaling(configuration);
+        services.AddReadReplication(configuration);
+
+        // CDN infrastructure for high-performance document delivery
+        services.AddCdnInfrastructure(configuration);
         return services;
     }
 }

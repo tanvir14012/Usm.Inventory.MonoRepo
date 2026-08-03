@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Procurement.Application;
+﻿using Procurement.Application;
 using Procurement.Infrastructure;
 using Procurement.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;
@@ -26,7 +25,6 @@ app.MapGet("/", () => Results.Ok(new { Service = "Procurement.Api", Status = "Up
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ProcurementDbContext>();
-    await dbContext.Database.MigrateAsync();
     await ProcurementDbSeeder.SeedAsync(dbContext);
 }
 

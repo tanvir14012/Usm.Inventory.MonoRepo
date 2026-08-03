@@ -1,4 +1,4 @@
-using Iam.Infrastructure.Persistence;
+﻿using Iam.Infrastructure.Persistence;
 using Iam.Infrastructure.Authorization;
 using Iam.Application.Abstractions;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +8,7 @@ using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using Usm.Shared.Data.Scalability.Extensions;
 using Usm.Shared.Utils.Excel.Reader.Extensions;
 
 namespace Iam.Infrastructure;
@@ -19,7 +20,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("Postgres")
-            ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;Password=usm_pass";
+            ?? "Host=localhost;Port=5432;Database=usm_inventory;Username=usm_admin;******";
 
         services.AddServiceDbContext<IamDbContext>(connectionString, "iam");
         services.AddScoped<IIamDbContext>(sp => sp.GetRequiredService<IamDbContext>());
@@ -29,6 +30,10 @@ public static class DependencyInjection
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IamDbContext>();
+
+        // DB-level scaling: read-replica splitting + global scaling options
+        services.AddDatabaseScaling(configuration);
+        services.AddReadReplication(configuration);
 
         return services;
     }

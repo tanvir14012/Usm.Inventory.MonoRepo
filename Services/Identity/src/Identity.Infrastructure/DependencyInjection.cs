@@ -11,6 +11,7 @@ using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using Usm.Shared.Data.Scalability.Extensions;
 using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
 using Fido2NetLib;
 
@@ -134,6 +135,10 @@ public static class DependencyInjection
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IdentityDbContext>();
+
+        // DB-level scaling: read-replica splitting + global scaling options
+        services.AddDatabaseScaling(configuration);
+        services.AddReadReplication(configuration);
 
         services.AddFido2(options =>
         {
