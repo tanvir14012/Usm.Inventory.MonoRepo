@@ -147,6 +147,9 @@
   <Folder Name="/Shared/Data/DbContextExtensions/">
     <Project Path="Shared/Data/DbContextExtensions/Usm.Shared.Data.DbContextExtensions.csproj" />
   </Folder>
+  <Folder Name="/Shared/Data/Scalability/">
+    <Project Path="Shared/Data/Scalability/Usm.Shared.Data.Scalability.csproj" />
+  </Folder>
   <Folder Name="/Shared/Caching/">
     <Project Path="Shared/Caching/Usm.Shared.Caching.csproj" />
   </Folder>
