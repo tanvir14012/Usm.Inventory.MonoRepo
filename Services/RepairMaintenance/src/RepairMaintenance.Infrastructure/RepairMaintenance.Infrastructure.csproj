@@ -4,9 +4,14 @@
     <ProjectReference Include="..\RepairMaintenance.Domain\RepairMaintenance.Domain.csproj" />
     <ProjectReference Include="..\RepairMaintenance.Application\RepairMaintenance.Application.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\Data\DbContextExtensions\Usm.Shared.Data.DbContextExtensions.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\Data\Scalability\Usm.Shared.Data.Scalability.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Localization\Usm.Shared.BuildingBlocks.Localization.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Messaging\Usm.Shared.BuildingBlocks.Messaging.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\Persistence.Migrations\Usm.Shared.BuildingBlocks.Persistence.Migrations.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <PropertyGroup>

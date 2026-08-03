@@ -1,4 +1,4 @@
-using IssueReceipt.Application.Abstractions;
+﻿using IssueReceipt.Application.Abstractions;
 using IssueReceipt.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +6,7 @@ using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
+using Usm.Shared.Data.Scalability.Extensions;
 
 namespace IssueReceipt.Infrastructure;
 
@@ -21,6 +22,9 @@ public static class DependencyInjection
         services.AddRabbitMqMessaging(configuration);
         services.AddResxLocalization();
         services.AddAutoMigrations<IssueReceiptDbContext>();
+
+        services.AddDatabaseScaling(configuration);
+        services.AddReadReplication(configuration);
         return services;
     }
 }
