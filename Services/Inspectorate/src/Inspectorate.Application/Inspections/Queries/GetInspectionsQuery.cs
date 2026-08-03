@@ -1,5 +1,5 @@
-using MediatR;
 using Inspectorate.Domain.Inspections;
+using MediatR;
 
 namespace Inspectorate.Application.Inspections.Queries;
 

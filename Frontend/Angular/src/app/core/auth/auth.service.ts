@@ -64,10 +64,7 @@ export class AuthService {
 
   async loginWithPassword(username: string, password: string): Promise<boolean> {
     const response = await firstValueFrom(
-      this.http.post<TokenResponse>(
-        `${this.authority}/login/password`,
-        { username, password },
-      ),
+      this.http.post<TokenResponse>(`${this.authority}/login/password`, { username, password }),
     );
 
     this.persistTokenResponse(response);
@@ -76,10 +73,7 @@ export class AuthService {
 
   async loginWithCac(): Promise<boolean> {
     const response = await firstValueFrom(
-      this.http.post<TokenResponse>(
-        `${this.authority}/login/cac`,
-        {},
-      ),
+      this.http.post<TokenResponse>(`${this.authority}/login/cac`, {}),
     );
 
     this.persistTokenResponse(response);
@@ -100,10 +94,10 @@ export class AuthService {
 
   async loginWithFido2(assertionResponse: unknown, assertionOptionsJson: string): Promise<boolean> {
     const response = await firstValueFrom(
-      this.http.post<TokenResponse>(
-        `${this.authority}/login/fido2`,
-        { assertionResponse, assertionOptionsJson },
-      ),
+      this.http.post<TokenResponse>(`${this.authority}/login/fido2`, {
+        assertionResponse,
+        assertionOptionsJson,
+      }),
     );
 
     this.persistTokenResponse(response);
@@ -168,12 +162,12 @@ export class AuthService {
 
   hasAnyPermission(permissions: string[]): boolean {
     const perms = this.getPermissions();
-    return permissions.some(permission => perms.includes(permission));
+    return permissions.some((permission) => perms.includes(permission));
   }
 
   hasAllPermissions(permissions: string[]): boolean {
     const perms = this.getPermissions();
-    return permissions.every(permission => perms.includes(permission));
+    return permissions.every((permission) => perms.includes(permission));
   }
 
   hasRole(role: string): boolean {
@@ -188,15 +182,11 @@ export class AuthService {
       .set('refresh_token', refreshToken);
 
     const response = await firstValueFrom(
-      this.http.post<TokenResponse>(
-        `${this.authority}/connect/token`,
-        body.toString(),
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/x-www-form-urlencoded',
-          }),
-        },
-      ),
+      this.http.post<TokenResponse>(`${this.authority}/connect/token`, body.toString(), {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      }),
     );
 
     this.persistTokenResponse(response);
@@ -204,7 +194,7 @@ export class AuthService {
   }
 
   private persistTokenResponse(response: TokenResponse): void {
-    const expiresAt = Date.now() + (response.expires_in * 1000);
+    const expiresAt = Date.now() + response.expires_in * 1000;
     const session: StoredAuthSession = {
       accessToken: response.access_token,
       refreshToken: response.refresh_token ?? this.readSession()?.refreshToken ?? null,
@@ -260,7 +250,7 @@ export class AuthService {
   }
 
   private isExpired(expiresAt: number, skewMs = 0): boolean {
-    return Date.now() >= (expiresAt - skewMs);
+    return Date.now() >= expiresAt - skewMs;
   }
 
   private getPermissions(): string[] {
@@ -268,7 +258,7 @@ export class AuthService {
     if (!user?.permissions) return [];
     return Array.isArray(user.permissions)
       ? user.permissions
-      : user.permissions.split(',').map(permission => permission.trim());
+      : user.permissions.split(',').map((permission) => permission.trim());
   }
 
   private getRoles(): string[] {
@@ -276,6 +266,6 @@ export class AuthService {
     if (!user?.roles) return [];
     return Array.isArray(user.roles)
       ? user.roles
-      : user.roles.split(',').map(role => role.trim());
+      : user.roles.split(',').map((role) => role.trim());
   }
 }

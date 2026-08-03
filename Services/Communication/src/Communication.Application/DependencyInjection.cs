@@ -1,7 +1,7 @@
+using Communication.Application.Notifications.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
-using Communication.Application.Notifications.Queries;
 
 namespace Communication.Application;
 

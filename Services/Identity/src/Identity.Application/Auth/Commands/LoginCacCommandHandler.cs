@@ -1,4 +1,4 @@
-﻿using Identity.Application.Auth.Dtos;
+using Identity.Application.Auth.Dtos;
 using Identity.Application.Auth.Utils;
 using Identity.Application.Users.Dtos;
 using Identity.Domain.Users;

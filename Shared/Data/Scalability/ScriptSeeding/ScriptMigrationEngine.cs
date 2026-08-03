@@ -87,7 +87,8 @@ public sealed class ScriptMigrationEngine(
 
         var applied = await GetAppliedChecksumMapAsync(connection, cancellationToken).ConfigureAwait(false);
         var directory = ResolveDirectory();
-        if (!Directory.Exists(directory)) return [];
+        if (!Directory.Exists(directory))
+            return [];
 
         return GetOrderedScripts(directory)
             .Where(s => !applied.TryGetValue(s.Name, out var cs) || cs != s.Checksum)
@@ -187,7 +188,7 @@ public sealed class ScriptMigrationEngine(
             """;
 
         await using var cmd = new NpgsqlCommand(upsert, conn);
-        cmd.Parameters.AddWithValue("name",     script.Name);
+        cmd.Parameters.AddWithValue("name", script.Name);
         cmd.Parameters.AddWithValue("checksum", script.Checksum);
         cmd.Parameters.AddWithValue("duration", durationMs);
         await cmd.ExecuteNonQueryAsync(ct).ConfigureAwait(false);
@@ -232,7 +233,8 @@ public sealed class ScriptMigrationEngine(
         var sb = new StringBuilder(8);
         foreach (var c in fileName)
         {
-            if (!char.IsDigit(c)) break;
+            if (!char.IsDigit(c))
+                break;
             sb.Append(c);
         }
         return sb.Length > 0 && int.TryParse(sb.ToString(), out var n) ? n : int.MaxValue;
@@ -241,7 +243,7 @@ public sealed class ScriptMigrationEngine(
     private static string ComputeChecksum(string content)
     {
         var bytes = Encoding.UTF8.GetBytes(content);
-        var hash  = SHA256.HashData(bytes);
+        var hash = SHA256.HashData(bytes);
         return Convert.ToHexStringLower(hash);
     }
 }

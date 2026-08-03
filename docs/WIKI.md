@@ -1,5 +1,13 @@
 # USM Inventory Platform Wiki
 
+## Engineering formatting standards
+
+- Backend formatting is governed by the root `.editorconfig` using Microsoft/.NET Core style defaults for C# and solution-level files.
+- Angular frontend formatting is governed by `Frontend/Angular/.editorconfig` + Prettier + VS Code workspace settings in `Frontend/Angular/.vscode/settings.json`.
+- Repository-wide normalization commands:
+  - `dotnet format Usm.Inventory.MonoRepo.slnx`
+  - `cd Frontend/Angular && npm run format`
+
 ## Cloud/AKS Architecture
 
 ```text
@@ -58,4 +66,3 @@ Azure Front Door + WAF + Edge Cache + Custom Domain TLS
 - **Security_Scan**: Trivy image scan before release.
 - **Deploy_Staging**: apply manifests, update images, rollout check.
 - **Deploy_Prod**: gated production rollout with rollback-on-failure behavior.
-

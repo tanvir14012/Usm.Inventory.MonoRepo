@@ -30,14 +30,20 @@ export class CdnService {
    * Results are backed by the Redis `cdn:meta:{key}` cache on the server side.
    */
   getMetadata(assetKey: string): Observable<AssetMetadata> {
-    return this.api.get<AssetMetadata>(`${this.base}/assets/${encodeURIComponent(assetKey)}/metadata`);
+    return this.api.get<AssetMetadata>(
+      `${this.base}/assets/${encodeURIComponent(assetKey)}/metadata`,
+    );
   }
 
   /**
    * Lists all assets inside a given bucket prefix.
    * Returns paged result of asset keys and metadata summaries.
    */
-  listAssets(bucketOrPrefix: string, page = 1, pageSize = 50): Observable<{ items: AssetMetadata[]; totalCount: number }> {
+  listAssets(
+    bucketOrPrefix: string,
+    page = 1,
+    pageSize = 50,
+  ): Observable<{ items: AssetMetadata[]; totalCount: number }> {
     return this.api.get(`${this.base}/assets`, {
       prefix: bucketOrPrefix,
       page: String(page),

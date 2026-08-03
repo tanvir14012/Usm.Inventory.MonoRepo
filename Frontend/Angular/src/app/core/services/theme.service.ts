@@ -11,9 +11,7 @@ export class ThemeService {
   private readonly rendererFactory = inject(RendererFactory2);
   private readonly renderer: Renderer2;
 
-  readonly theme = signal<AppTheme>(
-    (localStorage.getItem(THEME_KEY) as AppTheme) ?? 'light',
-  );
+  readonly theme = signal<AppTheme>((localStorage.getItem(THEME_KEY) as AppTheme) ?? 'light');
   readonly palette = signal<ColorPalette>(
     (localStorage.getItem(PALETTE_KEY) as ColorPalette) ?? 'indigo',
   );
@@ -58,7 +56,7 @@ export class ThemeService {
     const body = document.body;
     // Remove previous palette classes
     const palettes: ColorPalette[] = ['indigo', 'blue', 'teal', 'purple', 'rose'];
-    palettes.forEach(p => this.renderer.removeClass(body, `palette-${p}`));
+    palettes.forEach((p) => this.renderer.removeClass(body, `palette-${p}`));
     this.renderer.addClass(body, `palette-${palette}`);
   }
 }

@@ -8,10 +8,10 @@ internal sealed class CurrentJobContext(JobContextHolder holder) : ICurrentJobCo
     private static readonly JsonSerializerOptions JsonOpts =
         new(JsonSerializerDefaults.Web);
 
-    public Guid    JobId             => holder.Get().JobId;
-    public string  JobType           => holder.Get().JobType;
+    public Guid JobId => holder.Get().JobId;
+    public string JobType => holder.Get().JobType;
     public string? SerializedPayload => holder.Get().SerializedPayload;
-    public int     RetryCount        => holder.Get().RetryCount;
+    public int RetryCount => holder.Get().RetryCount;
 
     public T? GetPayload<T>() where T : class
     {

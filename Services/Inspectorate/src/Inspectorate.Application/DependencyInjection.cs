@@ -1,7 +1,7 @@
+using Inspectorate.Application.Inspections.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
-using Inspectorate.Application.Inspections.Queries;
 
 namespace Inspectorate.Application;
 

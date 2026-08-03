@@ -1,4 +1,4 @@
-﻿using Identity.Application.Users.Dtos;
+using Identity.Application.Users.Dtos;
 using MediatR;
 
 namespace Identity.Application.Auth.Commands

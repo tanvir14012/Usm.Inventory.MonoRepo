@@ -1,3 +1,4 @@
+using System.Threading.RateLimiting;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -6,7 +7,6 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Threading.RateLimiting;
 using Serilog;
 using Serilog.Sinks.Grafana.Loki;
 using Usm.Shared.BuildingBlocks.Bootstrap.Middleware;
@@ -64,7 +64,7 @@ public static class BootstrapExtensions
             .AddJwtBearer(options =>
             {
                 options.Authority = builder.Configuration["Jwt:Authority"];
-                options.Audience  = builder.Configuration["Jwt:Audience"];
+                options.Audience = builder.Configuration["Jwt:Audience"];
                 options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
             });
 
@@ -208,8 +208,8 @@ public static class BootstrapExtensions
                 context.Response.ContentType = "application/problem+json";
                 var problem = new
                 {
-                    type   = "https://tools.ietf.org/html/rfc7807",
-                    title  = "An unexpected error occurred.",
+                    type = "https://tools.ietf.org/html/rfc7807",
+                    title = "An unexpected error occurred.",
                     status = 500,
                     detail = app.Environment.IsDevelopment() ? ex?.Message : "Internal server error.",
                     traceId = context.Response.Headers[RequestTracingMiddleware.TraceIdHeaderName].ToString()

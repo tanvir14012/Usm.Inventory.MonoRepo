@@ -1,19 +1,19 @@
-﻿using Identity.Infrastructure.Persistence;
+using System.Security.Cryptography.X509Certificates;
+using Fido2NetLib;
 using Identity.Domain.Users;
+using Identity.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
-using System.Security.Cryptography.X509Certificates;
 using Usm.Shared.BuildingBlocks.Localization;
 using Usm.Shared.BuildingBlocks.Messaging;
 using Usm.Shared.BuildingBlocks.Persistence.Migrations;
 using Usm.Shared.Data.DbContextExtensions;
 using Usm.Shared.Data.Scalability.Extensions;
 using static Usm.Shared.Reflection.AssemblyScanning.AssemblyScanningExtensions;
-using Fido2NetLib;
 
 namespace Identity.Infrastructure;
 

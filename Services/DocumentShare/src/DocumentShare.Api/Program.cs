@@ -1,4 +1,4 @@
-﻿using DocumentShare.Application;
+using DocumentShare.Application;
 using DocumentShare.Infrastructure;
 using DocumentShare.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

@@ -39,7 +39,9 @@ export function minNumber(min: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value === null || control.value === undefined || control.value === '') return null;
     const value = Number(control.value);
-    return Number.isFinite(value) && value >= min ? null : { minNumber: { min, actual: control.value } };
+    return Number.isFinite(value) && value >= min
+      ? null
+      : { minNumber: { min, actual: control.value } };
   };
 }
 
@@ -48,7 +50,9 @@ export function maxNumber(max: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value === null || control.value === undefined || control.value === '') return null;
     const value = Number(control.value);
-    return Number.isFinite(value) && value <= max ? null : { maxNumber: { max, actual: control.value } };
+    return Number.isFinite(value) && value <= max
+      ? null
+      : { maxNumber: { max, actual: control.value } };
   };
 }
 

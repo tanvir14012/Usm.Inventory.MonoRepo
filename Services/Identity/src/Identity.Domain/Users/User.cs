@@ -1,5 +1,5 @@
-using Identity.Domain.Common;
 using System.Net;
+using Identity.Domain.Common;
 using Usm.Shared.Data.DbContextExtensions;
 
 namespace Identity.Domain.Users;

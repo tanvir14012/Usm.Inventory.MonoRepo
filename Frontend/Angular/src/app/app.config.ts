@@ -1,9 +1,14 @@
 import {
-  ApplicationConfig, APP_INITIALIZER,
-  provideBrowserGlobalErrorListeners, importProvidersFrom
+  ApplicationConfig,
+  APP_INITIALIZER,
+  provideBrowserGlobalErrorListeners,
+  importProvidersFrom,
 } from '@angular/core';
 import {
-  provideRouter, withComponentInputBinding, withViewTransitions, withRouterConfig
+  provideRouter,
+  withComponentInputBinding,
+  withViewTransitions,
+  withRouterConfig,
 } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -46,9 +51,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
-        apiVersionInterceptor,   // append ?api-version before auth/cache
+        apiVersionInterceptor, // append ?api-version before auth/cache
         authInterceptor,
-        rateLimitInterceptor,    // handle 429 + retry before error handler
+        rateLimitInterceptor, // handle 429 + retry before error handler
         loadingInterceptor,
         errorInterceptor,
         cacheInterceptor,

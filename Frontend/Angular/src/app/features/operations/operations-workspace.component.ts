@@ -13,7 +13,10 @@ import { emptyPagedResult, PagedResult } from '../../shared/models/paged-result.
 import { QueryParams } from '../../shared/models/query-params.model';
 import { toClientPagedResult } from '../../shared/utils/client-paging.utils';
 import { OperationsService } from './operations.service';
-import { ModuleNavigationDto, ModuleNavigationService } from '../administration/module-navigation/module-navigation.service';
+import {
+  ModuleNavigationDto,
+  ModuleNavigationService,
+} from '../administration/module-navigation/module-navigation.service';
 
 type OperationRow = { id: string };
 
@@ -93,21 +96,26 @@ interface ModuleConfig {
         [data]="pagedRows()"
         [isLoading]="isLoading()"
         [searchable]="true"
-        (queryChange)="onQueryChange($event)" />
+        (queryChange)="onQueryChange($event)"
+      />
     }
   `,
-  styles: [`
-    .metric-card { border: 1px solid rgba(148, 163, 184, 0.18); }
-    .metric-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 9999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
-  `],
+  styles: [
+    `
+      .metric-card {
+        border: 1px solid rgba(148, 163, 184, 0.18);
+      }
+      .metric-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+    `,
+  ],
 })
 export class OperationsWorkspaceComponent {
   private readonly route = inject(ActivatedRoute);
@@ -142,24 +150,56 @@ export class OperationsWorkspaceComponent {
         { key: 'orderNumber', headerKey: 'operations.headers.orderNumber', sortable: true },
         { key: 'supplierName', headerKey: 'operations.headers.supplier', sortable: true },
         { key: 'status', headerKey: 'common.status', sortable: true },
-        { key: 'totalAmount', headerKey: 'operations.headers.amount', sortable: true, render: row => this.formatCurrency(Number(this.value(row, 'totalAmount') ?? 0)) },
-        { key: 'expectedDeliveryDate', headerKey: 'operations.headers.expectedDate', pipe: 'localDate', sortable: true },
+        {
+          key: 'totalAmount',
+          headerKey: 'operations.headers.amount',
+          sortable: true,
+          render: (row) => this.formatCurrency(Number(this.value(row, 'totalAmount') ?? 0)),
+        },
+        {
+          key: 'expectedDeliveryDate',
+          headerKey: 'operations.headers.expectedDate',
+          pipe: 'localDate',
+          sortable: true,
+        },
       ],
       searchableKeys: ['orderNumber', 'supplierName', 'status'],
-      load: () => this.operationsService.getPurchaseOrders() as unknown as Observable<OperationRow[]>,
-      metrics: rows => [
+      load: () =>
+        this.operationsService.getPurchaseOrders() as unknown as Observable<OperationRow[]>,
+      metrics: (rows) => [
         this.metric('Orders', `${rows.length}`, 'shopping_cart', '#1d4ed8'),
-        this.metric('Approved', `${rows.filter(x => this.value(x, 'status') === 'Approved').length}`, 'task_alt', '#15803d'),
-        this.metric('Delivered', `${rows.filter(x => this.value(x, 'status') === 'Delivered').length}`, 'local_shipping', '#7c3aed'),
-        this.metric('Value', this.formatCurrency(rows.reduce((sum, row) => sum + Number(this.value(row, 'totalAmount') ?? 0), 0)), 'payments', '#b45309'),
+        this.metric(
+          'Approved',
+          `${rows.filter((x) => this.value(x, 'status') === 'Approved').length}`,
+          'task_alt',
+          '#15803d',
+        ),
+        this.metric(
+          'Delivered',
+          `${rows.filter((x) => this.value(x, 'status') === 'Delivered').length}`,
+          'local_shipping',
+          '#7c3aed',
+        ),
+        this.metric(
+          'Value',
+          this.formatCurrency(
+            rows.reduce((sum, row) => sum + Number(this.value(row, 'totalAmount') ?? 0), 0),
+          ),
+          'payments',
+          '#b45309',
+        ),
       ],
       filterByView: (view, row) => {
         const status = String(this.value(row, 'status') ?? '');
         switch (view) {
-          case 'contract-awards': return status === 'Approved' || status === 'Delivered';
-          case 'logistics-tracking': return status === 'Delivered';
-          case 'vendor-vetting': return status === 'Draft' || status === 'Submitted';
-          default: return true;
+          case 'contract-awards':
+            return status === 'Approved' || status === 'Delivered';
+          case 'logistics-tracking':
+            return status === 'Delivered';
+          case 'vendor-vetting':
+            return status === 'Draft' || status === 'Submitted';
+          default:
+            return true;
         }
       },
     },
@@ -170,21 +210,47 @@ export class OperationsWorkspaceComponent {
         { key: 'unit', headerKey: 'operations.headers.unit', sortable: true },
         { key: 'currentQuantity', headerKey: 'operations.headers.onHand', sortable: true },
         { key: 'reorderLevel', headerKey: 'operations.headers.reorderLevel', sortable: true },
-        { key: 'isBelowReorderLevel', headerKey: 'operations.headers.reorderAlert', pipe: 'boolean', sortable: true },
+        {
+          key: 'isBelowReorderLevel',
+          headerKey: 'operations.headers.reorderAlert',
+          pipe: 'boolean',
+          sortable: true,
+        },
       ],
       searchableKeys: ['nameEn', 'code', 'unit'],
-      load: () => this.operationsService.getInventoryItems() as unknown as Observable<OperationRow[]>,
-      metrics: rows => [
+      load: () =>
+        this.operationsService.getInventoryItems() as unknown as Observable<OperationRow[]>,
+      metrics: (rows) => [
         this.metric('Stock lines', `${rows.length}`, 'inventory_2', '#1d4ed8'),
-        this.metric('Low stock', `${rows.filter(x => !!this.value(x, 'isBelowReorderLevel')).length}`, 'warning', '#dc2626'),
-        this.metric('Units on hand', `${rows.reduce((sum, row) => sum + Number(this.value(row, 'currentQuantity') ?? 0), 0)}`, 'warehouse', '#15803d'),
-        this.metric('Reorder points', `${rows.reduce((sum, row) => sum + Number(this.value(row, 'reorderLevel') ?? 0), 0)}`, 'flag', '#7c3aed'),
+        this.metric(
+          'Low stock',
+          `${rows.filter((x) => !!this.value(x, 'isBelowReorderLevel')).length}`,
+          'warning',
+          '#dc2626',
+        ),
+        this.metric(
+          'Units on hand',
+          `${rows.reduce((sum, row) => sum + Number(this.value(row, 'currentQuantity') ?? 0), 0)}`,
+          'warehouse',
+          '#15803d',
+        ),
+        this.metric(
+          'Reorder points',
+          `${rows.reduce((sum, row) => sum + Number(this.value(row, 'reorderLevel') ?? 0), 0)}`,
+          'flag',
+          '#7c3aed',
+        ),
       ],
-      filterByView: (view, row) => view === 'reorder-alerts' ? !!this.value(row, 'isBelowReorderLevel') : true,
+      filterByView: (view, row) =>
+        view === 'reorder-alerts' ? !!this.value(row, 'isBelowReorderLevel') : true,
     },
     'issue-receipt': {
       columns: [
-        { key: 'transactionNumber', headerKey: 'operations.headers.transactionNumber', sortable: true },
+        {
+          key: 'transactionNumber',
+          headerKey: 'operations.headers.transactionNumber',
+          sortable: true,
+        },
         { key: 'transactionType', headerKey: 'operations.headers.transactionType', sortable: true },
         { key: 'counterparty', headerKey: 'operations.headers.counterparty', sortable: true },
         { key: 'quantity', headerKey: 'operations.headers.quantity', sortable: true },
@@ -192,15 +258,31 @@ export class OperationsWorkspaceComponent {
       ],
       searchableKeys: ['transactionNumber', 'transactionType', 'counterparty', 'remarks'],
       load: () => this.operationsService.getTransactions() as unknown as Observable<OperationRow[]>,
-      metrics: rows => [
+      metrics: (rows) => [
         this.metric('Transactions', `${rows.length}`, 'swap_horiz', '#1d4ed8'),
-        this.metric('Issues', `${rows.filter(x => this.value(x, 'transactionType') === 'Issue').length}`, 'outbox', '#dc2626'),
-        this.metric('Receipts', `${rows.filter(x => this.value(x, 'transactionType') === 'Receipt').length}`, 'inbox', '#15803d'),
-        this.metric('Quantity moved', `${rows.reduce((sum, row) => sum + Number(this.value(row, 'quantity') ?? 0), 0)}`, 'balance', '#7c3aed'),
+        this.metric(
+          'Issues',
+          `${rows.filter((x) => this.value(x, 'transactionType') === 'Issue').length}`,
+          'outbox',
+          '#dc2626',
+        ),
+        this.metric(
+          'Receipts',
+          `${rows.filter((x) => this.value(x, 'transactionType') === 'Receipt').length}`,
+          'inbox',
+          '#15803d',
+        ),
+        this.metric(
+          'Quantity moved',
+          `${rows.reduce((sum, row) => sum + Number(this.value(row, 'quantity') ?? 0), 0)}`,
+          'balance',
+          '#7c3aed',
+        ),
       ],
       filterByView: (view, row) => {
         if (view === 'issue-request') return this.value(row, 'transactionType') === 'Issue';
-        if (view === 'receipt-confirmation') return this.value(row, 'transactionType') === 'Receipt';
+        if (view === 'receipt-confirmation')
+          return this.value(row, 'transactionType') === 'Receipt';
         return true;
       },
     },
@@ -209,16 +291,41 @@ export class OperationsWorkspaceComponent {
         { key: 'orderNumber', headerKey: 'operations.headers.orderNumber', sortable: true },
         { key: 'description', headerKey: 'operations.headers.description', sortable: true },
         { key: 'status', headerKey: 'common.status', sortable: true },
-        { key: 'reportedDate', headerKey: 'operations.headers.reportedDate', pipe: 'localDate', sortable: true },
-        { key: 'completedDate', headerKey: 'operations.headers.completedDate', pipe: 'localDate', sortable: true },
+        {
+          key: 'reportedDate',
+          headerKey: 'operations.headers.reportedDate',
+          pipe: 'localDate',
+          sortable: true,
+        },
+        {
+          key: 'completedDate',
+          headerKey: 'operations.headers.completedDate',
+          pipe: 'localDate',
+          sortable: true,
+        },
       ],
       searchableKeys: ['orderNumber', 'description', 'status'],
       load: () => this.operationsService.getRepairOrders() as unknown as Observable<OperationRow[]>,
-      metrics: rows => [
+      metrics: (rows) => [
         this.metric('Work orders', `${rows.length}`, 'build', '#1d4ed8'),
-        this.metric('Open', `${rows.filter(x => this.value(x, 'status') !== 'Completed').length}`, 'pending_actions', '#dc2626'),
-        this.metric('In progress', `${rows.filter(x => this.value(x, 'status') === 'InProgress').length}`, 'engineering', '#15803d'),
-        this.metric('Completed', `${rows.filter(x => this.value(x, 'status') === 'Completed').length}`, 'task_alt', '#7c3aed'),
+        this.metric(
+          'Open',
+          `${rows.filter((x) => this.value(x, 'status') !== 'Completed').length}`,
+          'pending_actions',
+          '#dc2626',
+        ),
+        this.metric(
+          'In progress',
+          `${rows.filter((x) => this.value(x, 'status') === 'InProgress').length}`,
+          'engineering',
+          '#15803d',
+        ),
+        this.metric(
+          'Completed',
+          `${rows.filter((x) => this.value(x, 'status') === 'Completed').length}`,
+          'task_alt',
+          '#7c3aed',
+        ),
       ],
       filterByView: (view, row) => {
         if (view === 'maintenance-schedule') return this.value(row, 'status') !== 'Completed';
@@ -228,24 +335,58 @@ export class OperationsWorkspaceComponent {
     },
     'traffic-security': {
       columns: [
-        { key: 'vehicleRegistrationNumber', headerKey: 'operations.headers.vehicle', sortable: true },
+        {
+          key: 'vehicleRegistrationNumber',
+          headerKey: 'operations.headers.vehicle',
+          sortable: true,
+        },
         { key: 'status', headerKey: 'common.status', sortable: true },
-        { key: 'inspectionDate', headerKey: 'operations.headers.inspectionDate', pipe: 'localDate', sortable: true },
-        { key: 'nextInspectionDate', headerKey: 'operations.headers.nextInspectionDate', pipe: 'localDate', sortable: true },
+        {
+          key: 'inspectionDate',
+          headerKey: 'operations.headers.inspectionDate',
+          pipe: 'localDate',
+          sortable: true,
+        },
+        {
+          key: 'nextInspectionDate',
+          headerKey: 'operations.headers.nextInspectionDate',
+          pipe: 'localDate',
+          sortable: true,
+        },
         { key: 'remarks', headerKey: 'operations.headers.remarks', sortable: true },
       ],
       searchableKeys: ['vehicleRegistrationNumber', 'status', 'remarks'],
-      load: () => this.operationsService.getVehicleSafetyRecords() as unknown as Observable<OperationRow[]>,
-      metrics: rows => [
+      load: () =>
+        this.operationsService.getVehicleSafetyRecords() as unknown as Observable<OperationRow[]>,
+      metrics: (rows) => [
         this.metric('Inspections', `${rows.length}`, 'security', '#1d4ed8'),
-        this.metric('Passed', `${rows.filter(x => this.value(x, 'status') === 'Passed').length}`, 'verified_user', '#15803d'),
-        this.metric('Alerts', `${rows.filter(x => this.value(x, 'status') === 'RequiresAttention').length}`, 'warning', '#d97706'),
-        this.metric('Failed', `${rows.filter(x => this.value(x, 'status') === 'Failed').length}`, 'gpp_bad', '#dc2626'),
+        this.metric(
+          'Passed',
+          `${rows.filter((x) => this.value(x, 'status') === 'Passed').length}`,
+          'verified_user',
+          '#15803d',
+        ),
+        this.metric(
+          'Alerts',
+          `${rows.filter((x) => this.value(x, 'status') === 'RequiresAttention').length}`,
+          'warning',
+          '#d97706',
+        ),
+        this.metric(
+          'Failed',
+          `${rows.filter((x) => this.value(x, 'status') === 'Failed').length}`,
+          'gpp_bad',
+          '#dc2626',
+        ),
       ],
       filterByView: (view, row) => {
         if (view === 'gate-control') return this.value(row, 'status') === 'Passed';
         if (view === 'incident-reports') return this.value(row, 'status') === 'Failed';
-        if (view === 'threat-advisory') return this.value(row, 'status') === 'RequiresAttention' || this.value(row, 'status') === 'Failed';
+        if (view === 'threat-advisory')
+          return (
+            this.value(row, 'status') === 'RequiresAttention' ||
+            this.value(row, 'status') === 'Failed'
+          );
         return true;
       },
     },
@@ -268,7 +409,7 @@ export class OperationsWorkspaceComponent {
   }
 
   onQueryChange(params: Partial<QueryParams>): void {
-    this.query.update(current => ({ ...current, ...params }));
+    this.query.update((current) => ({ ...current, ...params }));
     this.rebuildPage();
   }
 
@@ -277,12 +418,14 @@ export class OperationsWorkspaceComponent {
     const viewSlug = paramMap.get('view');
     this.moduleSlug.set(moduleSlug);
     this.viewSlug.set(viewSlug);
-    this.query.update(current => ({ ...current, page: 1 }));
+    this.query.update((current) => ({ ...current, page: 1 }));
     this.resolveTitles(modules, moduleSlug, viewSlug);
 
     const config = this.moduleConfigs[moduleSlug];
     if (!config) {
-      this.unsupportedReason.set('This module navigation is available, but its end-to-end workspace is deferred for a later pass to conserve AI credits.');
+      this.unsupportedReason.set(
+        'This module navigation is available, but its end-to-end workspace is deferred for a later pass to conserve AI credits.',
+      );
       return of({ rows: [] as OperationRow[], config: null as ModuleConfig | null });
     }
 
@@ -290,23 +433,34 @@ export class OperationsWorkspaceComponent {
     this.isLoading.set(true);
 
     return config.load().pipe(
-      map(rows => {
+      map((rows) => {
         const filteredRows = rows
-          .filter(row => (config.filterByView ? config.filterByView(viewSlug, row as OperationRow) : true))
-          .map(row => row as OperationRow);
+          .filter((row) =>
+            config.filterByView ? config.filterByView(viewSlug, row as OperationRow) : true,
+          )
+          .map((row) => row as OperationRow);
         return { rows: filteredRows, config };
       }),
     );
   }
 
-  private resolveTitles(modules: ModuleNavigationDto[], moduleSlug: string, viewSlug: string | null): void {
-    const module = modules.find(item => item.menuId === moduleSlug || item.systemName === moduleSlug);
+  private resolveTitles(
+    modules: ModuleNavigationDto[],
+    moduleSlug: string,
+    viewSlug: string | null,
+  ): void {
+    const module = modules.find(
+      (item) => item.menuId === moduleSlug || item.systemName === moduleSlug,
+    );
     const child = module && viewSlug ? this.findSidebarItem(module.sidebarItems, viewSlug) : null;
     this.pageTitle.set(module?.localizedName ?? this.titleize(moduleSlug));
     this.pageSubtitle.set(child?.localizedName ?? null);
   }
 
-  private findSidebarItem(items: ModuleNavigationDto['sidebarItems'], viewSlug: string): ModuleNavigationDto['sidebarItems'][number] | null {
+  private findSidebarItem(
+    items: ModuleNavigationDto['sidebarItems'],
+    viewSlug: string,
+  ): ModuleNavigationDto['sidebarItems'][number] | null {
     for (const item of items) {
       if (item.menuId === viewSlug || item.systemName === viewSlug) {
         return item;
@@ -347,7 +501,7 @@ export class OperationsWorkspaceComponent {
     return value
       .split('-')
       .filter(Boolean)
-      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(' ');
   }
 

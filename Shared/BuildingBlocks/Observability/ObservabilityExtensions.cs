@@ -1,9 +1,9 @@
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using System.Reflection;
 
 namespace Usm.Shared.BuildingBlocks.Observability;
 

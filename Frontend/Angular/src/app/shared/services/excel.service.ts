@@ -26,18 +26,18 @@ export class ExcelService {
     fileName: string,
     sheetName = 'Sheet1',
   ): void {
-    const headers = columns.map(c => c.header);
-    const rows = data.map(row =>
-      columns.map(col => {
+    const headers = columns.map((c) => c.header);
+    const rows = data.map((row) =>
+      columns.map((col) => {
         const value = (row as Record<string, unknown>)[col.key as string];
-        return col.formatter ? col.formatter(value, row) : value ?? '';
+        return col.formatter ? col.formatter(value, row) : (value ?? '');
       }),
     );
 
     const ws: WorkSheet = utils.aoa_to_sheet([headers, ...rows]);
 
     // Set column widths
-    ws['!cols'] = columns.map(c => ({ wch: c.width ?? 20 }));
+    ws['!cols'] = columns.map((c) => ({ wch: c.width ?? 20 }));
 
     const wb: WorkBook = utils.book_new();
     utils.book_append_sheet(wb, ws, sheetName);
@@ -51,11 +51,15 @@ export class ExcelService {
     errors: Array<{ row: number; field: string; message: string }>,
     fileName = 'import-errors',
   ): void {
-    this.export(errors, [
-      { header: 'Row', key: 'row', width: 8 },
-      { header: 'Field', key: 'field', width: 20 },
-      { header: 'Error', key: 'message', width: 50 },
-    ], fileName);
+    this.export(
+      errors,
+      [
+        { header: 'Row', key: 'row', width: 8 },
+        { header: 'Field', key: 'field', width: 20 },
+        { header: 'Error', key: 'message', width: 50 },
+      ],
+      fileName,
+    );
   }
 
   /**
@@ -76,7 +80,7 @@ export class ExcelService {
           const ws = wb.Sheets[wb.SheetNames[0]];
           const raw: Record<string, unknown>[] = utils.sheet_to_json(ws, { defval: '' });
 
-          const result = raw.map(row => {
+          const result = raw.map((row) => {
             const mapped: Record<string, unknown> = {};
             for (const [srcKey, dstKey] of Object.entries(columnMap)) {
               mapped[dstKey as string] = row[srcKey] ?? '';

@@ -1,4 +1,4 @@
-﻿using TrafficSecurity.Application;
+using TrafficSecurity.Application;
 using TrafficSecurity.Infrastructure;
 using TrafficSecurity.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

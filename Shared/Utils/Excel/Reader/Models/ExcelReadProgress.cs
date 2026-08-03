@@ -4,6 +4,6 @@ namespace Usm.Shared.Utils.Excel.Reader.Models;
 public sealed class ExcelReadProgress
 {
     public int ProcessedRows { get; init; }
-    public int ErrorCount    { get; init; }
+    public int ErrorCount { get; init; }
     public string? CorrelationId { get; init; }
 }

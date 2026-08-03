@@ -74,7 +74,7 @@ internal sealed class ExcelJobBackgroundService(
         using (var scope = serviceProvider.CreateScope())
         {
             var repo = scope.ServiceProvider.GetRequiredService<IJobRepository>();
-            pending  = await repo.GetPendingJobsAsync(_opts.MaxJobsPerCycle, ct);
+            pending = await repo.GetPendingJobsAsync(_opts.MaxJobsPerCycle, ct);
         }
 
         foreach (var record in pending)
@@ -97,7 +97,7 @@ internal sealed class ExcelJobBackgroundService(
         var holder = jobScope.ServiceProvider.GetRequiredService<JobContextHolder>();
         holder.Set(record);
 
-        record.Status    = JobStatus.Running;
+        record.Status = JobStatus.Running;
         record.StartedAt = DateTimeOffset.UtcNow;
         await repo.UpdateAsync(record, ct);
 
@@ -115,8 +115,8 @@ internal sealed class ExcelJobBackgroundService(
             var job = (IExcelJob)jobScope.ServiceProvider.GetRequiredService(jobType);
             await job.ExecuteAsync(ct);
 
-            record.Status       = JobStatus.Completed;
-            record.CompletedAt  = DateTimeOffset.UtcNow;
+            record.Status = JobStatus.Completed;
+            record.CompletedAt = DateTimeOffset.UtcNow;
             record.ErrorMessage = null;
 
             logger.LogInformation("Job completed. JobId={JobId}", record.JobId);
@@ -124,7 +124,7 @@ internal sealed class ExcelJobBackgroundService(
         catch (OperationCanceledException) when (ct.IsCancellationRequested)
         {
             // Service is shutting down — leave the job as Pending so it restarts cleanly.
-            record.Status    = JobStatus.Pending;
+            record.Status = JobStatus.Pending;
             record.StartedAt = null;
             logger.LogWarning("Job interrupted by shutdown. JobId={JobId}", record.JobId);
         }
@@ -135,7 +135,7 @@ internal sealed class ExcelJobBackgroundService(
 
             if (record.RetryCount >= _opts.MaxRetryCount)
             {
-                record.Status      = JobStatus.Failed;
+                record.Status = JobStatus.Failed;
                 record.CompletedAt = DateTimeOffset.UtcNow;
                 logger.LogError(ex,
                     "Job failed permanently. JobId={JobId} Attempts={Attempts}",
@@ -157,7 +157,8 @@ internal sealed class ExcelJobBackgroundService(
         finally
         {
             // Best-effort final save; swallow if already saved in the retry path
-            try { await repo.UpdateAsync(record, CancellationToken.None); }
+            try
+            { await repo.UpdateAsync(record, CancellationToken.None); }
             catch (Exception ex) { logger.LogError(ex, "Failed to persist final job state. JobId={JobId}", record.JobId); }
         }
     }
@@ -168,7 +169,7 @@ internal sealed class ExcelJobBackgroundService(
     {
         var seconds = _opts.InitialRetryDelay.TotalSeconds
                     * Math.Pow(_opts.RetryBackoffMultiplier, retryCount - 1);
-        var delay   = TimeSpan.FromSeconds(seconds);
+        var delay = TimeSpan.FromSeconds(seconds);
         return delay > _opts.MaxRetryDelay ? _opts.MaxRetryDelay : delay;
     }
 

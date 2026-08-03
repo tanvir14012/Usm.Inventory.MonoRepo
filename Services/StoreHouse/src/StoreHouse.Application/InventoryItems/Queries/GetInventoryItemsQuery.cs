@@ -1,6 +1,6 @@
 using MediatR;
-using StoreHouse.Application.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using StoreHouse.Application.Abstractions;
 
 namespace StoreHouse.Application.InventoryItems.Queries;
 

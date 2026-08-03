@@ -29,7 +29,8 @@ public sealed class DatabaseScalingOrchestrator<TEntity>(
     {
         foreach (var strategy in _strategies)
         {
-            if (!strategy.IsEnabled) continue;
+            if (!strategy.IsEnabled)
+                continue;
             cancellationToken.ThrowIfCancellationRequested();
 
             if (_options.EnableDetailedLogging)
@@ -49,7 +50,8 @@ public sealed class DatabaseScalingOrchestrator<TEntity>(
     {
         foreach (var strategy in _strategies)
         {
-            if (!strategy.IsEnabled) continue;
+            if (!strategy.IsEnabled)
+                continue;
             cancellationToken.ThrowIfCancellationRequested();
 
             if (_options.EnableDetailedLogging)

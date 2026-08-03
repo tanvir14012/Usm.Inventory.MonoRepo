@@ -1,4 +1,4 @@
-﻿using Identity.Application.Auth.Commands;
+using Identity.Application.Auth.Commands;
 using Identity.Application.Auth.Dtos;
 using Identity.Infrastructure;
 using MediatR;

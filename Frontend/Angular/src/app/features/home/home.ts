@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
@@ -43,9 +37,15 @@ export class HomeComponent {
     this.isScrolled.set(window.scrollY > 40);
   }
 
-  toggleMenu(): void { this.menuOpen.update(v => !v); }
-  closeMenu(): void { this.menuOpen.set(false); }
-  goToLogin(): void { this.router.navigateByUrl('/login'); }
+  toggleMenu(): void {
+    this.menuOpen.update((v) => !v);
+  }
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
+  goToLogin(): void {
+    this.router.navigateByUrl('/login');
+  }
 
   onImgError(event: Event): void {
     const img = event.target as HTMLImageElement;
@@ -83,20 +83,76 @@ export class HomeComponent {
   ];
 
   readonly capabilities: Capability[] = [
-    { icon: '📦', title: 'Issue & Receipt', desc: 'Track all supply issuances and receipts with real-time audit trails and digital signatures.' },
-    { icon: '🏭', title: 'Storehouse Management', desc: 'Full warehouse inventory control, bin management, and capacity planning.' },
-    { icon: '🛒', title: 'Procurement', desc: 'Automated purchase requisitions, vendor management, and approval workflows.' },
-    { icon: '🔧', title: 'Repair & Maintenance', desc: 'Equipment lifecycle tracking, maintenance scheduling, and work order management.' },
-    { icon: '📊', title: 'Budget Planning', desc: 'Budget allocation, expenditure tracking, and financial reporting across all units.' },
-    { icon: '📋', title: 'Reporting', desc: 'Comprehensive real-time dashboards and exportable reports for command oversight.' },
-    { icon: '🚔', title: 'Traffic & Security', desc: 'Gate access management, vehicle logging, and security checkpoint integration.' },
-    { icon: '♻️', title: 'Salvage', desc: 'Manage condemned equipment, disposal processes, and salvage valuation.' },
-    { icon: '📄', title: 'Document Share', desc: 'Secure distribution of supply orders, manifests, and technical documentation.' },
-    { icon: '📡', title: 'Communication', desc: 'Internal messaging and notification system for supply chain stakeholders.' },
-    { icon: '🏛️', title: 'Administration', desc: 'Unit management, organizational hierarchy, and configuration of system settings.' },
-    { icon: '👤', title: 'IAM', desc: 'Identity and access management with role-based permissions and audit logging.' },
-    { icon: '🔍', title: 'Inspectorate', desc: 'Inspection scheduling, checklist management, and compliance reporting.' },
-    { icon: '📈', title: 'Dashboard', desc: 'Executive overview of all supply chain KPIs, alerts, and operational status.' },
+    {
+      icon: '📦',
+      title: 'Issue & Receipt',
+      desc: 'Track all supply issuances and receipts with real-time audit trails and digital signatures.',
+    },
+    {
+      icon: '🏭',
+      title: 'Storehouse Management',
+      desc: 'Full warehouse inventory control, bin management, and capacity planning.',
+    },
+    {
+      icon: '🛒',
+      title: 'Procurement',
+      desc: 'Automated purchase requisitions, vendor management, and approval workflows.',
+    },
+    {
+      icon: '🔧',
+      title: 'Repair & Maintenance',
+      desc: 'Equipment lifecycle tracking, maintenance scheduling, and work order management.',
+    },
+    {
+      icon: '📊',
+      title: 'Budget Planning',
+      desc: 'Budget allocation, expenditure tracking, and financial reporting across all units.',
+    },
+    {
+      icon: '📋',
+      title: 'Reporting',
+      desc: 'Comprehensive real-time dashboards and exportable reports for command oversight.',
+    },
+    {
+      icon: '🚔',
+      title: 'Traffic & Security',
+      desc: 'Gate access management, vehicle logging, and security checkpoint integration.',
+    },
+    {
+      icon: '♻️',
+      title: 'Salvage',
+      desc: 'Manage condemned equipment, disposal processes, and salvage valuation.',
+    },
+    {
+      icon: '📄',
+      title: 'Document Share',
+      desc: 'Secure distribution of supply orders, manifests, and technical documentation.',
+    },
+    {
+      icon: '📡',
+      title: 'Communication',
+      desc: 'Internal messaging and notification system for supply chain stakeholders.',
+    },
+    {
+      icon: '🏛️',
+      title: 'Administration',
+      desc: 'Unit management, organizational hierarchy, and configuration of system settings.',
+    },
+    {
+      icon: '👤',
+      title: 'IAM',
+      desc: 'Identity and access management with role-based permissions and audit logging.',
+    },
+    {
+      icon: '🔍',
+      title: 'Inspectorate',
+      desc: 'Inspection scheduling, checklist management, and compliance reporting.',
+    },
+    {
+      icon: '📈',
+      title: 'Dashboard',
+      desc: 'Executive overview of all supply chain KPIs, alerts, and operational status.',
+    },
   ];
 
   readonly galleryImages: GalleryImage[] = [

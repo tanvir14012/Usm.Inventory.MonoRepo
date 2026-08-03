@@ -4,7 +4,7 @@ using Usm.Shared.Data.DbContextExtensions;
 
 namespace Identity.Infrastructure.Persistence;
 
-public sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> options): ServiceDbContext(options, "identity"), IIdentityDbContext
+public sealed class IdentityDbContext(DbContextOptions<IdentityDbContext> options) : ServiceDbContext(options, "identity"), IIdentityDbContext
 {
     public DbSet<User> Users => Set<User>();
 

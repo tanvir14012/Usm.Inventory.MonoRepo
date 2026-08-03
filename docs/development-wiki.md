@@ -42,11 +42,14 @@ Backend services follow Clean Architecture and CQRS patterns:
 
 - SDK is pinned in `global.json` (`10.0.301`, roll-forward by feature).
 - Central package versions are managed in `Directory.Packages.props`.
+- Repository-wide backend style and formatting rules are enforced by the root `.editorconfig` (Visual Studio 2026 / `dotnet format` aligned).
 
 ### Frontend
 
 - Angular 21 with npm (`Frontend/Angular/package.json`).
 - Common scripts include `start`, `start:https`, `build`, `test`, and `lint`.
+- Frontend formatting is enforced by `Frontend/Angular/.editorconfig`, `Frontend/Angular/.prettierrc`, and `Frontend/Angular/.vscode/settings.json`.
+- Use `npm run format` (inside `Frontend/Angular`) to apply the Angular formatting baseline.
 - PDF export infrastructure is available through `Frontend/Angular/src/app/shared/services/pdf-export.service.ts` (based on `jspdf` + `jspdf-autotable`) using `TableExportTemplateDto` + table `pdfRender` column hooks.
 
 ### Frontend PDF export usage
@@ -100,6 +103,9 @@ Use this path to add PDF export on list screens with minimal duplication:
 1. Build and test the area you changed first.
 2. Run broader validation when touching shared libraries, contracts, or bootstrapping code.
 3. Keep commits scoped by concern (do not bundle unrelated refactors).
+4. Apply formatter baselines before PR creation:
+   - `dotnet format Usm.Inventory.MonoRepo.slnx`
+   - `cd Frontend/Angular && npm run format`
 
 ## 6. Observability and operations surface
 
@@ -803,4 +809,3 @@ Wire these metrics into the existing Prometheus/Grafana stack via `postgres_expo
 | Replication lag spike | Long-running transaction on primary | `SELECT pid, query, now() - query_start FROM pg_stat_activity WHERE state = 'active'` → kill if appropriate |
 | `40001 serialization failure` | Concurrent write conflicts on serializable isolation | Retry with exponential backoff; consider `REPEATABLE READ` if stricter isolation not required |
 | Migration times out | Blocking lock on large table | Use shadow table + trigger swap pattern or scheduled low-traffic window |
-

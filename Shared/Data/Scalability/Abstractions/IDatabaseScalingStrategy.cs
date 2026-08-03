@@ -4,13 +4,13 @@ namespace Usm.Shared.Data.Scalability.Abstractions;
 [Flags]
 public enum ScalingStrategyType
 {
-    None                = 0,
-    Replication         = 1 << 0,
-    Federation          = 1 << 1,
-    Sharding            = 1 << 2,
-    MaterializedView    = 1 << 3,
+    None = 0,
+    Replication = 1 << 0,
+    Federation = 1 << 1,
+    Sharding = 1 << 2,
+    MaterializedView = 1 << 3,
     EventualConsistency = 1 << 4,
-    RowEncryption       = 1 << 5,
+    RowEncryption = 1 << 5,
 }
 
 /// <summary>

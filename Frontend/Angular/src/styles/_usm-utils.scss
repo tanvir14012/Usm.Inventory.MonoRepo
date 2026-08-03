@@ -42,7 +42,7 @@ $usm-breakpoints: (
   @return clamp(#{$min-size}, #{$intersection} + #{$slope * 100}vw, #{$max-size});
 }
 
-@function spacing($step, $base: .25rem) {
+@function spacing($step, $base: 0.25rem) {
   @return $step * $base;
 }
 

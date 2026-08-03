@@ -39,11 +39,11 @@ internal static class PropertyAccessorCache
     /// </summary>
     private static Action<object, object?> CompileSetter(Type ownerType, PropertyInfo prop)
     {
-        var instance     = Expression.Parameter(typeof(object), "instance");
-        var value        = Expression.Parameter(typeof(object), "value");
+        var instance = Expression.Parameter(typeof(object), "instance");
+        var value = Expression.Parameter(typeof(object), "value");
         var castInstance = Expression.Convert(instance, ownerType);
-        var castValue    = Expression.Convert(value, prop.PropertyType);
-        var body         = Expression.Assign(Expression.Property(castInstance, prop), castValue);
+        var castValue = Expression.Convert(value, prop.PropertyType);
+        var body = Expression.Assign(Expression.Property(castInstance, prop), castValue);
         return Expression.Lambda<Action<object, object?>>(body, instance, value).Compile();
     }
 }

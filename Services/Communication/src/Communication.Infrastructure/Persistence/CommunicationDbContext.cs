@@ -1,6 +1,6 @@
+using Communication.Domain.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Usm.Shared.Data.DbContextExtensions;
-using Communication.Domain.Notifications;
 
 namespace Communication.Infrastructure.Persistence;
 

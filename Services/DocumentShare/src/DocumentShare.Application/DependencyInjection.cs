@@ -1,7 +1,7 @@
+using DocumentShare.Application.Documents.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.BuildingBlocks.Validation;
-using DocumentShare.Application.Documents.Queries;
 
 namespace DocumentShare.Application;
 

@@ -36,7 +36,7 @@ internal sealed class OpenXmlExcelReader(
             typeof(TDto).Name, options.WorksheetIndex, options.SkipHeaderRow);
 
         var records = new List<TDto>();
-        var errors  = new List<ExcelValidationError>();
+        var errors = new List<ExcelValidationError>();
 
         // Resolve dependencies once before entering the sync OpenXml loop.
         var populator = ResolvePopulator<TDto>();
@@ -85,13 +85,13 @@ internal sealed class OpenXmlExcelReader(
                 nameof(options.WorksheetIndex),
                 $"Worksheet index {options.WorksheetIndex} is out of range (workbook has {sheets.Length} sheet(s)).");
 
-        var sheetId  = sheets[options.WorksheetIndex].Id?.Value
+        var sheetId = sheets[options.WorksheetIndex].Id?.Value
             ?? throw new InvalidOperationException("Sheet has no Id attribute.");
         var wsPart = (WorksheetPart)workbookPart.GetPartById(sheetId);
 
         // SAX loop — one Row DOM element loaded at a time, all others streamed past.
-        using var reader  = OpenXmlReader.Create(wsPart);
-        int rowNumber     = 0;
+        using var reader = OpenXmlReader.Create(wsPart);
+        int rowNumber = 0;
         int processedRows = 0;
 
         while (reader.Read())
@@ -117,12 +117,12 @@ internal sealed class OpenXmlExcelReader(
             {
                 errors.Add(new ExcelValidationError
                 {
-                    RowNumber     = rowNumber,
-                    ColumnIndex   = ce.ColumnIndex,
-                    PropertyName  = ce.PropertyName,
+                    RowNumber = rowNumber,
+                    ColumnIndex = ce.ColumnIndex,
+                    PropertyName = ce.PropertyName,
                     OriginalValue = ce.OriginalValue,
-                    ExpectedType  = ce.ExpectedType,
-                    Message       = ce.Message
+                    ExpectedType = ce.ExpectedType,
+                    Message = ce.Message
                 });
             }
 
@@ -136,12 +136,12 @@ internal sealed class OpenXmlExcelReader(
                     {
                         errors.Add(new ExcelValidationError
                         {
-                            RowNumber     = rowNumber,
-                            ColumnIndex   = -1,
-                            PropertyName  = failure.PropertyName,
+                            RowNumber = rowNumber,
+                            ColumnIndex = -1,
+                            PropertyName = failure.PropertyName,
                             OriginalValue = failure.AttemptedValue?.ToString(),
-                            ExpectedType  = "Validation",
-                            Message       = failure.ErrorMessage
+                            ExpectedType = "Validation",
+                            Message = failure.ErrorMessage
                         });
                     }
                 }
@@ -159,7 +159,7 @@ internal sealed class OpenXmlExcelReader(
                 options.Progress?.Report(new ExcelReadProgress
                 {
                     ProcessedRows = processedRows,
-                    ErrorCount    = errors.Count,
+                    ErrorCount = errors.Count,
                     CorrelationId = correlationId
                 });
             }
@@ -168,7 +168,7 @@ internal sealed class OpenXmlExcelReader(
         options.Progress?.Report(new ExcelReadProgress
         {
             ProcessedRows = processedRows,
-            ErrorCount    = errors.Count,
+            ErrorCount = errors.Count,
             CorrelationId = correlationId
         });
     }
@@ -184,7 +184,8 @@ internal sealed class OpenXmlExcelReader(
         foreach (var cell in row.Elements<Cell>())
         {
             var colIndex = ExcelCellHelper.GetColumnIndex(cell.CellReference?.Value);
-            if (colIndex < 0) continue;
+            if (colIndex < 0)
+                continue;
             sparse[colIndex] = GetCellStringValue(cell, sharedStrings);
         }
 
@@ -192,7 +193,7 @@ internal sealed class OpenXmlExcelReader(
             return Array.Empty<string?>();
 
         var maxCol = sparse.Keys.Max();
-        var dense  = new string?[maxCol + 1];
+        var dense = new string?[maxCol + 1];
         foreach (var (col, val) in sparse)
             dense[col] = val;
 
@@ -209,7 +210,8 @@ internal sealed class OpenXmlExcelReader(
             return cell.InlineString?.Text?.Text;
 
         var raw = cell.CellValue?.Text;
-        if (raw is null) return null;
+        if (raw is null)
+            return null;
 
         if (dataType == CellValues.SharedString)
         {

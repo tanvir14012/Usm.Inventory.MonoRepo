@@ -1,4 +1,4 @@
-﻿using Identity.Application.Auth.Dtos;
+using Identity.Application.Auth.Dtos;
 
 namespace Identity.Application.Auth.Utils;
 

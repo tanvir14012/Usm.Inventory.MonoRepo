@@ -15,7 +15,8 @@ internal static class ExcelCellHelper
         int index = 0;
         foreach (var ch in cellReference)
         {
-            if (!char.IsLetter(ch)) break;
+            if (!char.IsLetter(ch))
+                break;
             index = index * 26 + (ch - 'A' + 1);
         }
 

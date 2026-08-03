@@ -38,9 +38,9 @@ public sealed class JobSchedulerTests
         services.AddTransient<PriorityTwoJob>();
         services.AddTransient<PriorityOneJob>();
 
-        var sp    = services.BuildServiceProvider();
+        var sp = services.BuildServiceProvider();
         var sched = sp.CreateScope().ServiceProvider.GetRequiredService<IJobScheduler>();
-        var repo  = sp.GetRequiredService<IJobRepository>();
+        var repo = sp.GetRequiredService<IJobRepository>();
         return (sched, repo);
     }
 
@@ -66,7 +66,7 @@ public sealed class JobSchedulerTests
         var (sched, repo) = BuildScheduler();
         var payload = new MyPayload("import.xlsx", 200);
 
-        var id     = await sched.EnqueueAsync<PriorityTwoJob>(payload);
+        var id = await sched.EnqueueAsync<PriorityTwoJob>(payload);
         var record = await repo.GetByIdAsync(id);
 
         Assert.NotNull(record!.SerializedPayload);
@@ -91,7 +91,7 @@ public sealed class JobSchedulerTests
         var (sched, repo) = BuildScheduler();
         using var ms = new MemoryStream([1, 2, 3, 4, 5]);
 
-        var id     = await sched.EnqueueAsync<PriorityTwoJob>(ms);
+        var id = await sched.EnqueueAsync<PriorityTwoJob>(ms);
         var record = await repo.GetByIdAsync(id);
 
         Assert.NotNull(record!.SerializedPayload);

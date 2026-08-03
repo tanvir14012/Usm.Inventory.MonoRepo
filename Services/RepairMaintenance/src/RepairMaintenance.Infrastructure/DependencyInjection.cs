@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RepairMaintenance.Application.Abstractions;
 using RepairMaintenance.Infrastructure.Persistence;

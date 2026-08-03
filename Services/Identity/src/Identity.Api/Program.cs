@@ -1,4 +1,4 @@
-﻿using Identity.Application;
+using Identity.Application;
 using Identity.Infrastructure;
 using Identity.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

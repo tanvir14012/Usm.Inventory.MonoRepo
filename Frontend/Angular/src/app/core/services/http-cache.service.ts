@@ -21,6 +21,6 @@ export class HttpCacheService {
       this.cache.clear();
       return;
     }
-    this.cache.invalidate(key => key.includes(urlPattern));
+    this.cache.invalidate((key) => key.includes(urlPattern));
   }
 }

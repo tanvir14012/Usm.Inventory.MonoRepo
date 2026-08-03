@@ -1,4 +1,4 @@
-﻿using IssueReceipt.Application;
+using IssueReceipt.Application;
 using IssueReceipt.Infrastructure;
 using IssueReceipt.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

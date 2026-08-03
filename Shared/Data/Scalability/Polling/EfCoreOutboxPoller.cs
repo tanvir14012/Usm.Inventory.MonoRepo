@@ -53,7 +53,7 @@ public sealed class EfCoreOutboxPoller<TDbContext, TMessage>(
         var messages = await db.Set<TMessage>()
             .FromSqlRaw(sql,
                 new NpgsqlParameter("maxRetry", _options.MaxRetryCount),
-                new NpgsqlParameter("batch",    batchSize))
+                new NpgsqlParameter("batch", batchSize))
             .AsTracking()
             .ToListAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -67,7 +67,8 @@ public sealed class EfCoreOutboxPoller<TDbContext, TMessage>(
         IReadOnlyList<TMessage> messages,
         CancellationToken cancellationToken = default)
     {
-        if (messages.Count == 0) return;
+        if (messages.Count == 0)
+            return;
 
         await using var db = await _contextFactory
             .CreateDbContextAsync(cancellationToken)

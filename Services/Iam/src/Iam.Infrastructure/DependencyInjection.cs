@@ -1,6 +1,6 @@
-﻿using Iam.Infrastructure.Persistence;
-using Iam.Infrastructure.Authorization;
 using Iam.Application.Abstractions;
+using Iam.Infrastructure.Authorization;
+using Iam.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

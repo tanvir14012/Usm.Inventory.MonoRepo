@@ -48,7 +48,8 @@ public static class ReadReplicaContext
         private bool _disposed;
         public void Dispose()
         {
-            if (_disposed) return;
+            if (_disposed)
+                return;
             restore();
             _disposed = true;
         }

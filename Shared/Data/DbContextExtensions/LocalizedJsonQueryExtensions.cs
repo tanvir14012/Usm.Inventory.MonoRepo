@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using Usm.Shared.Contracts.Localization;
 
 namespace Usm.Shared.Data.DbContextExtensions;

@@ -7,23 +7,23 @@ public sealed class DtoPopulatorTests
 {
     private sealed class AllTypesDto
     {
-        public string    StringProp  { get; set; } = string.Empty;
-        public int       IntProp     { get; set; }
-        public long      LongProp    { get; set; }
-        public decimal   DecimalProp { get; set; }
-        public float     FloatProp   { get; set; }
-        public double    DoubleProp  { get; set; }
-        public bool      BoolProp    { get; set; }
-        public DateTime  DateProp    { get; set; }
-        public Guid      GuidProp    { get; set; }
-        public TimeSpan  TimeProp    { get; set; }
+        public string StringProp { get; set; } = string.Empty;
+        public int IntProp { get; set; }
+        public long LongProp { get; set; }
+        public decimal DecimalProp { get; set; }
+        public float FloatProp { get; set; }
+        public double DoubleProp { get; set; }
+        public bool BoolProp { get; set; }
+        public DateTime DateProp { get; set; }
+        public Guid GuidProp { get; set; }
+        public TimeSpan TimeProp { get; set; }
     }
 
     private sealed class NullableDto
     {
-        public int?      NullableInt  { get; set; }
-        public decimal?  NullableDec  { get; set; }
-        public bool?     NullableBool { get; set; }
+        public int? NullableInt { get; set; }
+        public decimal? NullableDec { get; set; }
+        public bool? NullableBool { get; set; }
         public DateTime? NullableDate { get; set; }
     }
 
@@ -64,12 +64,12 @@ public sealed class DtoPopulatorTests
 
     // ── Bool ──────────────────────────────────────────────────────────────────
     [Theory]
-    [InlineData("true",  true)]
+    [InlineData("true", true)]
     [InlineData("false", false)]
-    [InlineData("1",     true)]
-    [InlineData("0",     false)]
-    [InlineData("Yes",   true)]
-    [InlineData("No",    false)]
+    [InlineData("1", true)]
+    [InlineData("0", false)]
+    [InlineData("Yes", true)]
+    [InlineData("No", false)]
     public void Populate_Bool_VariousForms(string raw, bool expected)
     {
         var (dto, errors) = Populator<AllTypesDto>().Populate(["", "", "", "", "", "", raw]);
@@ -130,9 +130,9 @@ public sealed class DtoPopulatorTests
 
     // ── Enum ──────────────────────────────────────────────────────────────────
     [Theory]
-    [InlineData("Active",   Status.Active)]
+    [InlineData("Active", Status.Active)]
     [InlineData("inactive", Status.Inactive)]
-    [InlineData("ACTIVE",   Status.Active)]
+    [InlineData("ACTIVE", Status.Active)]
     public void Populate_Enum_CaseInsensitive(string raw, Status expected)
     {
         var (dto, errors) = Populator<EnumDto>().Populate([raw]);
@@ -169,7 +169,7 @@ public sealed class DtoPopulatorTests
         var (dto, errors) = Populator<AllTypesDto>().Populate(["text", "", "99"]);
         Assert.Empty(errors);
         Assert.Equal("text", dto.StringProp);
-        Assert.Equal(0,      dto.IntProp);    // empty → default
-        Assert.Equal(99L,    dto.LongProp);
+        Assert.Equal(0, dto.IntProp);    // empty → default
+        Assert.Equal(99L, dto.LongProp);
     }
 }

@@ -43,7 +43,11 @@ interface Breadcrumb {
     @if (breadcrumbs().length) {
       <nav aria-label="breadcrumb" class="breadcrumb-bar">
         <ol>
-          @for (crumb of breadcrumbs(); track crumb.labelKey ?? crumb.label ?? $index; let last = $last) {
+          @for (
+            crumb of breadcrumbs();
+            track crumb.labelKey ?? crumb.label ?? $index;
+            let last = $last
+          ) {
             @if (!last && crumb.route) {
               <li>
                 <a [routerLink]="crumb.route">
@@ -69,44 +73,46 @@ interface Breadcrumb {
       </nav>
     }
   `,
-  styles: [`
-    .breadcrumb-bar {
-      margin: 0 0 14px;
-      color: #64748b;
-      font-size: 12px;
-    }
-    ol {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      min-width: 0;
-      flex-wrap: wrap;
-    }
-    a {
-      color: #00614b;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .separator {
-      display: inline-flex;
-      color: #94a3b8;
-    }
-    .separator mat-icon {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
-    }
-    .current {
-      color: #475569;
-      font-weight: 600;
-    }
-  `],
+  styles: [
+    `
+      .breadcrumb-bar {
+        margin: 0 0 14px;
+        color: #64748b;
+        font-size: 12px;
+      }
+      ol {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        min-width: 0;
+        flex-wrap: wrap;
+      }
+      a {
+        color: #00614b;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .separator {
+        display: inline-flex;
+        color: #94a3b8;
+      }
+      .separator mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+      .current {
+        color: #475569;
+        font-weight: 600;
+      }
+    `,
+  ],
 })
 export class BreadcrumbComponent {
   private readonly router = inject(Router);
@@ -164,7 +170,7 @@ export class BreadcrumbComponent {
     return {
       label: entry.translate ? undefined : resolvedValue,
       labelKey: entry.translate ? resolvedValue : undefined,
-      route: entry.route === null ? undefined : entry.route ?? routeUrl,
+      route: entry.route === null ? undefined : (entry.route ?? routeUrl),
     };
   }
 
@@ -209,20 +215,18 @@ export class BreadcrumbComponent {
   }
 
   private lookupPath(source: Params, path: string): unknown {
-    return path
-      .split('.')
-      .reduce<unknown>((current, segment) => {
-        if (current && typeof current === 'object' && segment in current) {
-          return (current as Record<string, unknown>)[segment];
-        }
+    return path.split('.').reduce<unknown>((current, segment) => {
+      if (current && typeof current === 'object' && segment in current) {
+        return (current as Record<string, unknown>)[segment];
+      }
 
-        return undefined;
-      }, source);
+      return undefined;
+    }, source);
   }
 
   private routeUrl(snapshot: ActivatedRouteSnapshot): string {
     const path = snapshot.pathFromRoot
-      .flatMap(route => route.url.map(segment => segment.path))
+      .flatMap((route) => route.url.map((segment) => segment.path))
       .filter(Boolean)
       .join('/');
 

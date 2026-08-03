@@ -1,6 +1,6 @@
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
-using System.Threading.RateLimiting;
 using Usm.Inventory.MonoRepo.ServiceDefaults;
 using Usm.Shared.BuildingBlocks.Bootstrap;
 

@@ -63,7 +63,8 @@ internal sealed class CdnCacheInvalidator(
             RedisChannel.Literal(InvalidationChannel),
             async (_, message) =>
             {
-                if (ct.IsCancellationRequested) return;
+                if (ct.IsCancellationRequested)
+                    return;
                 try
                 {
                     await handler(message.ToString()).ConfigureAwait(false);

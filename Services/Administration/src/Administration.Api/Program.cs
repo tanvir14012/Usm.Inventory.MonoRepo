@@ -1,4 +1,4 @@
-﻿using Administration.Application;
+using Administration.Application;
 using Administration.Infrastructure;
 using Administration.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

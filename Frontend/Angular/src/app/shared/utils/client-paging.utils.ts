@@ -15,8 +15,12 @@ export function toClientPagedResult<T extends { id: string }>(
 ): PagedResult<T> {
   const search = query.search?.trim().toLowerCase() ?? '';
   const filtered = search
-    ? items.filter(item =>
-        searchableKeys.some(key => String(item[key] ?? '').toLowerCase().includes(search)),
+    ? items.filter((item) =>
+        searchableKeys.some((key) =>
+          String(item[key] ?? '')
+            .toLowerCase()
+            .includes(search),
+        ),
       )
     : [...items];
 

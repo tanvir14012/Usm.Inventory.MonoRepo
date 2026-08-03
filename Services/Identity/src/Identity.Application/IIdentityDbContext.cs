@@ -1,4 +1,4 @@
-﻿
+
 using Identity.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 

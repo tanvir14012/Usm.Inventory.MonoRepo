@@ -1,4 +1,4 @@
-﻿using Reporting.Application;
+using Reporting.Application;
 using Reporting.Infrastructure;
 using Reporting.Infrastructure.Persistence;
 using Usm.Shared.BuildingBlocks.Bootstrap;

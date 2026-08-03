@@ -86,10 +86,11 @@ public static class BackgroundJobsServiceCollectionExtensions
 
     private static bool IsFrameworkAssembly(string? fullName)
     {
-        if (fullName is null) return true;
+        if (fullName is null)
+            return true;
         return fullName.StartsWith("Microsoft.", StringComparison.Ordinal)
-            || fullName.StartsWith("System.",    StringComparison.Ordinal)
-            || fullName.StartsWith("mscorlib",   StringComparison.Ordinal)
-            || fullName.StartsWith("netstandard",StringComparison.Ordinal);
+            || fullName.StartsWith("System.", StringComparison.Ordinal)
+            || fullName.StartsWith("mscorlib", StringComparison.Ordinal)
+            || fullName.StartsWith("netstandard", StringComparison.Ordinal);
     }
 }

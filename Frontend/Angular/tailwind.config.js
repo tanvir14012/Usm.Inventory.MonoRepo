@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         primary: {
           DEFAULT: 'var(--mat-primary-color)',
-          50:  'var(--mat-primary-50)',
+          50: 'var(--mat-primary-50)',
           100: 'var(--mat-primary-100)',
           200: 'var(--mat-primary-200)',
           300: 'var(--mat-primary-300)',
@@ -37,10 +37,7 @@ module.exports = {
   },
   plugins: [],
   // Safelist dynamic permission/state classes
-  safelist: [
-    'rtl', 'ltr',
-    { pattern: /^(bg|text|border)-(primary|accent|warn)/ },
-  ],
+  safelist: ['rtl', 'ltr', { pattern: /^(bg|text|border)-(primary|accent|warn)/ }],
   corePlugins: {
     // Preflight resets conflict with Angular Material; disable only base styles
     preflight: false,

@@ -34,7 +34,13 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2 mat-dialog-title>{{ data ? ('administration.departments.editTitle' | translate) : ('administration.departments.addNew' | translate) }}</h2>
+    <h2 mat-dialog-title>
+      {{
+        data
+          ? ('administration.departments.editTitle' | translate)
+          : ('administration.departments.addNew' | translate)
+      }}
+    </h2>
     <mat-dialog-content>
       <form [formGroup]="form" class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
         <mat-form-field>
@@ -67,7 +73,9 @@ import {
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>{{ 'common.cancel' | translate }}</button>
-      <button mat-flat-button color="primary" (click)="onSubmit()">{{ 'common.save' | translate }}</button>
+      <button mat-flat-button color="primary" (click)="onSubmit()">
+        {{ 'common.save' | translate }}
+      </button>
     </mat-dialog-actions>
   `,
 })
@@ -84,7 +92,7 @@ export class DepartmentFormDialogComponent extends BaseFormComponent<DepartmentD
     nameEn: [this.data?.nameEn ?? '', [Validators.required]],
     nameAr: [this.data?.nameAr ?? '', [Validators.required]],
     code: [this.data?.code ?? '', [Validators.required]],
-    parentId: [this.data?.parentId ?? null as string | null],
+    parentId: [this.data?.parentId ?? (null as string | null)],
     isActive: [this.data?.isActive ?? true],
   });
 
@@ -94,10 +102,11 @@ export class DepartmentFormDialogComponent extends BaseFormComponent<DepartmentD
 
   constructor() {
     super();
-    this.service.getAll()
+    this.service
+      .getAll()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(items => {
-        this.availableParents.set(items.filter(item => item.id !== this.data?.id));
+      .subscribe((items) => {
+        this.availableParents.set(items.filter((item) => item.id !== this.data?.id));
       });
   }
 

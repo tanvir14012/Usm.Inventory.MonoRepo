@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 
 namespace Identity.Application.Auth.Commands;
 
