@@ -166,17 +166,17 @@ public static class BootstrapExtensions
         var postgresConnectionStringFromEnv = configuration["POSTGRES_CONNECTION_STRING"];
 
         if ((string.IsNullOrWhiteSpace(postgresConnectionString) || IsMaskedPlaceholder(postgresConnectionString))
-            && !string.IsNullOrWhiteSpace(postgresConnectionStringFromEnv))
-        {
-            configuration["ConnectionStrings:Postgres"] = postgresConnectionStringFromEnv;
-            postgresConnectionString = postgresConnectionStringFromEnv;
-        }
-
-        if ((string.IsNullOrWhiteSpace(postgresConnectionString) || IsMaskedPlaceholder(postgresConnectionString))
             && !string.IsNullOrWhiteSpace(usmDbConnectionString))
         {
             configuration["ConnectionStrings:Postgres"] = usmDbConnectionString;
             postgresConnectionString = usmDbConnectionString;
+        }
+
+        if ((string.IsNullOrWhiteSpace(postgresConnectionString) || IsMaskedPlaceholder(postgresConnectionString))
+            && !string.IsNullOrWhiteSpace(postgresConnectionStringFromEnv))
+        {
+            configuration["ConnectionStrings:Postgres"] = postgresConnectionStringFromEnv;
+            postgresConnectionString = postgresConnectionStringFromEnv;
         }
 
         if ((string.IsNullOrWhiteSpace(usmDbConnectionString) || IsMaskedPlaceholder(usmDbConnectionString))

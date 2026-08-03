@@ -78,11 +78,14 @@ Use this path to add PDF export on list screens with minimal duplication:
 
 ### Typical local run options
 
-1. **Backend + infrastructure via Docker Compose**
+1. **Full backend stack via Aspire AppHost (recommended for local parity)**
+   - `dotnet run --project AppHost/Usm.Inventory.MonoRepo.AppHost.csproj`
+   - AppHost now injects Kubernetes-style runtime keys (`ApiEndpoints__*`, `Auth__*`, `Jwt__*`, `Observability__*`, `RabbitMq__*`, Redis cache keys) while keeping local host defaults for ports and endpoints.
+2. **Backend + infrastructure via Docker Compose**
    - `docker compose --env-file .env up -d --force-recreate`
-2. **Frontend local dev server**
+3. **Frontend local dev server**
    - `npm start` (from `Frontend/Angular`)
-3. **HTTPS frontend local dev**
+4. **HTTPS frontend local dev**
    - `npm run start:https` (from `Frontend/Angular`)
 
 ## 5. Build, test, and quality workflow
@@ -134,6 +137,8 @@ The platform integrates OpenTelemetry + Grafana/Loki/Prometheus/Jaeger in local 
 3. AKS deployment.
 
 Kubernetes manifests live under `Platform/Kubernetes/` and include namespace, observability stack, and workloads.
+
+For local parity, keep `AppHost/Program.cs` and `.env.example` synchronized with `Platform/Kubernetes/01-configmap.yaml` and `Platform/Kubernetes/02-secret.yaml` key naming whenever platform runtime configuration changes.
 
 For full Azure deployment runbook (frontend, backend microservices, gateway, telemetry, ingress, and rollout sequence), see [Azure Cloud Deployment Guide](azure-cloud-deployment-guide.md).
 
