@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Usm.Shared.Infrastructure.CDN
+    High-performance CDN static media delivery library providing:
+      - Unified distribution strategy orchestration (regional sharding, load balancing, origin-shield, edge processing)
+      - Low-allocation byte-range streaming via System.IO.Pipelines
+      - Adaptive image processing (ImageSharp: resize, WebP/AVIF conversion)
+      - HLS/DASH fragment pass-through
+      - Nginx ngx_http_secure_link_module compatible MD5 signed URL generation
+      - Multi-backend storage engine (S3/R2/MinIO, Local FS) with circuit-breaking failover
+      - Redis-backed asset metadata and variant caches with pub/sub global invalidation
+      - Idempotent edge asset lifecycle initialization from /cdn-manifests
+      - Secure chunked multipart upload with background scan hooks
+  -->
+
+  <ItemGroup>
+    <!-- ASP.NET Core types: IHttpResponseBodyFeature, HttpContext, IHeaderDictionary, StatusCodes -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" />
+    <PackageReference Include="SixLabors.ImageSharp" />
+    <PackageReference Include="StackExchange.Redis" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Caching\Usm.Shared.Caching.csproj" />
+  </ItemGroup>
+
+</Project>
