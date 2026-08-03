@@ -3,17 +3,38 @@ name: usm-inventory-platform
 services:
   # ── Infrastructure ────────────────────────────────────────────────────────────
   postgres:
-    image: postgres:17
-    container_name: usm-postgres
+    image: bitnami/postgresql:16
+    container_name: usm-postgres-primary
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRESQL_USERNAME: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRESQL_DATABASE: ${POSTGRES_DB}
+      POSTGRESQL_REPLICATION_MODE: master
+      POSTGRESQL_REPLICATION_USER: ${POSTGRES_REPLICATION_USER}
+      POSTGRESQL_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD}
     ports:
       - "${POSTGRES_PORT:?POSTGRES_PORT is required}:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/bitnami/postgresql
+
+  postgres-replica:
+    image: bitnami/postgresql:16
+    container_name: usm-postgres-replica
+    restart: unless-stopped
+    environment:
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRESQL_REPLICATION_MODE: slave
+      POSTGRESQL_MASTER_HOST: postgres
+      POSTGRESQL_MASTER_PORT_NUMBER: 5432
+      POSTGRESQL_REPLICATION_USER: ${POSTGRES_REPLICATION_USER}
+      POSTGRESQL_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD}
+    ports:
+      - "${POSTGRES_REPLICA_PORT:-5433}:5432"
+    depends_on:
+      - postgres
+    volumes:
+      - postgres_replica_data:/bitnami/postgresql
 
   rabbitmq:
     image: rabbitmq:3.13-management
@@ -34,6 +55,19 @@ services:
       - "${REDIS_PORT:?REDIS_PORT is required}:6379"
     volumes:
       - redis_data:/data
+
+  localstack:
+    image: localstack/localstack:3.5
+    container_name: usm-localstack
+    restart: unless-stopped
+    environment:
+      SERVICES: cloudfront,s3,route53,acm
+      DEBUG: 0
+      AWS_DEFAULT_REGION: us-east-1
+    ports:
+      - "${LOCALSTACK_PORT:-4566}:4566"
+    volumes:
+      - localstack_data:/var/lib/localstack
 
   # ── Observability ─────────────────────────────────────────────────────────────
   prometheus:
@@ -418,6 +452,8 @@ services:
 
 volumes:
   postgres_data:
+  postgres_replica_data:
   rabbitmq_data:
   redis_data:
   grafana_data:
+  localstack_data:

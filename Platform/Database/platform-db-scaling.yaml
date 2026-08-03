@@ -1,0 +1,240 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-primary
+  namespace: usm-platform
+spec:
+  selector:
+    app: postgres
+    role: primary
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-replica
+  namespace: usm-platform
+spec:
+  selector:
+    app: postgres
+    role: replica
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-primary
+  namespace: usm-platform
+spec:
+  serviceName: postgres-primary
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+      role: primary
+  template:
+    metadata:
+      labels:
+        app: postgres
+        role: primary
+    spec:
+      securityContext:
+        fsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: bitnami/postgresql:16.4.0
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRESQL_USERNAME
+              value: usm_app
+            - name: POSTGRESQL_DATABASE
+              value: usm_inventory
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: usm-runtime-secrets
+                  key: Postgres__Password
+            - name: POSTGRESQL_REPLICATION_MODE
+              value: master
+            - name: POSTGRESQL_REPLICATION_USER
+              value: repl_user
+            - name: POSTGRESQL_REPLICATION_PASSWORD
+              value: repl_secure_pass_2026
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 2
+              memory: 4Gi
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/postgresql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: managed-csi-premium
+        resources:
+          requests:
+            storage: 256Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-replica
+  namespace: usm-platform
+spec:
+  serviceName: postgres-replica
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postgres
+      role: replica
+  template:
+    metadata:
+      labels:
+        app: postgres
+        role: replica
+    spec:
+      securityContext:
+        fsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: bitnami/postgresql:16.4.0
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRESQL_REPLICATION_MODE
+              value: slave
+            - name: POSTGRESQL_MASTER_HOST
+              value: postgres-primary.usm-platform.svc.cluster.local
+            - name: POSTGRESQL_MASTER_PORT_NUMBER
+              value: "5432"
+            - name: POSTGRESQL_REPLICATION_USER
+              value: repl_user
+            - name: POSTGRESQL_REPLICATION_PASSWORD
+              value: repl_secure_pass_2026
+            - name: POSTGRESQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: usm-runtime-secrets
+                  key: Postgres__Password
+          resources:
+            requests:
+              cpu: 300m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 2Gi
+          securityContext:
+            runAsUser: 1001
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/postgresql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: managed-csi-premium
+        resources:
+          requests:
+            storage: 256Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-sharding-init
+  namespace: usm-platform
+data:
+  init.js: |
+    sh.enableSharding("usm_inventory");
+    sh.shardCollection("usm_inventory.audit_logs", { tenantId: "hashed" });
+    sh.shardCollection("usm_inventory.asset_events", { assetId: "hashed" });
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb-shard
+  namespace: usm-platform
+spec:
+  serviceName: mongodb-shard
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mongodb-shard
+  template:
+    metadata:
+      labels:
+        app: mongodb-shard
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: mongodb
+          image: bitnami/mongodb-sharded:7.0.12
+          ports:
+            - name: mongo
+              containerPort: 27017
+          env:
+            - name: MONGODB_SHARDING_MODE
+              value: shardsvr
+            - name: MONGODB_ROOT_PASSWORD
+              value: m0ng0S3cure!
+            - name: MONGODB_REPLICA_SET_MODE
+              value: primary
+            - name: MONGODB_REPLICA_SET_NAME
+              value: shard-rs0
+          resources:
+            requests:
+              cpu: 300m
+              memory: 512Mi
+            limits:
+              cpu: 1
+              memory: 2Gi
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /bitnami
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: managed-csi-premium
+        resources:
+          requests:
+            storage: 512Gi
