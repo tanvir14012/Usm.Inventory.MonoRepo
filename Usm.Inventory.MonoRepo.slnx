@@ -133,6 +133,9 @@
   <Folder Name="/Shared/BuildingBlocks/Validation/">
     <Project Path="Shared/BuildingBlocks/Validation/Usm.Shared.BuildingBlocks.Validation.csproj" />
   </Folder>
+  <Folder Name="/Shared/CDN/">
+    <Project Path="Shared/CDN/Usm.Shared.Infrastructure.CDN.csproj" />
+  </Folder>
   <Folder Name="/Shared/Contracts/" />
   <Folder Name="/Shared/Contracts/Events/">
     <Project Path="Shared/Contracts/Events/Usm.Shared.Contracts.Events.csproj" />

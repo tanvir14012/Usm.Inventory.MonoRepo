@@ -54,6 +54,9 @@
     <PackageVersion Include="FluentValidation" Version="11.11.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.9" />
+    <!-- CDN Infrastructure -->
+    <PackageVersion Include="AWSSDK.S3" Version="3.7.415.1" />
+    <PackageVersion Include="SixLabors.ImageSharp" Version="3.1.8" />   <!-- 3.1.8 patches GHSA-rxmq-m78w-7wmc -->
     <!-- Test packages -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="xunit" Version="2.9.2" />
