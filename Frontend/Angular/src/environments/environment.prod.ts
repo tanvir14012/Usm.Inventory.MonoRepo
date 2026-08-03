@@ -1,6 +1,10 @@
 export const environment = {
   production: true,
   apiGatewayUrl: '/api',
+  /** Public CDN base URL served by Nginx edge proxy in production. */
+  cdnBaseUrl: 'https://cdn.yourdomain.com',
+  /** Default API version applied to all versioned API requests. */
+  apiVersion: '1.0',
   oidc: {
     issuer: 'https://identity.yourdomain.com',
     clientId: 'usm-inventory-spa',

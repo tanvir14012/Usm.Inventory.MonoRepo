@@ -24,6 +24,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         case 400:
           // Validation errors – returned to caller for form binding
           break;
+        case 429:
+          // Rate limit exhausted (after retries in rateLimitInterceptor)
+          console.warn('Rate limit exceeded. Please slow down.', error);
+          break;
         case 500:
         case 503:
           console.error('HTTP server error', error);

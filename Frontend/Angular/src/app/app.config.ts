@@ -18,6 +18,8 @@ import { errorInterceptor } from './core/http/error.interceptor';
 import { loadingInterceptor } from './core/http/loading.interceptor';
 import { cacheInterceptor } from './core/http/cache.interceptor';
 import { languageInterceptor } from './core/http/language.interceptor';
+import { apiVersionInterceptor } from './core/http/api-version.interceptor';
+import { rateLimitInterceptor } from './core/http/rate-limit.interceptor';
 import { AuthService } from './core/auth/auth.service';
 import { LanguageService } from './core/services/language.service';
 
@@ -44,7 +46,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([
+        apiVersionInterceptor,   // append ?api-version before auth/cache
         authInterceptor,
+        rateLimitInterceptor,    // handle 429 + retry before error handler
         loadingInterceptor,
         errorInterceptor,
         cacheInterceptor,
