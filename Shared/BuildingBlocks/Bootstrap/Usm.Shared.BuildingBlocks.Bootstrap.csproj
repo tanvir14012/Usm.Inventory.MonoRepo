@@ -16,6 +16,7 @@
     <PackageReference Include="Serilog.Sinks.Grafana.Loki" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Asp.Versioning.Http" />
   </ItemGroup>
 
   <ItemGroup>
