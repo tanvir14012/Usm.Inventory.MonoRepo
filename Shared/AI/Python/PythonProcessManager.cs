@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Persistent Python worker manager with pool scheduling and restart support.

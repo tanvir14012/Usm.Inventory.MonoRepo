@@ -2,6 +2,7 @@ namespace Shared.AI.Providers.Claude;
 
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Anthropic Claude API provider for chat completion.
