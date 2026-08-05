@@ -9,26 +9,26 @@ using Microsoft.Extensions.Logging;
 /// </summary>
 internal sealed class PythonAIHostedService : IHostedService
 {
-    private readonly IPythonProcessManager _manager;
+    private readonly PersistentPythonBridge _bridge;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PythonAIHostedService"/> class.
     /// </summary>
-    public PythonAIHostedService(IPythonProcessManager manager)
+    public PythonAIHostedService(PersistentPythonBridge bridge)
     {
-        _manager = manager;
+        _bridge = bridge;
     }
 
     /// <inheritdoc />
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        return _manager.StartAsync(cancellationToken);
+        return _bridge.InitializeAsync(cancellationToken);
     }
 
     /// <inheritdoc />
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        return _manager.StopAsync(cancellationToken);
+        return _bridge.StopAsync(cancellationToken);
     }
 }
 
@@ -72,4 +72,3 @@ public sealed class PythonAIHealthCheck : IHealthCheck
         return Task.FromResult(HealthCheckResult.Healthy("Python AI runtime is healthy."));
     }
 }
-

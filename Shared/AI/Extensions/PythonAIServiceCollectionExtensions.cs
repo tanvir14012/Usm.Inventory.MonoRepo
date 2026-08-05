@@ -25,7 +25,8 @@ public static class PythonAIServiceCollectionExtensions
             .Validate(options => options.Pools.Count == 0 || options.Pools.All(pool => pool.WorkerCount > 0), "Each Python worker pool must contain at least one worker.")
             .ValidateOnStart();
 
-        services.AddSingleton<IPythonProcessManager, PythonProcessManager>();
+        services.AddSingleton<PersistentPythonBridge>();
+        services.AddSingleton<IPythonProcessManager>(sp => sp.GetRequiredService<PersistentPythonBridge>());
         services.AddSingleton<IHostedService, PythonAIHostedService>();
         services.AddSingleton<PythonAIHealthCheck>();
         services.AddSingleton<TransformersWrapper>();
@@ -43,7 +44,8 @@ public static class PythonAIServiceCollectionExtensions
     {
         services.AddOptions<PythonAIOptions>().Configure(configure).ValidateOnStart();
 
-        services.AddSingleton<IPythonProcessManager, PythonProcessManager>();
+        services.AddSingleton<PersistentPythonBridge>();
+        services.AddSingleton<IPythonProcessManager>(sp => sp.GetRequiredService<PersistentPythonBridge>());
         services.AddSingleton<IHostedService, PythonAIHostedService>();
         services.AddSingleton<PythonAIHealthCheck>();
         services.AddSingleton<TransformersWrapper>();

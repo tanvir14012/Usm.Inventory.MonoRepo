@@ -116,6 +116,7 @@ internal sealed class StdioJsonTransport : IPythonTransport
 {
     private readonly string _pythonExecutable;
     private readonly string _workerModule;
+    private readonly string _workerScriptPath;
     private readonly string _bootstrapConfig;
     private readonly string _workerId;
     private readonly string? _workerRootPath;
@@ -130,6 +131,7 @@ internal sealed class StdioJsonTransport : IPythonTransport
     internal StdioJsonTransport(
         string pythonExecutable,
         string workerModule,
+        string workerScriptPath,
         string bootstrapConfig,
         string workerId,
         string? workerRootPath,
@@ -137,6 +139,7 @@ internal sealed class StdioJsonTransport : IPythonTransport
     {
         _pythonExecutable = pythonExecutable;
         _workerModule = workerModule;
+        _workerScriptPath = workerScriptPath;
         _bootstrapConfig = bootstrapConfig;
         _workerId = workerId;
         _workerRootPath = workerRootPath;
@@ -162,7 +165,7 @@ internal sealed class StdioJsonTransport : IPythonTransport
         var psi = new ProcessStartInfo
         {
             FileName = _pythonExecutable,
-            Arguments = $"-u -m {_workerModule}",
+            Arguments = BuildArguments(),
             WorkingDirectory = AppContext.BaseDirectory,
             UseShellExecute = false,
             RedirectStandardInput = true,
@@ -197,6 +200,22 @@ internal sealed class StdioJsonTransport : IPythonTransport
         _ = Task.Run(() => PumpErrorAsync(_stderr, cancellationToken), cancellationToken);
         _logger.LogInformation("Started Python worker process {ProcessId} for {WorkerId}", _process.Id, _workerId);
         await Task.CompletedTask.ConfigureAwait(false);
+    }
+
+    private string BuildArguments()
+    {
+        var scriptPath = _workerScriptPath;
+        if (!Path.IsPathRooted(scriptPath))
+        {
+            scriptPath = Path.GetFullPath(scriptPath, AppContext.BaseDirectory);
+        }
+
+        if (File.Exists(scriptPath))
+        {
+            return $"-u \"{scriptPath}\"";
+        }
+
+        return $"-u -m {_workerModule}";
     }
 
     public async Task SendLineAsync(string payload, CancellationToken cancellationToken)
@@ -497,6 +516,7 @@ internal sealed class PythonWorkerProcess : IAsyncDisposable
                 transport = new StdioJsonTransport(
                     pythonExecutable,
                     _options.WorkerModule,
+                    _options.WorkerScriptPath,
                     BuildBootstrapConfig(),
                     WorkerId,
                     _options.WorkerRootPath,

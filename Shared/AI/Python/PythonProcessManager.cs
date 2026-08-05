@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -264,6 +265,15 @@ public sealed class TransformersWrapper
     /// <summary>
     /// Initializes a new instance of the <see cref="TransformersWrapper"/> class.
     /// </summary>
+    [ActivatorUtilitiesConstructor]
+    public TransformersWrapper(PersistentPythonBridge bridge)
+        : this((IPythonProcessManager)bridge)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TransformersWrapper"/> class.
+    /// </summary>
     public TransformersWrapper(IPythonProcessManager manager)
     {
         _manager = manager ?? throw new ArgumentNullException(nameof(manager));
@@ -337,6 +347,15 @@ public sealed class TransformersWrapper
 public sealed class spaCyWrapper
 {
     private readonly IPythonProcessManager _manager;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="spaCyWrapper"/> class.
+    /// </summary>
+    [ActivatorUtilitiesConstructor]
+    public spaCyWrapper(PersistentPythonBridge bridge)
+        : this((IPythonProcessManager)bridge)
+    {
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="spaCyWrapper"/> class.

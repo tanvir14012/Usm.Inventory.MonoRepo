@@ -111,6 +111,9 @@
   <Folder Name="/Samples/AIEngineDemo/">
     <Project Path="Samples/AIEngineDemo/AIEngineDemo.csproj" />
   </Folder>
+  <Folder Name="/Samples/PythonBridgeDemo/">
+    <Project Path="Samples/PythonBridgeDemo/PythonBridgeDemo.csproj" />
+  </Folder>
   <Folder Name="/Shared/Algorithms/" />
   <Folder Name="/Shared/Algorithms/Collections/" />
   <Folder Name="/Shared/Algorithms/Collections/BloomFilter.Benchmarks/">

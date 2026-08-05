@@ -87,6 +87,9 @@ public sealed class PythonAIOptions
     /// <summary>Gets or sets the worker bootstrap module.</summary>
     public string WorkerModule { get; set; } = "usm_shared_ai.worker";
 
+    /// <summary>Gets or sets the worker script path copied beside the assembly.</summary>
+    public string WorkerScriptPath { get; set; } = Path.Combine("python_worker", "worker.py");
+
     /// <summary>Gets or sets the root folder containing the Python package.</summary>
     public string? WorkerRootPath { get; set; }
 
