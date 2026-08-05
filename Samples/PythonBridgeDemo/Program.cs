@@ -22,4 +22,18 @@ app.MapGet("/health", (IPythonProcessManager bridge) =>
     });
 });
 
+app.MapPost("/demo/embedding", async (TransformersWrapper wrapper, DemoTextRequest request, CancellationToken ct) =>
+{
+    var embedding = await wrapper.GetEmbeddingAsync(request.Text, request.Model, ct);
+    return Results.Ok(new { size = embedding.Length, vector = embedding });
+});
+
+app.MapPost("/demo/entities", async (spaCyWrapper wrapper, DemoTextRequest request, CancellationToken ct) =>
+{
+    var entities = await wrapper.ExtractEntitiesAsync(request.Text, request.Model, ct);
+    return Results.Ok(entities);
+});
+
 app.Run();
+
+public sealed record DemoTextRequest(string Text, string Model);
