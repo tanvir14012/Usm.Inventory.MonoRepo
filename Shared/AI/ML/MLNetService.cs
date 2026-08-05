@@ -54,7 +54,7 @@ public class MLNetService
         var pipeline = _mlContext.Transforms.Concatenate(
                 outputColumnName: "Features",
                 inputColumnNames: featureColumnName)
-            .Append(_mlContext.Regression.Trainers.FastTree());
+            .Append(_mlContext.Regression.Trainers.Sdca());
 
         return pipeline.Fit(trainingData);
     }
@@ -306,6 +306,6 @@ public static class FeatureEngineering
         IEstimator<ITransformer> pipeline,
         params string[] columnNames)
     {
-        return pipeline.Append(mlContext.Transforms.NormalizeMinMax(columnNames));
+        return pipeline.Append(mlContext.Transforms.NormalizeMinMax(columnNames[0]));
     }
 }

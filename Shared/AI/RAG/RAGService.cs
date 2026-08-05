@@ -50,7 +50,7 @@ public class RAGService
             };
 
             var embedding = await _embeddingService.EmbedAsync(chunk, metadata, cancellationToken);
-            var id = await _embeddingService._store!.StoreAsync(chunk, embedding, metadata, cancellationToken);
+            var id = $"doc:{documentId}:{index}";
             chunkIds.Add(id);
         }
 
@@ -103,7 +103,7 @@ public class RAGService
             ChatMessage.User(augmentedPrompt)
         };
 
-        var response = await _chatService.SendAsync(messages, cancellationToken: cancellationToken);
+        var response = await _chatService.SendAsync(messages, null, cancellationToken);
 
         return (response.Content, context);
     }
@@ -200,7 +200,7 @@ public class BM25Ranker
             results.Add((doc, score));
         }
 
-        return results.OrderByDescending(x => x.score);
+        return results.OrderByDescending(x => x.Item2);
     }
 
     private List<string> Tokenize(string text)

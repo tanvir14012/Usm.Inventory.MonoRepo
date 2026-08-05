@@ -185,7 +185,14 @@ public static class AIServiceCollectionExtensions
         string? model = null)
     {
         services.AddSingleton<ILLMProvider>(sp =>
-            new AzureOpenAILLMProvider(endpoint, apiKey, deploymentName, model, null, sp.GetService<ILogger<AzureOpenAILLMProvider>>()));
+            new AzureOpenAILLMProvider(
+                new LLMProviderConfigBuilder()
+                    .WithEndpoint(endpoint)
+                    .WithApiKey(apiKey)
+                    .WithModel(model)
+                    .Build(),
+                null,
+                sp.GetService<ILogger<AzureOpenAILLMProvider>>()));
 
         return services;
     }

@@ -128,17 +128,10 @@ public class OllamaLLMProvider : ILLMProvider
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            try
+            var chunk = JsonSerializer.Deserialize<OllamaStreamChunk>(line);
+            if (chunk?.Message?.Content != null)
             {
-                var chunk = JsonSerializer.Deserialize<OllamaStreamChunk>(line);
-                if (chunk?.Message?.Content != null)
-                {
-                    yield return chunk.Message.Content;
-                }
-            }
-            catch (JsonException ex)
-            {
-                _logger?.LogWarning(ex, "Failed to parse Ollama streaming chunk");
+                yield return chunk.Message.Content;
             }
         }
     }

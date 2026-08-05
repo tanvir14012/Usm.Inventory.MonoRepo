@@ -172,7 +172,7 @@ public class SemanticMemory
         double? similarityThreshold = null,
         CancellationToken cancellationToken = default)
     {
-        var queryEmbedding = await _embeddingService._provider.EmbedAsync(query, cancellationToken);
+        var queryEmbedding = await _embeddingService.EmbedAsync(query, cancellationToken: cancellationToken);
         return await _vectorStore.SearchAsync(queryEmbedding, topK, similarityThreshold, cancellationToken);
     }
 

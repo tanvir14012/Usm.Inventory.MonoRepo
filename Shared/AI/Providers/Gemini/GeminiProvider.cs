@@ -67,13 +67,11 @@ public class GeminiLLMProvider : ILLMProvider
 
             _logger?.LogDebug("Gemini response received: {Length} characters", responseText.Length);
 
-            return new ChatResponse
-            {
-                Content = responseText,
-                Model = _model,
-                FinishReason = result?.Candidates?[0]?.FinishReason ?? "unknown",
-                TokensUsed = result?.UsageMetadata?.TotalTokenCount ?? 0
-            };
+            return new ChatResponse(
+                responseText,
+                _model,
+                result?.UsageMetadata?.PromptTokenCount,
+                result?.UsageMetadata?.CandidatesTokenCount);
         }
         catch (Exception ex)
         {
@@ -100,6 +98,7 @@ public class GeminiLLMProvider : ILLMProvider
             Content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json")
         };
 
+        var collected = new System.Collections.Generic.List<string>();
         try
         {
             using var response = await _httpClient.SendAsync(httpRequest,
@@ -117,18 +116,11 @@ public class GeminiLLMProvider : ILLMProvider
 
                 var jsonData = line["data: ".Length..];
 
-                try
-                {
-                    var chunk = System.Text.Json.JsonSerializer.Deserialize<GeminiResponse>(jsonData);
-                    var text = chunk?.Candidates?[0]?.Content?.Parts?[0]?.Text ?? string.Empty;
+                var chunk = System.Text.Json.JsonSerializer.Deserialize<GeminiResponse>(jsonData);
+                var text = chunk?.Candidates?[0]?.Content?.Parts?[0]?.Text ?? string.Empty;
 
-                    if (!string.IsNullOrEmpty(text))
-                        yield return text;
-                }
-                catch (System.Text.Json.JsonException)
-                {
-                    _logger?.LogDebug("Failed to parse streaming chunk");
-                }
+                if (!string.IsNullOrEmpty(text))
+                    collected.Add(text);
             }
         }
         catch (Exception ex)
@@ -136,6 +128,9 @@ public class GeminiLLMProvider : ILLMProvider
             _logger?.LogError(ex, "Gemini streaming error");
             throw;
         }
+
+        foreach (var text in collected)
+            yield return text;
     }
 
     private Dictionary<string, object> BuildGeminiRequest(
@@ -146,7 +141,7 @@ public class GeminiLLMProvider : ILLMProvider
             .GroupBy(m => m.Role)
             .Select(g => new
             {
-                role = g.Key == ChatMessageRole.User ? "user" : "model",
+                role = g.Key == MessageRole.User ? "user" : "model",
                 parts = g.Select(m => new { text = m.Content }).ToArray()
             })
             .ToList();
@@ -274,12 +269,7 @@ public class GeminiEmbeddingProvider : IEmbeddingProvider
 
             _logger?.LogDebug("Embedding generated with {Dimensions} dimensions", vector.Length);
 
-            return new Embedding
-            {
-                Vector = vector,
-                Model = _model,
-                Metadata = new Dictionary<string, object> { ["text_length"] = text.Length }
-            };
+            return new Embedding(new ReadOnlyMemory<float>(vector), _model, vector.Length);
         }
         catch (Exception ex)
         {
@@ -318,12 +308,7 @@ public class GeminiEmbeddingProvider : IEmbeddingProvider
 
                 if (result?.Embeddings != null)
                 {
-                    embeddings.AddRange(result.Embeddings.Select((e, idx) => new Embedding
-                    {
-                        Vector = e.Values,
-                        Model = _model,
-                        Metadata = new Dictionary<string, object> { ["index"] = i + idx }
-                    }));
+                    embeddings.AddRange(result.Embeddings.Select((e, idx) => new Embedding(new ReadOnlyMemory<float>(e.Values ?? Array.Empty<float>()), _model, e.Values?.Length ?? 0)));
                 }
             }
             catch (Exception ex)

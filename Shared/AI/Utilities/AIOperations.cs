@@ -21,7 +21,7 @@ public static class AIOperations
         int topK = 5,
         CancellationToken cancellationToken = default)
     {
-        return await ragService.AugmentAndGenerateAsync(query, topK, cancellationToken);
+        return await ragService.AugmentAndGenerateAsync(query, cancellationToken: cancellationToken, topK: topK);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public static class AIOperations
         var prompt = instructions ?? $"Classify the following text into one of these categories: {string.Join(", ", labels)}";
         var fullPrompt = $"{prompt}\n\nText: {text}";
 
-        var response = await chatService.SendAsync(fullPrompt, null, cancellationToken);
+        var response = await chatService.SendAsync(fullPrompt, cancellationToken: cancellationToken);
 
         return new StructuredOutputTypes.Classification
         {
@@ -84,7 +84,7 @@ Text: {text}";
         memory.AddMessage(ChatMessage.User(userMessage));
 
         var messages = memory.GetLastMessages(10);
-        var response = await chatService.SendAsync(messages, null, cancellationToken);
+        var response = await chatService.SendAsync(messages, cancellationToken: cancellationToken);
 
         memory.AddMessage(ChatMessage.Assistant(response.Content));
 
@@ -100,7 +100,7 @@ Text: {text}";
         int topK = 5,
         CancellationToken cancellationToken = default)
     {
-        var recalled = await semanticMemory.RecallAsync(query, topK, cancellationToken);
+        var recalled = await semanticMemory.RecallAsync(query, topK, cancellationToken: cancellationToken);
         return recalled.Select(r => r.Text).ToList();
     }
 
@@ -116,7 +116,7 @@ Text: {text}";
 
         foreach (var text in texts)
         {
-            var embedding = await embeddingService.EmbedAsync(text, cancellationToken);
+            var embedding = await embeddingService.EmbedAsync(text);
             results[text] = embedding;
         }
 
@@ -130,7 +130,7 @@ Text: {text}";
     {
         try
         {
-            handler.ExtractStructured<T>(response);
+            response.ExtractStructured<T>(handler);
             return true;
         }
         catch
@@ -300,12 +300,7 @@ public static class AIErrorHandling
         catch (Exception ex)
         {
             logger?.LogError(ex, "Operation failed");
-            return AIResult<T>.Failure(new ErrorDetails
-            {
-                Message = ex.Message,
-                ErrorCode = ex.GetType().Name,
-                Details = ex.StackTrace
-            });
+            return AIResult<T>.Failure(ex.Message);
         }
     }
 }
@@ -429,7 +424,7 @@ public static class AIValidation
             for (int j = i + 1; j < responses.Count; j++)
             {
                 totalPairs++;
-                var similarity = TextProcessingUtils.SimilarityRatio(responses[i], responses[j]);
+                var similarity = StringSimilarity.SimilarityRatio(responses[i], responses[j]);
                 if (similarity >= similarityThreshold)
                     consistentPairs++;
             }

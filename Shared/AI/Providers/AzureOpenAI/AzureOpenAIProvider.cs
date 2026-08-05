@@ -148,17 +148,10 @@ public class AzureOpenAILLMProvider : ILLMProvider
 
             var jsonLine = line.Substring("data: ".Length);
 
-            try
+            var chunk = JsonSerializer.Deserialize<AzureOpenAIStreamChunk>(jsonLine);
+            if (chunk?.Choices?.FirstOrDefault()?.Delta?.Content != null)
             {
-                var chunk = JsonSerializer.Deserialize<AzureOpenAIStreamChunk>(jsonLine);
-                if (chunk?.Choices?.FirstOrDefault()?.Delta?.Content != null)
-                {
-                    yield return chunk.Choices[0].Delta.Content;
-                }
-            }
-            catch (JsonException ex)
-            {
-                _logger?.LogWarning(ex, "Failed to parse streaming chunk");
+                yield return chunk.Choices[0].Delta.Content;
             }
         }
     }

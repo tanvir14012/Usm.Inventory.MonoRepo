@@ -71,13 +71,11 @@ public class ClaudeLLMProvider : ILLMProvider
 
             _logger?.LogDebug("Claude response received: {Length} characters", responseText.Length);
 
-            return new ChatResponse
-            {
-                Content = responseText,
-                Model = _model,
-                FinishReason = result?.StopReason ?? "unknown",
-                TokensUsed = (result?.Usage?.OutputTokens ?? 0) + (result?.Usage?.InputTokens ?? 0)
-            };
+            return new ChatResponse(
+                responseText,
+                _model,
+                result?.Usage?.InputTokens,
+                result?.Usage?.OutputTokens);
         }
         catch (Exception ex)
         {
@@ -106,6 +104,7 @@ public class ClaudeLLMProvider : ILLMProvider
         httpRequest.Headers.Add("x-api-key", _apiKey);
         httpRequest.Headers.Add("anthropic-version", ApiVersion);
 
+        var collected = new System.Collections.Generic.List<string>();
         try
         {
             using var response = await _httpClient.SendAsync(httpRequest,
@@ -123,20 +122,12 @@ public class ClaudeLLMProvider : ILLMProvider
 
                 var jsonData = line["data: ".Length..];
 
-                try
+                var chunk = System.Text.Json.JsonSerializer.Deserialize<ClaudeStreamEvent>(jsonData);
+                if (chunk?.Type == "content_block_delta")
                 {
-                    var chunk = System.Text.Json.JsonSerializer.Deserialize<ClaudeStreamEvent>(jsonData);
-
-                    if (chunk?.Type == "content_block_delta")
-                    {
-                        var text = chunk.Delta?.Text ?? string.Empty;
-                        if (!string.IsNullOrEmpty(text))
-                            yield return text;
-                    }
-                }
-                catch (System.Text.Json.JsonException)
-                {
-                    _logger?.LogDebug("Failed to parse streaming chunk");
+                    var text = chunk.Delta?.Text ?? string.Empty;
+                    if (!string.IsNullOrEmpty(text))
+                        collected.Add(text);
                 }
             }
         }
@@ -145,19 +136,22 @@ public class ClaudeLLMProvider : ILLMProvider
             _logger?.LogError(ex, "Claude streaming error");
             throw;
         }
+
+        foreach (var text in collected)
+            yield return text;
     }
 
     private Dictionary<string, object> BuildClaudeRequest(
         IReadOnlyList<ChatMessage> messages,
         ChatCompletionOptions? options = null)
     {
-        var systemMessage = messages.FirstOrDefault(m => m.Role == ChatMessageRole.System)?.Content ?? "";
+        var systemMessage = messages.FirstOrDefault(m => m.Role == MessageRole.System)?.Content ?? "";
 
         var claudeMessages = messages
-            .Where(m => m.Role != ChatMessageRole.System)
+            .Where(m => m.Role != MessageRole.System)
             .Select(m => new
             {
-                role = m.Role == ChatMessageRole.User ? "user" : "assistant",
+                role = m.Role == MessageRole.User ? "user" : "assistant",
                 content = m.Content
             })
             .ToList();

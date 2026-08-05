@@ -153,7 +153,7 @@ public abstract record AIResult<TValue>
             await onSuccess(Value);
 
         public override AIResult<TNext> Map<TNext>(Func<TValue, TNext> map) =>
-            new SuccessResult(map(Value));
+            AIResult<TNext>.Success(map(Value));
 
         public override AIResult<TNext> Bind<TNext>(Func<TValue, AIResult<TNext>> bind) =>
             bind(Value);
@@ -180,10 +180,10 @@ public abstract record AIResult<TValue>
             await onFailure(Error);
 
         public override AIResult<TNext> Map<TNext>(Func<TValue, TNext> map) =>
-            new FailureResult(Error);
+            AIResult<TNext>.Failure(Error);
 
         public override AIResult<TNext> Bind<TNext>(Func<TValue, AIResult<TNext>> bind) =>
-            new FailureResult(Error);
+            AIResult<TNext>.Failure(Error);
 
         public override bool IsSuccess => false;
 
