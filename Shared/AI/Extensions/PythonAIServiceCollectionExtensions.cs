@@ -21,7 +21,6 @@ public static class PythonAIServiceCollectionExtensions
         IConfiguration configuration,
         string sectionName = "PythonAI")
     {
-        services.AddSingleton(new PythonAIOptions());
         services.AddOptions<PythonAIOptions>()
             .Validate(options => options.Pools.Count == 0 || options.Pools.All(pool => pool.WorkerCount > 0), "Each Python worker pool must contain at least one worker.")
             .ValidateOnStart();
