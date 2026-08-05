@@ -78,15 +78,20 @@ public class ExponentialBackoffPolicy : IRetryPolicy
         return TimeSpan.FromSeconds(Math.Max(0, delay.TotalSeconds + jitter));
     }
 
-    private static bool IsTransient(Exception exception) =>
-        exception is
+    private static bool IsTransient(Exception exception)
+    {
+        if (exception is HttpRequestException httpRequestException &&
+            httpRequestException.StatusCode is System.Net.HttpStatusCode statusCode &&
+            ((int)statusCode >= 500 || (int)statusCode == 429))
         {
-            InnerException: HttpRequestException { StatusCode: System.Net.HttpStatusCode statusCode }
-        } when ((int) statusCode >= 500 || (int) statusCode == 429) ||
-        exception is TimeoutException ||
-        exception is OperationCanceledException ||
-        exception?.Message.Contains("timeout", StringComparison.OrdinalIgnoreCase) == true ||
-        exception?.Message.Contains("temporarily unavailable", StringComparison.OrdinalIgnoreCase) == true;
+            return true;
+        }
+
+        return exception is TimeoutException
+            || exception is OperationCanceledException
+            || (exception.Message is not null && exception.Message.Contains("timeout", StringComparison.OrdinalIgnoreCase))
+            || (exception.Message is not null && exception.Message.Contains("temporarily unavailable", StringComparison.OrdinalIgnoreCase));
+    }
 }
 
 /// <summary>
