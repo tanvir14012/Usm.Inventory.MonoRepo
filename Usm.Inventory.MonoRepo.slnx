@@ -105,9 +105,7 @@
   <Folder Name="/Shared/AI.EngineClient/">
     <Project Path="Shared/AI.EngineClient/Usm.Shared.AI.EngineClient.csproj" />
   </Folder>
-  <Folder Name="/Shared/AI.Tests/">
-    <Project Path="Shared/AI.Tests/Usm.Shared.AI.Tests.csproj" />
-  </Folder>
+  <Folder Name="/Samples/" />
   <Folder Name="/Samples/AIEngineDemo/">
     <Project Path="Samples/AIEngineDemo/AIEngineDemo.csproj" />
   </Folder>
