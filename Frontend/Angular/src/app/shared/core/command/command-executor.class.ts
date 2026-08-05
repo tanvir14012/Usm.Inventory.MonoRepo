@@ -2,7 +2,7 @@
  * Command pattern with undo/redo and history
  */
 
-import { ICommand, ICommandHistory } from './types';
+import { ICommand, ICommandHistory } from '../types';
 
 export class CommandExecutor<T = any> implements ICommandHistory<T> {
   private history: ICommand<T>[] = [];

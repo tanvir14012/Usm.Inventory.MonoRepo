@@ -2,7 +2,7 @@
  * State Machine pattern with transitions, guards, and async support
  */
 
-import { IState, ITransition, IStateMachine, StateGuard, StateAction } from './types';
+import { IState, ITransition, IStateMachine, StateGuard, StateAction } from '../types';
 
 export class StateMachine<TContext = any> implements IStateMachine<TContext> {
   private states = new Map<string, IState<TContext>>();

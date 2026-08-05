@@ -5,7 +5,7 @@ import { ITTLCache } from './cache.interface';
  */
 export class TTLCache<K, V> implements ITTLCache<K, V> {
   private cache = new Map<K, { value: V; expiresAt: number }>();
-  private cleanupInterval?: NodeJS.Timeout;
+  private cleanupInterval?: ReturnType<typeof setInterval>;
 
   constructor(private defaultTTLMs: number = 60000) {
     this.startCleanup();
