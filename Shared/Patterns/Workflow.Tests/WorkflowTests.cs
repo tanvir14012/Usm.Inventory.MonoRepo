@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Usm.Shared.Patterns.Workflow.Abstractions;
-using Usm.Shared.Patterns.Workflow.Extensions;
 using Usm.Shared.Patterns.Workflow.Configuration;
+using Usm.Shared.Patterns.Workflow.Extensions;
 using Xunit;
 
 namespace Usm.Shared.Patterns.Workflow.Tests;

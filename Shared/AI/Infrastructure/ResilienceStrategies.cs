@@ -34,13 +34,13 @@ public class ExponentialBackoffPolicy : IRetryPolicy
     private readonly Random _random = new();
 
     public int MaxAttempts { get; }
-    
+
     /// <summary>Gets the initial delay.</summary>
     public TimeSpan InitialDelay { get; }
-    
+
     /// <summary>Gets the multiplier for each retry.</summary>
     public double Multiplier { get; }
-    
+
     /// <summary>Gets the maximum delay between retries.</summary>
     public TimeSpan MaxDelay { get; }
 
@@ -70,11 +70,11 @@ public class ExponentialBackoffPolicy : IRetryPolicy
     {
         var exponentialDelay = InitialDelay.TotalSeconds * Math.Pow(Multiplier, attemptNumber - 1);
         var delay = TimeSpan.FromSeconds(Math.Min(exponentialDelay, MaxDelay.TotalSeconds));
-        
+
         // Add jitter: ±10% of delay
         var jitterAmount = delay.TotalSeconds * 0.1;
         var jitter = (_random.NextDouble() - 0.5) * 2 * jitterAmount;
-        
+
         return TimeSpan.FromSeconds(Math.Max(0, delay.TotalSeconds + jitter));
     }
 
@@ -82,7 +82,7 @@ public class ExponentialBackoffPolicy : IRetryPolicy
         exception is
         {
             InnerException: HttpRequestException { StatusCode: System.Net.HttpStatusCode statusCode }
-        } when ((int)statusCode >= 500 || (int)statusCode == 429) ||
+        } when ((int) statusCode >= 500 || (int) statusCode == 429) ||
         exception is TimeoutException ||
         exception is OperationCanceledException ||
         exception?.Message.Contains("timeout", StringComparison.OrdinalIgnoreCase) == true ||

@@ -54,7 +54,7 @@ public sealed class StateMachine<TState, TTrigger> : IStateMachine<TState, TTrig
         {
             lock (_stateLock)
             {
-            return FireCore(_currentState, trigger, CancellationToken.None);
+                return FireCore(_currentState, trigger, CancellationToken.None);
             }
         }
         finally

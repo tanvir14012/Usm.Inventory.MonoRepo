@@ -1,8 +1,8 @@
 namespace Shared.AI.Providers.AzureOpenAI;
 
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Shared.AI.Abstractions;
-using System.Text.Json;
 
 /// <summary>
 /// Azure OpenAI LLM Provider implementation.

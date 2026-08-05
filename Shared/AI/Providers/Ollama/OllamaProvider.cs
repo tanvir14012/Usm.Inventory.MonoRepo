@@ -1,8 +1,8 @@
 namespace Shared.AI.Providers.Ollama;
 
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Shared.AI.Abstractions;
-using System.Text.Json;
 
 /// <summary>
 /// Ollama LLM Provider implementation.

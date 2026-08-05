@@ -327,7 +327,7 @@ public static class AIPerformance
             var result = await operation(cancellationToken);
 
             stopwatch.Stop();
-            logger?.LogInformation("{OperationName} completed in {ElapsedMs}ms", 
+            logger?.LogInformation("{OperationName} completed in {ElapsedMs}ms",
                 operationName, stopwatch.ElapsedMilliseconds);
 
             return result;
@@ -335,7 +335,7 @@ public static class AIPerformance
         catch (Exception ex)
         {
             stopwatch.Stop();
-            logger?.LogError(ex, "{OperationName} failed after {ElapsedMs}ms", 
+            logger?.LogError(ex, "{OperationName} failed after {ElapsedMs}ms",
                 operationName, stopwatch.ElapsedMilliseconds);
             throw;
         }

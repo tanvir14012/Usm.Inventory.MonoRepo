@@ -50,7 +50,8 @@ public class Embedding
         }
 
         var denom = Math.Sqrt((double)magnitude1) * Math.Sqrt((double)magnitude2);
-        if (denom == 0) return 0;
+        if (denom == 0)
+            return 0;
 
         return dotProduct / denom;
     }

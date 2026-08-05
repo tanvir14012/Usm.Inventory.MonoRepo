@@ -102,7 +102,7 @@ public sealed class OpenXmlExcelReaderIntegrationTests
         var result = await reader.ReadAsync<PersonDto>(stream);
 
         // Eve's row should succeed
-        Assert.Equal(1, result.Records.Count);
+        Assert.Single(result.Records);
         Assert.Equal("Eve", result.Records[0].Name);
 
         // Dave's row should produce a conversion error on Age

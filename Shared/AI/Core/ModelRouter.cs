@@ -156,15 +156,15 @@ public class ModelRouter
             {
                 metrics.SuccessCount++;
                 metrics.TotalTokens += tokensUsed;
-                
+
                 var oldLatency = metrics.AverageLatency;
                 var oldCount = metrics.SuccessCount - 1;
                 metrics.AverageLatency = (oldLatency * oldCount + latency.TotalMilliseconds) / metrics.SuccessCount;
-                
+
                 metrics.LastUsed = DateTime.UtcNow;
                 UpdateSuccessRate(metrics);
 
-                _logger?.LogDebug("Provider {Name} success recorded: latency {Latency}ms", 
+                _logger?.LogDebug("Provider {Name} success recorded: latency {Latency}ms",
                     providerName, latency.TotalMilliseconds);
             }
         }

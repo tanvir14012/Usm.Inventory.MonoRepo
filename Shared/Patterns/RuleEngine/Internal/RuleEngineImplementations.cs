@@ -1,5 +1,5 @@
-using System.Linq.Expressions;
 using System.Collections.Concurrent;
+using System.Linq.Expressions;
 using Usm.Shared.Patterns.RuleEngine.Abstractions;
 using Usm.Shared.Patterns.RuleEngine.Builders;
 

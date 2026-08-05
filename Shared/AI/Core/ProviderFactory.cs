@@ -111,7 +111,7 @@ public class ProviderFactory : IProviderFactory
         {
             return await factory(config);
         };
-        
+
         _logger?.LogDebug("Registered custom LLM provider: {ProviderName}", providerName);
     }
 
@@ -211,7 +211,7 @@ public class LLMProviderConfigBuilder
     {
         if (string.IsNullOrEmpty(_providerName))
             throw new InvalidOperationException("Provider name is required");
-        
+
         if (string.IsNullOrEmpty(_model))
             throw new InvalidOperationException("Model is required");
 
@@ -305,7 +305,7 @@ public class EmbeddingProviderConfigBuilder
         _apiKey ??= Environment.GetEnvironmentVariable($"{prefix}_API_KEY");
         _endpoint ??= Environment.GetEnvironmentVariable($"{prefix}_ENDPOINT");
         _model ??= Environment.GetEnvironmentVariable($"{prefix}_MODEL");
-        
+
         if (int.TryParse(Environment.GetEnvironmentVariable($"{prefix}_DIMENSIONS"), out var dims))
             _dimensions ??= dims;
 
@@ -316,7 +316,7 @@ public class EmbeddingProviderConfigBuilder
     {
         if (string.IsNullOrEmpty(_providerName))
             throw new InvalidOperationException("Provider name is required");
-        
+
         if (string.IsNullOrEmpty(_model))
             throw new InvalidOperationException("Model is required");
 

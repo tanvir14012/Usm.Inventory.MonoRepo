@@ -1,8 +1,8 @@
 namespace Shared.AI.Providers.OpenAI;
 
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Shared.AI.Abstractions;
-using System.Text.Json;
 
 /// <summary>
 /// OpenAI Embedding Provider implementation.

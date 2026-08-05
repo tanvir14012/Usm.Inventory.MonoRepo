@@ -63,11 +63,15 @@ public static class StringSimilarity
     /// </remarks>
     public static int LevenshteinDistance(string s1, string s2)
     {
-        if (s1 == null) throw new ArgumentNullException(nameof(s1));
-        if (s2 == null) throw new ArgumentNullException(nameof(s2));
+        if (s1 == null)
+            throw new ArgumentNullException(nameof(s1));
+        if (s2 == null)
+            throw new ArgumentNullException(nameof(s2));
 
-        if (s1.Length == 0) return s2.Length;
-        if (s2.Length == 0) return s1.Length;
+        if (s1.Length == 0)
+            return s2.Length;
+        if (s2.Length == 0)
+            return s1.Length;
 
         var matrix = new int[s1.Length + 1, s2.Length + 1];
 
@@ -98,9 +102,10 @@ public static class StringSimilarity
     {
         var distance = LevenshteinDistance(s1, s2);
         var maxLength = Math.Max(s1.Length, s2.Length);
-        
-        if (maxLength == 0) return 1.0; // Both empty
-        
+
+        if (maxLength == 0)
+            return 1.0; // Both empty
+
         return 1.0 - (double)distance / maxLength;
     }
 
@@ -119,7 +124,8 @@ public static class StringSimilarity
             return 0.0;
 
         var matchDistance = Math.Max(s1.Length, s2.Length) / 2 - 1;
-        if (matchDistance < 0) matchDistance = 0;
+        if (matchDistance < 0)
+            matchDistance = 0;
 
         var s1Matches = new bool[s1.Length];
         var s2Matches = new bool[s2.Length];
@@ -145,13 +151,15 @@ public static class StringSimilarity
             }
         }
 
-        if (matches == 0) return 0.0;
+        if (matches == 0)
+            return 0.0;
 
         // Count transpositions
         int k = 0;
         for (int i = 0; i < s1.Length; i++)
         {
-            if (!s1Matches[i]) continue;
+            if (!s1Matches[i])
+                continue;
 
             while (!s2Matches[k])
                 k++;
@@ -212,7 +220,8 @@ public static class SimilarityAlgorithms
         }
 
         var denom = Math.Sqrt((double)magnitude1) * Math.Sqrt((double)magnitude2);
-        if (denom == 0) return 0;
+        if (denom == 0)
+            return 0;
 
         return dotProduct / denom;
     }
@@ -289,8 +298,8 @@ public static class TextChunking
 
         foreach (var line in lines)
         {
-            var testContent = currentChunk.Length == 0 
-                ? line 
+            var testContent = currentChunk.Length == 0
+                ? line
                 : currentChunk.ToString() + "\n" + line;
 
             if (testContent.Length <= chunkSize)
@@ -312,7 +321,7 @@ public static class TextChunking
                     var overlapContent = lastChunk.ToString();
                     if (overlapContent.Length > overlapSize)
                         overlapContent = overlapContent.Substring(overlapContent.Length - overlapSize);
-                    
+
                     currentChunk.Append(overlapContent + "\n" + line);
                 }
                 else

@@ -1,9 +1,9 @@
 namespace Shared.AI.Agents;
 
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Shared.AI.Abstractions;
 using Shared.AI.Memory;
-using System.Text.Json;
 
 /// <summary>
 /// Base agent that can interact with tools and maintain conversation state.

@@ -93,7 +93,7 @@ public abstract record AIResult<TValue>
     /// <summary>
     /// Creates a failed result from a message.
     /// </summary>
-    public static AIResult<TValue> Failure(string message) => 
+    public static AIResult<TValue> Failure(string message) =>
         new FailureResult(new AIError(message));
 
     /// <summary>

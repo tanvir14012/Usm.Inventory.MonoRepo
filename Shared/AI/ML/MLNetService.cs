@@ -1,8 +1,8 @@
 namespace Shared.AI.ML;
 
+using Microsoft.Extensions.Logging;
 using Microsoft.ML;
 using Microsoft.ML.Data;
-using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// ML.NET integration for machine learning tasks.

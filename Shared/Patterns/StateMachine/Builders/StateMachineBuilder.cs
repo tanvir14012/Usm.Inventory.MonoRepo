@@ -1,6 +1,6 @@
+using Usm.Shared.Patterns.StateMachine;
 using Usm.Shared.Patterns.StateMachine.Abstractions;
 using Usm.Shared.Patterns.StateMachine.Extensions;
-using Usm.Shared.Patterns.StateMachine;
 
 namespace Usm.Shared.Patterns.StateMachine.Builders;
 

@@ -59,7 +59,7 @@ public class ClaudeLLMProvider : ILLMProvider
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
             var result = System.Text.Json.JsonSerializer.Deserialize<ClaudeResponse>(content);
 
-            var responseText = string.Join("", 
+            var responseText = string.Join("",
                 result?.Content?.Where(c => c.Type == "text").Select(c => c.Text) ?? new string[0]);
 
             _logger?.LogDebug("Claude response received: {Length} characters", responseText.Length);
@@ -145,7 +145,7 @@ public class ClaudeLLMProvider : ILLMProvider
         ChatCompletionOptions? options = null)
     {
         var systemMessage = messages.FirstOrDefault(m => m.Role == ChatMessageRole.System)?.Content ?? "";
-        
+
         var claudeMessages = messages
             .Where(m => m.Role != ChatMessageRole.System)
             .Select(m => new

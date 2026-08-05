@@ -1,5 +1,5 @@
-using Usm.Shared.Algorithms.Collections.IntervalTree.Abstractions;
 using Usm.Shared.Algorithms.Collections.IntervalTree;
+using Usm.Shared.Algorithms.Collections.IntervalTree.Abstractions;
 
 namespace Usm.Shared.Algorithms.Collections.IntervalTree.Builders;
 

@@ -89,7 +89,8 @@ public class ToolRegistry : IToolRegistry
 
     public void RegisterTool(ITool tool)
     {
-        if (tool == null) throw new ArgumentNullException(nameof(tool));
+        if (tool == null)
+            throw new ArgumentNullException(nameof(tool));
 
         _lock.EnterWriteLock();
         try
@@ -104,7 +105,8 @@ public class ToolRegistry : IToolRegistry
 
     public void RegisterTools(IEnumerable<ITool> tools)
     {
-        if (tools == null) throw new ArgumentNullException(nameof(tools));
+        if (tools == null)
+            throw new ArgumentNullException(nameof(tools));
 
         _lock.EnterWriteLock();
         try
@@ -122,7 +124,8 @@ public class ToolRegistry : IToolRegistry
 
     public bool RemoveTool(string toolName)
     {
-        if (string.IsNullOrEmpty(toolName)) throw new ArgumentNullException(nameof(toolName));
+        if (string.IsNullOrEmpty(toolName))
+            throw new ArgumentNullException(nameof(toolName));
 
         _lock.EnterWriteLock();
         try
@@ -137,7 +140,8 @@ public class ToolRegistry : IToolRegistry
 
     public ITool? GetTool(string toolName)
     {
-        if (string.IsNullOrEmpty(toolName)) return null;
+        if (string.IsNullOrEmpty(toolName))
+            return null;
 
         _lock.EnterReadLock();
         try
@@ -166,7 +170,8 @@ public class ToolRegistry : IToolRegistry
 
     public bool HasTool(string toolName)
     {
-        if (string.IsNullOrEmpty(toolName)) return false;
+        if (string.IsNullOrEmpty(toolName))
+            return false;
 
         _lock.EnterReadLock();
         try

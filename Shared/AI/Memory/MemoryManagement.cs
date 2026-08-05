@@ -1,7 +1,7 @@
 namespace Shared.AI.Memory;
 
-using Shared.AI.Abstractions;
 using System.Collections.Generic;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Manages conversation history with optional summarization and windowing.

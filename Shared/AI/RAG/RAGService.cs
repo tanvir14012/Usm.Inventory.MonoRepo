@@ -90,7 +90,7 @@ public class RAGService
     {
         var context = await RetrieveAsync(query, topK, cancellationToken: cancellationToken);
 
-        var contextText = string.Join("\n\n", context.Select(c => 
+        var contextText = string.Join("\n\n", context.Select(c =>
             $"[Source: {c.Id} (Relevance: {c.Similarity:P})] {c.Text}"));
 
         var augmentedPrompt = string.IsNullOrEmpty(contextText)
@@ -119,7 +119,7 @@ public class RAGService
     {
         var context = await RetrieveAsync(query, topK, cancellationToken: cancellationToken);
 
-        var contextText = string.Join("\n\n", context.Select(c => 
+        var contextText = string.Join("\n\n", context.Select(c =>
             $"[Source: {c.Id}] {c.Text}"));
 
         var augmentedPrompt = string.IsNullOrEmpty(contextText)

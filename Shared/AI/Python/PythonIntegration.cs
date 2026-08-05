@@ -1,8 +1,8 @@
 namespace Shared.AI.Python;
 
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Python process manager for executing Python scripts and libraries.

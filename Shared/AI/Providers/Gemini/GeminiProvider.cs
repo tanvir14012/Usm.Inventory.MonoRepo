@@ -95,7 +95,7 @@ public class GeminiLLMProvider : ILLMProvider
 
         try
         {
-            using var response = await _httpClient.SendAsync(httpRequest, 
+            using var response = await _httpClient.SendAsync(httpRequest,
                 HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
 

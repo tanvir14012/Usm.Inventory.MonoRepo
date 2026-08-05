@@ -7,13 +7,13 @@ public enum MessageRole
 {
     /// <summary>System instructions for the AI model.</summary>
     System,
-    
+
     /// <summary>Message from the user.</summary>
     User,
-    
+
     /// <summary>Response from the assistant/AI.</summary>
     Assistant,
-    
+
     /// <summary>Output from function/tool calls.</summary>
     Tool
 }
@@ -63,7 +63,7 @@ public class ChatMessage
     /// <summary>
     /// Creates a tool response message.
     /// </summary>
-    public static ChatMessage Tool(string content, string toolCallId) => 
+    public static ChatMessage Tool(string content, string toolCallId) =>
         new(MessageRole.Tool, content, toolCallId);
 }
 

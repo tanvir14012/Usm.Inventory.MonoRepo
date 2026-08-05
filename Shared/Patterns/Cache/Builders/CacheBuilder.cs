@@ -1,5 +1,5 @@
-using Usm.Shared.Patterns.Cache.Abstractions;
 using Usm.Shared.Patterns.Cache;
+using Usm.Shared.Patterns.Cache.Abstractions;
 using Usm.Shared.Patterns.Cache.Configuration;
 
 namespace Usm.Shared.Patterns.Cache.Builders;

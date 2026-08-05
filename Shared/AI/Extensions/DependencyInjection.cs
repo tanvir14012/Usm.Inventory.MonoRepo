@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 using Shared.AI.Abstractions;
 using Shared.AI.Chat;
 using Shared.AI.Core;
-using Shared.AI.Providers.OpenAI;
-using Shared.AI.Providers.Ollama;
 using Shared.AI.Providers.AzureOpenAI;
-using Shared.AI.Providers.Gemini;
 using Shared.AI.Providers.Claude;
+using Shared.AI.Providers.Gemini;
+using Shared.AI.Providers.Ollama;
+using Shared.AI.Providers.OpenAI;
 
 /// <summary>
 /// Dependency injection extension methods for Shared.AI framework.
@@ -23,7 +23,7 @@ public static class AIServiceCollectionExtensions
     {
         services.AddSingleton<IProviderFactory, ProviderFactory>();
         services.AddSingleton<IToolRegistry, ToolRegistry>();
-        
+
         return services;
     }
 
@@ -246,96 +246,96 @@ public static class AIServiceCollectionExtensions
     }
 
 
-/// <summary>
-/// Extension methods for building AI services.
-/// </summary>
-public static class AIServiceBuilderExtensions
-{
     /// <summary>
-    /// Builds a complete AI service collection with typical defaults.
+    /// Extension methods for building AI services.
     /// </summary>
-    public static IServiceCollection AddAIFramework(
-        this IServiceCollection services,
-        Action<AIFrameworkBuilder> configure)
+    public static class AIServiceBuilderExtensions
     {
-        var builder = new AIFrameworkBuilder(services);
-        configure(builder);
-        return services;
-    }
-}
-
-/// <summary>
-/// Fluent builder for configuring AI framework.
-/// </summary>
-public class AIFrameworkBuilder
-{
-    private readonly IServiceCollection _services;
-
-    public AIFrameworkBuilder(IServiceCollection services)
-    {
-        _services = services;
-        _services.AddSharedAI();
-    }
-
-    public AIFrameworkBuilder WithOpenAIProvider(Action<LLMProviderConfigBuilder> configure)
-    {
-        _services.AddOpenAILLMProvider(configure);
-        _services.AddOpenAIEmbeddingProvider(c => c.FromEnvironment("OPENAI"));
-        return this;
-    }
-
-    public AIFrameworkBuilder WithOllamaProvider(Action<LLMProviderConfigBuilder>? configure = null)
-    {
-        _services.AddOllamaLLMProvider(b =>
+        /// <summary>
+        /// Builds a complete AI service collection with typical defaults.
+        /// </summary>
+        public static IServiceCollection AddAIFramework(
+            this IServiceCollection services,
+            Action<AIFrameworkBuilder> configure)
         {
-            b.WithModel("llama2");
-            configure?.Invoke(b);
-        });
-
-        _services.AddOllamaEmbeddingProvider(b => b.WithModel("nomic-embed-text"));
-        return this;
+            var builder = new AIFrameworkBuilder(services);
+            configure(builder);
+            return services;
+        }
     }
 
-    public AIFrameworkBuilder WithAzureOpenAIProvider(
-        string endpoint,
-        string apiKey,
-        string deploymentName,
-        string? model = null)
+    /// <summary>
+    /// Fluent builder for configuring AI framework.
+    /// </summary>
+    public class AIFrameworkBuilder
     {
-        _services.AddAzureOpenAILLMProvider(endpoint, apiKey, deploymentName, model);
-        return this;
-    }
+        private readonly IServiceCollection _services;
 
-    public AIFrameworkBuilder WithGeminiProvider(
-        string apiKey,
-        string llmModel = "gemini-1.5-flash",
-        string embeddingModel = "text-embedding-004")
-    {
-        _services.AddGeminiLLMProvider(apiKey, llmModel);
-        _services.AddGeminiEmbeddingProvider(apiKey, embeddingModel);
-        return this;
-    }
+        public AIFrameworkBuilder(IServiceCollection services)
+        {
+            _services = services;
+            _services.AddSharedAI();
+        }
 
-    public AIFrameworkBuilder WithClaudeProvider(
-        string apiKey,
-        string model = "claude-3-sonnet-20240229")
-    {
-        _services.AddClaudeLLMProvider(apiKey, model);
-        return this;
-    }
+        public AIFrameworkBuilder WithOpenAIProvider(Action<LLMProviderConfigBuilder> configure)
+        {
+            _services.AddOpenAILLMProvider(configure);
+            _services.AddOpenAIEmbeddingProvider(c => c.FromEnvironment("OPENAI"));
+            return this;
+        }
 
-    public AIFrameworkBuilder WithChatService()
-    {
-        _services.AddChatService();
-        return this;
-    }
+        public AIFrameworkBuilder WithOllamaProvider(Action<LLMProviderConfigBuilder>? configure = null)
+        {
+            _services.AddOllamaLLMProvider(b =>
+            {
+                b.WithModel("llama2");
+                configure?.Invoke(b);
+            });
 
-    public AIFrameworkBuilder WithProviderFactory()
-    {
-        _services.AddProviderFactoryOpenAI();
-        _services.AddProviderFactoryOllama();
-        return this;
-    }
+            _services.AddOllamaEmbeddingProvider(b => b.WithModel("nomic-embed-text"));
+            return this;
+        }
 
-    public IServiceCollection Build() => _services;
-}
+        public AIFrameworkBuilder WithAzureOpenAIProvider(
+            string endpoint,
+            string apiKey,
+            string deploymentName,
+            string? model = null)
+        {
+            _services.AddAzureOpenAILLMProvider(endpoint, apiKey, deploymentName, model);
+            return this;
+        }
+
+        public AIFrameworkBuilder WithGeminiProvider(
+            string apiKey,
+            string llmModel = "gemini-1.5-flash",
+            string embeddingModel = "text-embedding-004")
+        {
+            _services.AddGeminiLLMProvider(apiKey, llmModel);
+            _services.AddGeminiEmbeddingProvider(apiKey, embeddingModel);
+            return this;
+        }
+
+        public AIFrameworkBuilder WithClaudeProvider(
+            string apiKey,
+            string model = "claude-3-sonnet-20240229")
+        {
+            _services.AddClaudeLLMProvider(apiKey, model);
+            return this;
+        }
+
+        public AIFrameworkBuilder WithChatService()
+        {
+            _services.AddChatService();
+            return this;
+        }
+
+        public AIFrameworkBuilder WithProviderFactory()
+        {
+            _services.AddProviderFactoryOpenAI();
+            _services.AddProviderFactoryOllama();
+            return this;
+        }
+
+        public IServiceCollection Build() => _services;
+    }
