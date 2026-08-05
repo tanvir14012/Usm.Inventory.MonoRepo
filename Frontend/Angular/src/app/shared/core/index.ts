@@ -9,3 +9,4 @@ export * from './strategy';
 export * from './adapter';
 export * from './facade';
 export * from './specification';
+export * from './pipeline';
