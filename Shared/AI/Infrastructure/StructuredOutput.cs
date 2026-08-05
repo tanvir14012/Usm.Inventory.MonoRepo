@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Handles structured JSON output from LLM providers using JSON Schema.

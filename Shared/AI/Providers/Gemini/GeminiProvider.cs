@@ -2,6 +2,7 @@ namespace Shared.AI.Providers.Gemini;
 
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Google Gemini API provider for chat completion and embeddings.

@@ -107,7 +107,7 @@ public class AzureOpenAILLMProvider : ILLMProvider
     public async IAsyncEnumerable<string> StreamCompleteAsync(
         IReadOnlyList<ChatMessage> messages,
         ChatCompletionOptions? options = null,
-        System.Collections.Generic.CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         ThrowIfDisposed();
 

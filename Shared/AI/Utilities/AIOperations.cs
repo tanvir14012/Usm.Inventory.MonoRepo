@@ -1,6 +1,10 @@
 namespace Shared.AI.Utilities;
 
 using Microsoft.Extensions.Logging;
+using Shared.AI.Abstractions;
+using Shared.AI.Embeddings;
+using Shared.AI.Infrastructure;
+using Shared.AI.RAG;
 
 /// <summary>
 /// Convenience methods for common AI operations.

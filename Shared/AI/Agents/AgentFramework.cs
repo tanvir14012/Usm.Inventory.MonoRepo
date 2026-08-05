@@ -96,7 +96,7 @@ public class Agent
     /// </summary>
     public async IAsyncEnumerable<string> ExecuteStreamAsync(
         string input,
-        System.Collections.Generic.CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         _memory.AddMessage(ChatMessage.User(input));
 

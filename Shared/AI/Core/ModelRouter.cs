@@ -1,6 +1,7 @@
 namespace Shared.AI.Core;
 
 using Microsoft.Extensions.Logging;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Routes requests to the best-suited LLM provider based on criteria.

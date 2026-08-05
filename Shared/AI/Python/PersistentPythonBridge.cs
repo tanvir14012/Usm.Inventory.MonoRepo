@@ -2,6 +2,7 @@ namespace Shared.AI.Python;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shared.AI.Abstractions;
 
 /// <summary>
 /// Public bridge over the persistent Python worker runtime.
