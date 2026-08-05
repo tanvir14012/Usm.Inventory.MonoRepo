@@ -80,12 +80,12 @@ public class PythonProcessManager : IAsyncDisposable
 
         var argsJson = JsonSerializer.Serialize(arguments ?? new());
         var script = $@"
-import json
-import {moduleName}
+            import json
+            import {moduleName}
 
-result = {moduleName}.{functionName}(**json.loads('{argsJson}'))
-print(json.dumps(result))
-";
+            result = {moduleName}.{functionName}(**json.loads('{argsJson}'))
+            print(json.dumps(result))
+            ";
 
         return await ExecuteScriptAsync(script, null, timeout, cancellationToken);
     }
@@ -330,13 +330,13 @@ print(result[0])
         _logger?.LogDebug("Getting embedding with model: {Model}", model);
 
         var script = $@"
-from sentence_transformers import SentenceTransformer
-import json
+            from sentence_transformers import SentenceTransformer
+            import json
 
-model = SentenceTransformer('{model}')
-embedding = model.encode('{text}')
-print(json.dumps(embedding.tolist()))
-";
+            model = SentenceTransformer('{model}')
+            embedding = model.encode('{text}')
+            print(json.dumps(embedding.tolist()))
+            ";
 
         var output = await _pythonManager.ExecuteScriptAsync(script, cancellationToken: cancellationToken);
 
@@ -377,18 +377,18 @@ public class spaCyWrapper
         _logger?.LogDebug("Extracting entities with model: {Model}", model);
 
         var script = $@"
-import spacy
-import json
+            import spacy
+            import json
 
-nlp = spacy.load('{model}')
-doc = nlp('{text}')
-entities = {{}}
-for ent in doc.ents:
-    if ent.label_ not in entities:
-        entities[ent.label_] = []
-    entities[ent.label_].append(ent.text)
-print(json.dumps(entities))
-";
+            nlp = spacy.load('{model}')
+            doc = nlp('{text}')
+            entities = {{}}
+            for ent in doc.ents:
+                if ent.label_ not in entities:
+                    entities[ent.label_] = []
+                entities[ent.label_].append(ent.text)
+            print(json.dumps(entities))
+            ";
 
         var output = await _pythonManager.ExecuteScriptAsync(script, cancellationToken: cancellationToken);
 
