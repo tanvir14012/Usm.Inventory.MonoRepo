@@ -339,3 +339,4 @@ public static class AIServiceCollectionExtensions
 
         public IServiceCollection Build() => _services;
     }
+}

@@ -102,6 +102,9 @@
   <Folder Name="/Shared/AI/">
     <Project Path="Shared/AI/Usm.Shared.AI.csproj" />
   </Folder>
+  <Folder Name="/Shared/AI.Tests/">
+    <Project Path="Shared/AI.Tests/Usm.Shared.AI.Tests.csproj" />
+  </Folder>
   <Folder Name="/Shared/Algorithms/" />
   <Folder Name="/Shared/Algorithms/Collections/" />
   <Folder Name="/Shared/Algorithms/Collections/BloomFilter.Benchmarks/">
