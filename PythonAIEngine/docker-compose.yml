@@ -1,0 +1,47 @@
+name: ai-engine-stack
+
+services:
+  python-ai-engine:
+    build:
+      context: ..
+      dockerfile: PythonAIEngine/Dockerfile
+    environment:
+      AI_ENGINE_CONFIG_JSON: |
+        {
+          "host": "0.0.0.0",
+          "port": 50051,
+          "max_concurrent_rpcs": 256,
+          "warmup_models": true,
+          "warmups": [
+            { "name": "sentence-transformers/all-MiniLM-L6-v2", "kind": "embedding" }
+          ],
+          "allow_arbitrary_code": true,
+          "default_llm_backend": "simulated",
+          "default_embedding_backend": "simulated"
+        }
+    shm_size: 2gb
+    ports:
+      - "50051:50051"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - python -c "import grpc; from grpc_health.v1 import health_pb2, health_pb2_grpc; c=grpc.insecure_channel('localhost:50051'); s=health_pb2_grpc.HealthStub(c); r=s.Check(health_pb2.HealthCheckRequest(service='ai.engine.v1.AIEngineService'), timeout=5); assert r.status == health_pb2.HealthCheckResponse.SERVING"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  ai-engine-demo:
+    image: mcr.microsoft.com/dotnet/sdk:9.0
+    working_dir: /src
+    volumes:
+      - ..:/src
+    environment:
+      AI_ENGINE_ENDPOINT: http://python-ai-engine:50051
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+    command: ["dotnet", "run", "--project", "Samples/AIEngineDemo/AIEngineDemo.csproj"]
+    depends_on:
+      python-ai-engine:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+

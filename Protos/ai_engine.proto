@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package ai.engine.v1;
+
+option csharp_namespace = "Shared.AI.Engine.Proto";
+
+message TaskRequest {
+  string task_type = 1;
+  string payload_json = 2;
+  map<string, string> metadata = 3;
+}
+
+message TaskResponse {
+  string status = 1;
+  string result_json = 2;
+  map<string, string> metadata = 3;
+  int64 execution_time_ms = 4;
+}
+
+message TaskStreamResponse {
+  string event_type = 1;
+  string data_json = 2;
+  int64 sequence_id = 3;
+}
+
+service AIEngineService {
+  rpc ExecuteTask (TaskRequest) returns (TaskResponse);
+  rpc StreamTask (TaskRequest) returns (stream TaskStreamResponse);
+}
+
