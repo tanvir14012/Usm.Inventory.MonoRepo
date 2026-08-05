@@ -85,7 +85,7 @@ public class MLNetService
     public PredictionEngine<TInput, TOutput> CreatePredictionEngine<TInput, TOutput>(
         ITransformer model)
         where TInput : class
-        where TOutput : class
+        where TOutput : class, new()
     {
         _logger?.LogDebug("Creating prediction engine");
         return _mlContext.Model.CreatePredictionEngine<TInput, TOutput>(model);
@@ -119,7 +119,7 @@ public class MLNetService
     /// <summary>
     /// Evaluates a classification model.
     /// </summary>
-    public ClassificationMetrics EvaluateClassificationModel(
+    public BinaryClassificationMetrics EvaluateClassificationModel(
         ITransformer model,
         IDataView testData,
         string labelColumnName)
@@ -127,9 +127,7 @@ public class MLNetService
         _logger?.LogDebug("Evaluating classification model");
 
         var predictions = model.Transform(testData);
-        return _mlContext.BinaryClassification.Evaluate(
-            predictions,
-            labelColumnName: labelColumnName);
+        return _mlContext.BinaryClassification.Evaluate(predictions, labelColumnName: labelColumnName);
     }
 
     /// <summary>

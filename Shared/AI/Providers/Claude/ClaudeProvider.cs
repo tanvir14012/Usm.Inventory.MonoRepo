@@ -18,6 +18,7 @@ public class ClaudeLLMProvider : ILLMProvider
     private const string ApiVersion = "2024-01-15";
 
     public string Name => "Claude";
+    public ILLMProviderConfig Config => new ClaudeProviderConfig(_model);
 
     public ClaudeLLMProvider(
         string apiKey,
@@ -33,6 +34,11 @@ public class ClaudeLLMProvider : ILLMProvider
         _httpClient = httpClient ?? new HttpClient();
         _logger = logger;
     }
+
+    public Task<bool> HealthCheckAsync(CancellationToken cancellationToken = default) =>
+        Task.FromResult(true);
+
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 
     public async Task<ChatResponse> CompleteAsync(
         IReadOnlyList<ChatMessage> messages,
@@ -238,6 +244,7 @@ public class ClaudeEmbeddingProvider : IEmbeddingProvider
     private readonly ILogger? _logger;
 
     public string Name => "Claude (via fallback)";
+    public IEmbeddingProviderConfig Config => new ClaudeEmbeddingProviderConfig();
 
     public ClaudeEmbeddingProvider(
         IEmbeddingProvider fallbackProvider,
@@ -267,4 +274,30 @@ public class ClaudeEmbeddingProvider : IEmbeddingProvider
     {
         return await _fallbackProvider.GetDimensionsAsync(cancellationToken);
     }
+
+    public Task<bool> HealthCheckAsync(CancellationToken cancellationToken = default) =>
+        Task.FromResult(true);
+
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+}
+
+file sealed class ClaudeProviderConfig(string model) : ILLMProviderConfig
+{
+    public string ProviderName => "Claude";
+    public string Model => model;
+    public string? ApiKey => null;
+    public string? Endpoint => null;
+    public double? Temperature => null;
+    public int? MaxTokens => null;
+    public double? TopP => null;
+    public IReadOnlyDictionary<string, string>? CustomHeaders => null;
+}
+
+file sealed class ClaudeEmbeddingProviderConfig : IEmbeddingProviderConfig
+{
+    public string ProviderName => "Claude";
+    public string Model => "fallback";
+    public string? ApiKey => null;
+    public string? Endpoint => null;
+    public int? Dimensions => null;
 }

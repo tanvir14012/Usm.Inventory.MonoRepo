@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shared.AI.Python;
 
 /// <summary>
@@ -21,7 +22,7 @@ public static class PythonAIServiceCollectionExtensions
         string sectionName = "PythonAI")
     {
         services.AddOptions<PythonAIOptions>()
-            .Bind(configuration.GetSection(sectionName))
+            .BindConfiguration(sectionName)
             .Validate(options => options.Pools.Count == 0 || options.Pools.All(pool => pool.WorkerCount > 0), "Each Python worker pool must contain at least one worker.")
             .ValidateOnStart();
 
@@ -54,11 +55,4 @@ public static class PythonAIServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Registers the runtime health check.
-    /// </summary>
-    public static IHealthChecksBuilder AddPythonAIHealthCheck(this IHealthChecksBuilder builder, string name = "python-ai")
-    {
-        return builder.AddCheck<PythonAIHealthCheck>(name);
-    }
 }

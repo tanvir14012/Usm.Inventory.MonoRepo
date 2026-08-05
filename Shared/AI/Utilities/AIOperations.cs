@@ -5,6 +5,7 @@ using Shared.AI.Abstractions;
 using Shared.AI.Embeddings;
 using Shared.AI.Infrastructure;
 using Shared.AI.RAG;
+using Shared.AI.Memory;
 
 /// <summary>
 /// Convenience methods for common AI operations.
@@ -14,7 +15,7 @@ public static class AIOperations
     /// <summary>
     /// Performs a complete end-to-end RAG operation with logging.
     /// </summary>
-    public static async Task<(string Answer, IReadOnlyList<RetrievalResult> Sources)> PerformRAGAsync(
+    public static async Task<(string Answer, IReadOnlyList<VectorSearchResult> Sources)> PerformRAGAsync(
         this RAGService ragService,
         string query,
         int topK = 5,

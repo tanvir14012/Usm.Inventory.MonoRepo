@@ -50,10 +50,10 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Options" Version="10.0.9" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.9" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.1.0" />
-    <PackageVersion Include="Google.Protobuf" Version="3.29.3" />
-    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.66.0" />
-    <PackageVersion Include="Grpc.Tools" Version="2.66.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.3.0" />
+    <PackageVersion Include="Google.Protobuf" Version="3.34.1" />
+    <PackageVersion Include="Grpc.Net.ClientFactory" Version="2.80.0" />
+    <PackageVersion Include="Grpc.Tools" Version="2.80.0" />
     <PackageVersion Include="StackExchange.Redis" Version="2.10.1" />
     <!-- Excel Import Framework -->
     <PackageVersion Include="DocumentFormat.OpenXml" Version="3.3.0" />

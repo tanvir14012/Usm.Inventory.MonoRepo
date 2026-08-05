@@ -17,6 +17,7 @@ public class GeminiLLMProvider : ILLMProvider
     private readonly ILogger? _logger;
 
     public string Name => "Gemini";
+    public ILLMProviderConfig Config => new GeminiProviderConfig(_model);
 
     public GeminiLLMProvider(
         string apiKey,
@@ -32,6 +33,11 @@ public class GeminiLLMProvider : ILLMProvider
         _httpClient = httpClient ?? new HttpClient();
         _logger = logger;
     }
+
+    public Task<bool> HealthCheckAsync(CancellationToken cancellationToken = default) =>
+        Task.FromResult(true);
+
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 
     public async Task<ChatResponse> CompleteAsync(
         IReadOnlyList<ChatMessage> messages,
@@ -224,6 +230,7 @@ public class GeminiEmbeddingProvider : IEmbeddingProvider
     private readonly Dictionary<string, int> _dimensionCache = new();
 
     public string Name => "Gemini Embeddings";
+    public IEmbeddingProviderConfig Config => new GeminiEmbeddingProviderConfig(_model);
 
     public GeminiEmbeddingProvider(
         string apiKey,
@@ -341,6 +348,11 @@ public class GeminiEmbeddingProvider : IEmbeddingProvider
         return dimension;
     }
 
+    public Task<bool> HealthCheckAsync(CancellationToken cancellationToken = default) =>
+        Task.FromResult(true);
+
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+
     #region Gemini Models
 
     private class GeminiEmbeddingResponse
@@ -362,4 +374,25 @@ public class GeminiEmbeddingProvider : IEmbeddingProvider
     }
 
     #endregion
+}
+
+file sealed class GeminiProviderConfig(string model) : ILLMProviderConfig
+{
+    public string ProviderName => "Gemini";
+    public string Model => model;
+    public string? ApiKey => null;
+    public string? Endpoint => null;
+    public double? Temperature => null;
+    public int? MaxTokens => null;
+    public double? TopP => null;
+    public IReadOnlyDictionary<string, string>? CustomHeaders => null;
+}
+
+file sealed class GeminiEmbeddingProviderConfig(string model) : IEmbeddingProviderConfig
+{
+    public string ProviderName => "Gemini";
+    public string Model => model;
+    public string? ApiKey => null;
+    public string? Endpoint => null;
+    public int? Dimensions => null;
 }

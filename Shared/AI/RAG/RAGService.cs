@@ -115,7 +115,7 @@ public class RAGService
         string query,
         string systemPrompt = "You are a helpful assistant.",
         int topK = 5,
-        System.Collections.Generic.CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default)
     {
         var context = await RetrieveAsync(query, topK, cancellationToken: cancellationToken);
 
