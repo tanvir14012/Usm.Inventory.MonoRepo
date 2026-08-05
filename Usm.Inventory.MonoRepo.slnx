@@ -99,6 +99,164 @@
     <Project Path="Services/TrafficSecurity/src/TrafficSecurity.Infrastructure/TrafficSecurity.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Shared/" />
+  <Folder Name="/Shared/AI/">
+    <Project Path="Shared/AI/Usm.Shared.AI.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/" />
+  <Folder Name="/Shared/Algorithms/Collections/" />
+  <Folder Name="/Shared/Algorithms/Collections/BloomFilter.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/BloomFilter.Benchmarks/Usm.Shared.Algorithms.Collections.BloomFilter.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/BloomFilter.Tests/">
+    <Project Path="Shared/Algorithms/Collections/BloomFilter.Tests/Usm.Shared.Algorithms.Collections.BloomFilter.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/BloomFilter/">
+    <Project Path="Shared/Algorithms/Collections/BloomFilter/Usm.Shared.Algorithms.Collections.BloomFilter.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/BTree.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/BTree.Benchmarks/Usm.Shared.Algorithms.Collections.BTree.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/BTree.Tests/">
+    <Project Path="Shared/Algorithms/Collections/BTree.Tests/Usm.Shared.Algorithms.Collections.BTree.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/BTree/">
+    <Project Path="Shared/Algorithms/Collections/BTree/Usm.Shared.Algorithms.Collections.BTree.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/CircularBuffer.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/CircularBuffer.Benchmarks/Usm.Shared.Algorithms.Collections.CircularBuffer.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/CircularBuffer.Tests/">
+    <Project Path="Shared/Algorithms/Collections/CircularBuffer.Tests/Usm.Shared.Algorithms.Collections.CircularBuffer.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/CircularBuffer/">
+    <Project Path="Shared/Algorithms/Collections/CircularBuffer/Usm.Shared.Algorithms.Collections.CircularBuffer.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/DisjointSet.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/DisjointSet.Benchmarks/Usm.Shared.Algorithms.Collections.DisjointSet.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/DisjointSet.Tests/">
+    <Project Path="Shared/Algorithms/Collections/DisjointSet.Tests/Usm.Shared.Algorithms.Collections.DisjointSet.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/DisjointSet/">
+    <Project Path="Shared/Algorithms/Collections/DisjointSet/Usm.Shared.Algorithms.Collections.DisjointSet.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/FenwickTree.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/FenwickTree.Benchmarks/Usm.Shared.Algorithms.Collections.FenwickTree.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/FenwickTree.Tests/">
+    <Project Path="Shared/Algorithms/Collections/FenwickTree.Tests/Usm.Shared.Algorithms.Collections.FenwickTree.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/FenwickTree/">
+    <Project Path="Shared/Algorithms/Collections/FenwickTree/Usm.Shared.Algorithms.Collections.FenwickTree.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/IntervalTree.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/IntervalTree.Benchmarks/Usm.Shared.Algorithms.Collections.IntervalTree.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/IntervalTree.Tests/">
+    <Project Path="Shared/Algorithms/Collections/IntervalTree.Tests/Usm.Shared.Algorithms.Collections.IntervalTree.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/IntervalTree/">
+    <Project Path="Shared/Algorithms/Collections/IntervalTree/Usm.Shared.Algorithms.Collections.IntervalTree.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/KdTree.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/KdTree.Benchmarks/Usm.Shared.Algorithms.Collections.KdTree.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/KdTree.Tests/">
+    <Project Path="Shared/Algorithms/Collections/KdTree.Tests/Usm.Shared.Algorithms.Collections.KdTree.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/KdTree/">
+    <Project Path="Shared/Algorithms/Collections/KdTree/Usm.Shared.Algorithms.Collections.KdTree.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/PriorityQueue.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/PriorityQueue.Benchmarks/Usm.Shared.Algorithms.Collections.PriorityQueue.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/PriorityQueue.Tests/">
+    <Project Path="Shared/Algorithms/Collections/PriorityQueue.Tests/Usm.Shared.Algorithms.Collections.PriorityQueue.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/PriorityQueue/">
+    <Project Path="Shared/Algorithms/Collections/PriorityQueue/Usm.Shared.Algorithms.Collections.PriorityQueue.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/SegmentTree.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/SegmentTree.Benchmarks/Usm.Shared.Algorithms.Collections.SegmentTree.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/SegmentTree.Tests/">
+    <Project Path="Shared/Algorithms/Collections/SegmentTree.Tests/Usm.Shared.Algorithms.Collections.SegmentTree.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/SegmentTree/">
+    <Project Path="Shared/Algorithms/Collections/SegmentTree/Usm.Shared.Algorithms.Collections.SegmentTree.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/Trie.Benchmarks/">
+    <Project Path="Shared/Algorithms/Collections/Trie.Benchmarks/Usm.Shared.Algorithms.Collections.Trie.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/Trie.Tests/">
+    <Project Path="Shared/Algorithms/Collections/Trie.Tests/Usm.Shared.Algorithms.Collections.Trie.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Collections/Trie/">
+    <Project Path="Shared/Algorithms/Collections/Trie/Usm.Shared.Algorithms.Collections.Trie.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Compression.Benchmarks/">
+    <Project Path="Shared/Algorithms/Compression.Benchmarks/Usm.Shared.Algorithms.Compression.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Compression.Tests/">
+    <Project Path="Shared/Algorithms/Compression.Tests/Usm.Shared.Algorithms.Compression.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Compression/">
+    <Project Path="Shared/Algorithms/Compression/Usm.Shared.Algorithms.Compression.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Distributed.Benchmarks/">
+    <Project Path="Shared/Algorithms/Distributed.Benchmarks/Usm.Shared.Algorithms.Distributed.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Distributed.Tests/">
+    <Project Path="Shared/Algorithms/Distributed.Tests/Usm.Shared.Algorithms.Distributed.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Distributed/">
+    <Project Path="Shared/Algorithms/Distributed/Usm.Shared.Algorithms.Distributed.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Graphs.Benchmarks/">
+    <Project Path="Shared/Algorithms/Graphs.Benchmarks/Usm.Shared.Algorithms.Graphs.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Graphs.Tests/">
+    <Project Path="Shared/Algorithms/Graphs.Tests/Usm.Shared.Algorithms.Graphs.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Graphs/">
+    <Project Path="Shared/Algorithms/Graphs/Usm.Shared.Algorithms.Graphs.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Parsing.Benchmarks/">
+    <Project Path="Shared/Algorithms/Parsing.Benchmarks/Usm.Shared.Algorithms.Parsing.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Parsing.Tests/">
+    <Project Path="Shared/Algorithms/Parsing.Tests/Usm.Shared.Algorithms.Parsing.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Parsing/">
+    <Project Path="Shared/Algorithms/Parsing/Usm.Shared.Algorithms.Parsing.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Searching.Benchmarks/">
+    <Project Path="Shared/Algorithms/Searching.Benchmarks/Usm.Shared.Algorithms.Searching.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Searching.Tests/">
+    <Project Path="Shared/Algorithms/Searching.Tests/Usm.Shared.Algorithms.Searching.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Searching/">
+    <Project Path="Shared/Algorithms/Searching/Usm.Shared.Algorithms.Searching.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Sorting.Benchmarks/">
+    <Project Path="Shared/Algorithms/Sorting.Benchmarks/Usm.Shared.Algorithms.Sorting.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Sorting.Tests/">
+    <Project Path="Shared/Algorithms/Sorting.Tests/Usm.Shared.Algorithms.Sorting.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Sorting/">
+    <Project Path="Shared/Algorithms/Sorting/Usm.Shared.Algorithms.Sorting.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Strings.Benchmarks/">
+    <Project Path="Shared/Algorithms/Strings.Benchmarks/Usm.Shared.Algorithms.Strings.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Strings.Tests/">
+    <Project Path="Shared/Algorithms/Strings.Tests/Usm.Shared.Algorithms.Strings.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Algorithms/Strings/">
+    <Project Path="Shared/Algorithms/Strings/Usm.Shared.Algorithms.Strings.csproj" />
+  </Folder>
   <Folder Name="/Shared/BuildingBlocks/" />
   <Folder Name="/Shared/BuildingBlocks/BackgroundJobs/">
     <Project Path="Shared/BuildingBlocks/BackgroundJobs/Usm.Shared.BuildingBlocks.BackgroundJobs.csproj" />
@@ -173,6 +331,160 @@
   </Folder>
   <Folder Name="/Shared/Federation/GrpcFederation.Server/">
     <Project Path="Shared/Federation/GrpcFederation.Server/Usm.Shared.Federation.GrpcFederation.Server.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/" />
+  <Folder Name="/Shared/Patterns/Cache.Benchmarks/">
+    <Project Path="Shared/Patterns/Cache.Benchmarks/Usm.Shared.Patterns.Cache.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Cache.Tests/">
+    <Project Path="Shared/Patterns/Cache.Tests/Usm.Shared.Patterns.Cache.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Cache/">
+    <Project Path="Shared/Patterns/Cache/Usm.Shared.Patterns.Cache.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/CircuitBreaker.Benchmarks/">
+    <Project Path="Shared/Patterns/CircuitBreaker.Benchmarks/Usm.Shared.Patterns.CircuitBreaker.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/CircuitBreaker.Tests/">
+    <Project Path="Shared/Patterns/CircuitBreaker.Tests/Usm.Shared.Patterns.CircuitBreaker.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/CircuitBreaker/">
+    <Project Path="Shared/Patterns/CircuitBreaker/Usm.Shared.Patterns.CircuitBreaker.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/EventBus.Benchmarks/">
+    <Project Path="Shared/Patterns/EventBus.Benchmarks/Usm.Shared.Patterns.EventBus.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/EventBus.Tests/">
+    <Project Path="Shared/Patterns/EventBus.Tests/Usm.Shared.Patterns.EventBus.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/EventBus/">
+    <Project Path="Shared/Patterns/EventBus/Usm.Shared.Patterns.EventBus.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Factory.Benchmarks/">
+    <Project Path="Shared/Patterns/Factory.Benchmarks/Usm.Shared.Patterns.Factory.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Factory.Tests/">
+    <Project Path="Shared/Patterns/Factory.Tests/Usm.Shared.Patterns.Factory.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Factory/">
+    <Project Path="Shared/Patterns/Factory/Usm.Shared.Patterns.Factory.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Inbox.Benchmarks/">
+    <Project Path="Shared/Patterns/Inbox.Benchmarks/Usm.Shared.Patterns.Inbox.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Inbox.Tests/">
+    <Project Path="Shared/Patterns/Inbox.Tests/Usm.Shared.Patterns.Inbox.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Inbox/">
+    <Project Path="Shared/Patterns/Inbox/Usm.Shared.Patterns.Inbox.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Outbox.Benchmarks/">
+    <Project Path="Shared/Patterns/Outbox.Benchmarks/Usm.Shared.Patterns.Outbox.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Outbox.Tests/">
+    <Project Path="Shared/Patterns/Outbox.Tests/Usm.Shared.Patterns.Outbox.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Outbox/">
+    <Project Path="Shared/Patterns/Outbox/Usm.Shared.Patterns.Outbox.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Pipeline.Benchmarks/">
+    <Project Path="Shared/Patterns/Pipeline.Benchmarks/Usm.Shared.Patterns.Pipeline.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Pipeline.Tests/">
+    <Project Path="Shared/Patterns/Pipeline.Tests/Usm.Shared.Patterns.Pipeline.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Pipeline/">
+    <Project Path="Shared/Patterns/Pipeline/Usm.Shared.Patterns.Pipeline.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Plugin.Benchmarks/">
+    <Project Path="Shared/Patterns/Plugin.Benchmarks/Usm.Shared.Patterns.Plugin.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Plugin.Tests/">
+    <Project Path="Shared/Patterns/Plugin.Tests/Usm.Shared.Patterns.Plugin.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Plugin/">
+    <Project Path="Shared/Patterns/Plugin/Usm.Shared.Patterns.Plugin.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RateLimiter.Benchmarks/">
+    <Project Path="Shared/Patterns/RateLimiter.Benchmarks/Usm.Shared.Patterns.RateLimiter.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RateLimiter.Tests/">
+    <Project Path="Shared/Patterns/RateLimiter.Tests/Usm.Shared.Patterns.RateLimiter.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RateLimiter/">
+    <Project Path="Shared/Patterns/RateLimiter/Usm.Shared.Patterns.RateLimiter.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Retry.Benchmarks/">
+    <Project Path="Shared/Patterns/Retry.Benchmarks/Usm.Shared.Patterns.Retry.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Retry.Tests/">
+    <Project Path="Shared/Patterns/Retry.Tests/Usm.Shared.Patterns.Retry.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Retry/">
+    <Project Path="Shared/Patterns/Retry/Usm.Shared.Patterns.Retry.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RuleEngine.Benchmarks/">
+    <Project Path="Shared/Patterns/RuleEngine.Benchmarks/Usm.Shared.Patterns.RuleEngine.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RuleEngine.Tests/">
+    <Project Path="Shared/Patterns/RuleEngine.Tests/Usm.Shared.Patterns.RuleEngine.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/RuleEngine/">
+    <Project Path="Shared/Patterns/RuleEngine/Usm.Shared.Patterns.RuleEngine.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Saga.Benchmarks/">
+    <Project Path="Shared/Patterns/Saga.Benchmarks/Usm.Shared.Patterns.Saga.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Saga.Tests/">
+    <Project Path="Shared/Patterns/Saga.Tests/Usm.Shared.Patterns.Saga.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Saga/">
+    <Project Path="Shared/Patterns/Saga/Usm.Shared.Patterns.Saga.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Scheduler.Benchmarks/">
+    <Project Path="Shared/Patterns/Scheduler.Benchmarks/Usm.Shared.Patterns.Scheduler.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Scheduler.Tests/">
+    <Project Path="Shared/Patterns/Scheduler.Tests/Usm.Shared.Patterns.Scheduler.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Scheduler/">
+    <Project Path="Shared/Patterns/Scheduler/Usm.Shared.Patterns.Scheduler.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Specification.Benchmarks/">
+    <Project Path="Shared/Patterns/Specification.Benchmarks/Usm.Shared.Patterns.Specification.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Specification.Tests/">
+    <Project Path="Shared/Patterns/Specification.Tests/Usm.Shared.Patterns.Specification.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Specification/">
+    <Project Path="Shared/Patterns/Specification/Usm.Shared.Patterns.Specification.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/StateMachine.Benchmarks/">
+    <Project Path="Shared/Patterns/StateMachine.Benchmarks/Usm.Shared.Patterns.StateMachine.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/StateMachine.Tests/">
+    <Project Path="Shared/Patterns/StateMachine.Tests/Usm.Shared.Patterns.StateMachine.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/StateMachine/">
+    <Project Path="Shared/Patterns/StateMachine/Usm.Shared.Patterns.StateMachine.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Strategy.Benchmarks/">
+    <Project Path="Shared/Patterns/Strategy.Benchmarks/Usm.Shared.Patterns.Strategy.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Strategy.Tests/">
+    <Project Path="Shared/Patterns/Strategy.Tests/Usm.Shared.Patterns.Strategy.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Strategy/">
+    <Project Path="Shared/Patterns/Strategy/Usm.Shared.Patterns.Strategy.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Workflow.Benchmarks/">
+    <Project Path="Shared/Patterns/Workflow.Benchmarks/Usm.Shared.Patterns.Workflow.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Workflow.Tests/">
+    <Project Path="Shared/Patterns/Workflow.Tests/Usm.Shared.Patterns.Workflow.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Workflow/">
+    <Project Path="Shared/Patterns/Workflow/Usm.Shared.Patterns.Workflow.csproj" />
   </Folder>
   <Folder Name="/Shared/Reflection/" />
   <Folder Name="/Shared/Reflection/AssemblyScanning/">
