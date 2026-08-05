@@ -496,6 +496,15 @@
   <Folder Name="/Shared/Patterns/Workflow/">
     <Project Path="Shared/Patterns/Workflow/Usm.Shared.Patterns.Workflow.csproj" />
   </Folder>
+  <Folder Name="/Shared/Patterns/Sidecar.Benchmarks/">
+    <Project Path="Shared/Patterns/Sidecar.Benchmarks/Usm.Shared.Patterns.Sidecar.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Sidecar.Tests/">
+    <Project Path="Shared/Patterns/Sidecar.Tests/Usm.Shared.Patterns.Sidecar.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Shared/Patterns/Sidecar/">
+    <Project Path="Shared/Patterns/Sidecar/Usm.Shared.Patterns.Sidecar.csproj" />
+  </Folder>
   <Folder Name="/Shared/Reflection/" />
   <Folder Name="/Shared/Reflection/AssemblyScanning/">
     <Project Path="Shared/Reflection/AssemblyScanning/Usm.Shared.Reflection.AssemblyScanning.csproj" />
