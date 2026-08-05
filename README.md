@@ -35,6 +35,8 @@ The repository combines service autonomy with shared platform components so team
 
 - [Development Wiki](docs/development-wiki.md) - detailed developer and maintenance reference
 - [Azure Cloud Deployment Guide](docs/azure-cloud-deployment-guide.md) - end-to-end AKS/ACR deployment guide for frontend, backend, gateway, and telemetry
+- [AI and Python integration](docs/ai-python-integration.md) - persistent Python bridge, worker runtime, and sample usage
+- [gRPC AI integration](docs/grpc-ai-integration.md) - Python engine container and .NET client demo
 
 ## Telemetry, audit logs, and observability
 

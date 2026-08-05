@@ -13,6 +13,8 @@ Shared.AI provides the monorepo's reusable AI abstractions and the persistent Py
 
 - `Shared/AI` - core abstractions and infrastructure
 - `Samples/PythonBridgeDemo` - minimal API demo for Python integration
+- `PythonAIEngine` - containerized gRPC inference engine
+- `Samples/AIEngineDemo` - gRPC client demo for the engine
 
 ## Quick start
 
@@ -29,3 +31,4 @@ The worker lives under `Shared/AI/python_worker/worker.py` and is launched as a 
 ## Documentation
 
 - `docs/ai-python-integration.md`
+- `docs/grpc-ai-integration.md`

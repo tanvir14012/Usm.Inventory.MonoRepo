@@ -15,6 +15,13 @@ var app = builder.Build();
 
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
+app.MapGet("/", () => Results.Ok(new
+{
+    name = "AI Engine Demo",
+    endpoints = new[] { "/health", "/tasks/execute", "/tasks/stream" },
+    engine = Environment.GetEnvironmentVariable("AI_ENGINE_ENDPOINT") ?? "http://python-ai-engine:50051"
+}));
+
 app.MapPost("/tasks/execute", async (IAIEngineClient client, ExecuteTaskRequest request, CancellationToken ct) =>
 {
     var result = await client.ExecuteAsync<JsonElement?>(request.TaskType, request.Payload, ct);
