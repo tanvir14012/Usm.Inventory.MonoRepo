@@ -7,6 +7,9 @@ using Shared.AI.Chat;
 using Shared.AI.Core;
 using Shared.AI.Providers.OpenAI;
 using Shared.AI.Providers.Ollama;
+using Shared.AI.Providers.AzureOpenAI;
+using Shared.AI.Providers.Gemini;
+using Shared.AI.Providers.Claude;
 
 /// <summary>
 /// Dependency injection extension methods for Shared.AI framework.
@@ -170,7 +173,78 @@ public static class AIServiceCollectionExtensions
 
         return services;
     }
-}
+
+    /// <summary>
+    /// Adds Azure OpenAI provider for LLM.
+    /// </summary>
+    public static IServiceCollection AddAzureOpenAILLMProvider(
+        this IServiceCollection services,
+        string endpoint,
+        string apiKey,
+        string deploymentName,
+        string? model = null)
+    {
+        services.AddSingleton<ILLMProvider>(sp =>
+            new AzureOpenAILLMProvider(endpoint, apiKey, deploymentName, model, null, sp.GetService<ILogger<AzureOpenAILLMProvider>>()));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds Gemini provider for LLM.
+    /// </summary>
+    public static IServiceCollection AddGeminiLLMProvider(
+        this IServiceCollection services,
+        string apiKey,
+        string model = "gemini-1.5-flash")
+    {
+        services.AddSingleton<ILLMProvider>(sp =>
+            new GeminiLLMProvider(apiKey, model, null, sp.GetService<ILogger<GeminiLLMProvider>>()));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds Gemini provider for embeddings.
+    /// </summary>
+    public static IServiceCollection AddGeminiEmbeddingProvider(
+        this IServiceCollection services,
+        string apiKey,
+        string model = "text-embedding-004")
+    {
+        services.AddSingleton<IEmbeddingProvider>(sp =>
+            new GeminiEmbeddingProvider(apiKey, model, null, sp.GetService<ILogger<GeminiEmbeddingProvider>>()));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds Claude provider for LLM.
+    /// </summary>
+    public static IServiceCollection AddClaudeLLMProvider(
+        this IServiceCollection services,
+        string apiKey,
+        string model = "claude-3-sonnet-20240229")
+    {
+        services.AddSingleton<ILLMProvider>(sp =>
+            new ClaudeLLMProvider(apiKey, model, null, sp.GetService<ILogger<ClaudeLLMProvider>>()));
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds Claude provider for embeddings (delegates to fallback provider).
+    /// </summary>
+    public static IServiceCollection AddClaudeEmbeddingProvider(
+        this IServiceCollection services,
+        IEmbeddingProvider fallbackProvider)
+    {
+        services.AddSingleton<IEmbeddingProvider>(sp =>
+            new ClaudeEmbeddingProvider(fallbackProvider, sp.GetService<ILogger<ClaudeEmbeddingProvider>>()));
+
+        return services;
+    }
+
 
 /// <summary>
 /// Extension methods for building AI services.
@@ -219,6 +293,34 @@ public class AIFrameworkBuilder
         });
 
         _services.AddOllamaEmbeddingProvider(b => b.WithModel("nomic-embed-text"));
+        return this;
+    }
+
+    public AIFrameworkBuilder WithAzureOpenAIProvider(
+        string endpoint,
+        string apiKey,
+        string deploymentName,
+        string? model = null)
+    {
+        _services.AddAzureOpenAILLMProvider(endpoint, apiKey, deploymentName, model);
+        return this;
+    }
+
+    public AIFrameworkBuilder WithGeminiProvider(
+        string apiKey,
+        string llmModel = "gemini-1.5-flash",
+        string embeddingModel = "text-embedding-004")
+    {
+        _services.AddGeminiLLMProvider(apiKey, llmModel);
+        _services.AddGeminiEmbeddingProvider(apiKey, embeddingModel);
+        return this;
+    }
+
+    public AIFrameworkBuilder WithClaudeProvider(
+        string apiKey,
+        string model = "claude-3-sonnet-20240229")
+    {
+        _services.AddClaudeLLMProvider(apiKey, model);
         return this;
     }
 
