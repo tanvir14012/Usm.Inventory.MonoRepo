@@ -244,7 +244,7 @@ public static class AIServiceCollectionExtensions
 
         return services;
     }
-
+}
 
     /// <summary>
     /// Extension methods for building AI services.

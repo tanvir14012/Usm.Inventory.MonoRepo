@@ -5,10 +5,10 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 
 /// <summary>
-/// Python process manager for executing Python scripts and libraries.
+/// Simple Python script executor for direct script execution.
 /// Supports virtual environments, JSON IPC, and process pooling.
 /// </summary>
-public class PythonProcessManager : IAsyncDisposable
+public class SimplePythonScriptExecutor : IAsyncDisposable
 {
     private readonly string _pythonPath;
     private readonly string? _virtualEnvironmentPath;
@@ -17,7 +17,7 @@ public class PythonProcessManager : IAsyncDisposable
     private readonly ILogger? _logger;
     private bool _disposed;
 
-    public PythonProcessManager(
+    public SimplePythonScriptExecutor(
         string? pythonPath = null,
         string? virtualEnvironmentPath = null,
         ILogger? logger = null)
@@ -280,19 +280,19 @@ public class PythonProcessManager : IAsyncDisposable
     private void ThrowIfDisposed()
     {
         if (_disposed)
-            throw new ObjectDisposedException(nameof(PythonProcessManager));
+            throw new ObjectDisposedException(nameof(SimplePythonScriptExecutor));
     }
 }
 
 /// <summary>
 /// Wrapper for Python transformers library.
 /// </summary>
-public class TransformersWrapper
+public class LegacyTransformersWrapper
 {
-    private readonly PythonProcessManager _pythonManager;
+    private readonly SimplePythonScriptExecutor _pythonManager;
     private readonly ILogger? _logger;
 
-    public TransformersWrapper(PythonProcessManager pythonManager, ILogger? logger = null)
+    public LegacyTransformersWrapper(SimplePythonScriptExecutor pythonManager, ILogger? logger = null)
     {
         _pythonManager = pythonManager ?? throw new ArgumentNullException(nameof(pythonManager));
         _logger = logger;
@@ -355,12 +355,12 @@ print(result[0])
 /// <summary>
 /// Wrapper for spaCy NLP library.
 /// </summary>
-public class spaCyWrapper
+public class LegacyspaCyWrapper
 {
-    private readonly PythonProcessManager _pythonManager;
+    private readonly SimplePythonScriptExecutor _pythonManager;
     private readonly ILogger? _logger;
 
-    public spaCyWrapper(PythonProcessManager pythonManager, ILogger? logger = null)
+    public LegacyspaCyWrapper(SimplePythonScriptExecutor pythonManager, ILogger? logger = null)
     {
         _pythonManager = pythonManager ?? throw new ArgumentNullException(nameof(pythonManager));
         _logger = logger;
