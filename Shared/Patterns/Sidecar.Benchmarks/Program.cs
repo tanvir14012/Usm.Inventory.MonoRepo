@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Usm.Shared.Patterns.Sidecar.Builders;
-using Usm.Shared.Patterns.Sidecar.Configuration;
 
 // ── Stub primary ──────────────────────────────────────────────────────────────
 

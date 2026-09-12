@@ -1,6 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
-
+import { environment } from '../../../environments/environment';
 const API_VERSION_HEADER = 'api-version';
 const API_VERSION_PARAM = 'api-version';
 /** Custom request header that allows per-request version override. Stripped before forwarding. */
