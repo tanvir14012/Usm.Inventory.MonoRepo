@@ -15,5 +15,4 @@
  * - Production Ready: Comprehensive error handling, disposal patterns, memoization
  */
 
-export * from './core';
 export * from './infrastructure';

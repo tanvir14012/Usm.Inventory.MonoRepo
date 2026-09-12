@@ -15,7 +15,7 @@ type LanguageSelectorVariant = 'dark' | 'light';
   template: `
     <label
       class="lang-select-wrap"
-      [class.dark]="variant() === 'dark'"
+      [class.dark]="variant() == 'dark'"
       [class.light]="variant() === 'light'"
     >
       <span class="lang-label">{{ 'common.language' | translate }}</span>
@@ -57,6 +57,10 @@ type LanguageSelectorVariant = 'dark' | 'light';
         font-size: 0.78rem;
         font-family: 'Outfit', sans-serif;
         outline: none;
+
+        option {
+          background-color: #1a4731;
+        }
       }
       .lang-select:focus {
         border-color: rgba(255, 255, 255, 0.55);
@@ -67,7 +71,7 @@ type LanguageSelectorVariant = 'dark' | 'light';
       .light .lang-label {
         color: #4b5563;
       }
-      .light .lang-select {
+      .light .lang-select{
         border-color: rgba(17, 24, 39, 0.2);
         background: rgba(255, 255, 255, 0.9);
         color: #111827;
